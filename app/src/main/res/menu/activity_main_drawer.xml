@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_all_books"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="All Books" />
+
+        <item
+            android:id="@+id/nav_discover"
+            android:icon="@drawable/ic_explore_black_24dp"
+            android:title="Discover a Book" />
+
+        <item
+            android:id="@+id/nav_track_book"
+            android:icon="@drawable/ic_track_changes_black_24dp"
+            android:title="Track Book" />
+
+        <group
+            android:id="@+id/menu_bottom"
+            android:checkableBehavior ="single">
+
+            <item
+                android:id="@+id/nav_favorites"
+                android:icon="@drawable/ic_favorite_black_24dp"
+                android:title="Favorites" />
+            <item
+                android:id="@+id/nav_recent"
+                android:icon="@drawable/ic_schedule_black_24dp"
+                android:title="Recent Borrowed" />
+
+        </group>
+
+    </group>
+
+
+
+
+</menu>
