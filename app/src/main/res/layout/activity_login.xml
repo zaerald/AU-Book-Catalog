@@ -8,42 +8,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="zero.zd.aubookcatalog.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/image"
-        android:src="@drawable/au_logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_weight=".4" />
+        android:layout_weight=".4"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="false" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ID Number"
+        android:text="@string/id_number"
         android:id="@+id/lblID"
-        android:layout_above="@+id/txtID"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:layout_weight=".1"
-        android:layout_marginTop="30dp" />
+        android:layout_weight=".1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtID"
-        android:layout_above="@+id/txtPass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_weight=".1"
+        android:gravity="center"
+        android:maxLength="10"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_weight=".1"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:maxLength="13" />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -51,8 +45,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Password"
         android:id="@+id/lblPass"
-        android:layout_above="@+id/txtPass"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_weight=".1" />
 
@@ -60,28 +52,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/txtPass"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:layout_weight=".1"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="40dp"
-        android:gravity="center" />
+        android:layout_marginBottom="20dp"
+        android:maxLength="10" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/btnLogin"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_weight=".1"
+        android:layout_weight=".05"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:onClick="btnLoginClick" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set up an account."
+        android:id="@+id/textView2"
+        android:layout_weight=".1"
+        android:textIsSelectable="true"
+        android:textColor="#230fbd"
+        android:linksClickable="true"
+        android:focusable="false"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom" />
 
 </LinearLayout>
