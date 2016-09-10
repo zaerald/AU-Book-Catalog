@@ -7,11 +7,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -25,8 +22,8 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
     private String mEncodeType = "UTF-8";
 
-    public DatabaseWorker(Context context) {
-        mContext = context;
+    public DatabaseWorker(Context activity) {
+        mContext = activity;
     }
 
     @Override
@@ -34,8 +31,10 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
         String type = strings[0][0];
 
-        String serverIp = "192.168.22.3";
-        String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
+        String serverIp = "192.168.22.1";
+        //String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
+        //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
+        String loginUrl = "http://192.168.1.100/programmingknowledge/login.php";
 
         if (type.equals("login")) {
             try {
@@ -64,19 +63,26 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
                 bufferedWriter.close();
                 outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, mEncodeType));
+//                InputStream inputStream = httpURLConnection.getInputStream();
+//                BufferedReader bufferedReader = new BufferedReader(
+//                        new InputStreamReader(inputStream, mEncodeType));
+//
+//                String ret = "";
+//                String line = bufferedReader.readLine();
+//                if (line != null) {
+//                    ret += line;
+//                } else {
+//                    ret = "FAIL";
+//                }
+//
+//                bufferedReader.close();
+//                inputStream.close();
+//                httpURLConnection.disconnect();
 
-                String ret = "";
-                String line = bufferedReader.readLine();
-                if (line != null) {
-                    ret += line;
-                } else {
-                    ret = "FAIL";
-                }
+                Log.i("NFO", "no err");
 
-                return ret;
+
+                return null;
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in login: " + e.getMessage());
@@ -88,7 +94,7 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
+        //super.onPreExecute();
 
         // dialog for failing login
         mAlertDialog = new AlertDialog.Builder(mContext).create();
@@ -102,5 +108,18 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
     }
 
+    @Override
+    protected void onPostExecute(String s) {
+        //super.onPostExecute(s);
 
+        mAlertDialog.show();
+
+//        if (s.equals("success")) {
+//            mContext.startActivity(new Intent(mContext, MainActivity.class));
+//            mActivity.startActivity(new Intent(mContext, MainActivity.class));
+//            mActivity.finish();
+//        } else if (s.equals("fail")) {
+//            Toast.makeText(mContext, "user", Toast.LENGTH_SHORT).show();
+//        }
+    }
 }
