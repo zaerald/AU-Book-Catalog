@@ -34,7 +34,8 @@ public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
         String type = strings[0][0];
 
-        String loginUrl = "http://10.0.2.2/aubookcatalog/login.php";
+        String serverIp = "192.168.22.3";
+        String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
 
         if (type.equals("login")) {
             try {

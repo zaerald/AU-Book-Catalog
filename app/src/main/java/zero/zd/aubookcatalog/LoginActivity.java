@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             if (result.equals("success")) {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
-            } else if (result.equals("fail")){
+            } else if (result.equals("fail")) {
                 Toast.makeText(this, "The ID doesn't exist", Toast.LENGTH_SHORT).show();
             }
 
