@@ -17,8 +17,7 @@
         android:id="@+id/image"
         android:layout_weight=".4"
         android:layout_marginBottom="20dp"
-        android:adjustViewBounds="false"
-        android:src="@drawable/au_logo" />
+        android:adjustViewBounds="false" />
 
     <TextView
         android:layout_width="match_parent"
