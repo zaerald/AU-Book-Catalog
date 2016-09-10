@@ -3,8 +3,12 @@ package zero.zd.aubookcatalog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,27 +25,31 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnLoginClick(View v) {
-        String id = txtID.getText().toString();
-        String pass = txtPass.getText().toString();
+        String userName = txtID.getText().toString();
+        String password = txtPass.getText().toString();
+        String type = "login";
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        String[] arr = {type, userName, password};
 
-//        if (id.length() < 13) {
-//            Toast.makeText(this, "Please enter proper ID", Toast.LENGTH_SHORT).show();
-//            txtID.setText("");
-//            return;
-//        }
-//
-//        if (id.equals("01-1415-00736") && pass.equals("LZAERALD")) {
-//            // load main activity
-//            Intent mainActivity = new Intent(this, MainActivity.class);
-//            startActivity(mainActivity);
-//            finish();
-//        } else {
-//            Toast.makeText(this, "The ID doesn't exist", Toast.LENGTH_SHORT).show();
-//        }
+        DatabaseWorker databaseWorker = new DatabaseWorker(this);
+        databaseWorker.execute(arr);
 
+        String result;
+        try {
+            result = databaseWorker.get();
+
+            Log.i("NFO", "DatabaseWorker result: " + result);
+
+            if (result.equals("success")) {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else if (result.equals("fail")){
+                Toast.makeText(this, "The ID doesn't exist", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -3,7 +3,6 @@ package zero.zd.aubookcatalog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -19,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class DatabaseWorker extends AsyncTask<String[], Void, Boolean> {
+public class DatabaseWorker extends AsyncTask<String[], Void, String> {
 
     private Context mContext;
     private AlertDialog mAlertDialog;
@@ -31,7 +30,7 @@ public class DatabaseWorker extends AsyncTask<String[], Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String[]... strings) {
+    protected String doInBackground(String[]... strings) {
 
         String type = strings[0][0];
 
@@ -68,13 +67,15 @@ public class DatabaseWorker extends AsyncTask<String[], Void, Boolean> {
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(inputStream, mEncodeType));
 
-                boolean b = false;
+                String ret = "";
                 String line = bufferedReader.readLine();
-                if (line != null && line.equals("true")) {
-                    b = true;
+                if (line != null) {
+                    ret += line;
+                } else {
+                    ret = "FAIL";
                 }
 
-                return b;
+                return ret;
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in login: " + e.getMessage());
@@ -100,14 +101,5 @@ public class DatabaseWorker extends AsyncTask<String[], Void, Boolean> {
 
     }
 
-    @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
 
-        Log.i("NFO", "aBoolean: " + aBoolean);
-
-        if(aBoolean) {
-            mContext.startActivity(new Intent(mContext, MainActivity.class));
-        }
-    }
 }
