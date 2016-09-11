@@ -2,7 +2,6 @@ package zero.zd.aubookcatalog;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
-        Context mContext;
         Dialog mLoadingDialog;
 
         String mEncodeType = "UTF-8";

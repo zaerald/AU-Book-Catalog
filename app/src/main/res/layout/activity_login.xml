@@ -22,21 +22,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/txtUserName"
+        android:hint="User Name"
         android:layout_weight=".1"
-        android:gravity="center"
-        android:maxLength="10"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="10dp"
-        android:hint="User Name" />
+        android:maxLength="10"
+        android:gravity="bottom|center" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:id="@+id/txtPass"
-        android:gravity="center"
+        android:gravity="bottom|center"
         android:layout_weight=".1"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
