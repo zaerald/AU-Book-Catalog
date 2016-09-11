@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnLoginClick(View v) {
-        Toast.makeText(this, "Yeah", Toast.LENGTH_SHORT).show();
 
         String userName = txtUserName.getText().toString();
         String password = txtPass.getText().toString();
@@ -58,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String serverIp = "192.168.22.1";
+            String serverIp = "192.168.1.19";
             String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/programmingknowledge/login.php";
@@ -77,37 +76,35 @@ public class LoginActivity extends AppCompatActivity {
                             new OutputStreamWriter(outputStream, mEncodeType));
 
                     String postData =
-                            URLEncoder.encode("userName", mEncodeType) + "=" +
-                                    URLEncoder.encode(userName, mEncodeType) + "&" +
+                            URLEncoder.encode("username", mEncodeType) + "=" +
+                            URLEncoder.encode(userName, mEncodeType) + "&" +
 
-                                    URLEncoder.encode("password", mEncodeType) + "=" +
-                                    URLEncoder.encode(password, mEncodeType);
+                            URLEncoder.encode("password", mEncodeType) + "=" +
+                            URLEncoder.encode(password, mEncodeType);
 
                     bufferedWriter.write(postData);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     outputStream.close();
 
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, mEncodeType));
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(
+                            new InputStreamReader(inputStream, mEncodeType));
 
-                String ret = "";
-                String line = bufferedReader.readLine();
-                if (line != null) {
-                    ret += line;
-                } else {
-                    ret = "FAIL";
-                }
+                    String result = "";
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        result += line;
+                    }
 
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
 
                     Log.i("NFO", "no err");
 
 
-                    return ret;
+                    return result;
 
                 } catch(IOException e) {
                     Log.e("ERR", "Error in login: " + e.getMessage());
@@ -126,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
-
             String out = s.trim();
             mLoadingDialog.dismiss();
             if(out.equals("success")) {
@@ -138,13 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                         "Invalid User Name or Password", Toast.LENGTH_SHORT).show();
             }
 
-//        if (s.equals("success")) {
-//            mContext.startActivity(new Intent(mContext, MainActivity.class));
-//            mActivity.startActivity(new Intent(mContext, MainActivity.class));
-//            mActivity.finish();
-//        } else if (s.equals("fail")) {
-//            Toast.makeText(mContext, "user", Toast.LENGTH_SHORT).show();
-//        }
+            Log.i("NFO", out);
+
         }
     }
 
