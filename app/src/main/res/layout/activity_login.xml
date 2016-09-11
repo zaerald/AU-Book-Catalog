@@ -19,34 +19,17 @@
         android:layout_marginBottom="20dp"
         android:adjustViewBounds="false" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/id_number"
-        android:id="@+id/lblID"
-        android:gravity="center"
-        android:layout_weight=".1" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtID"
+        android:id="@+id/txtUserName"
         android:layout_weight=".1"
         android:gravity="center"
         android:maxLength="10"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Password"
-        android:id="@+id/lblPass"
-        android:gravity="center"
-        android:layout_weight=".1" />
+        android:layout_marginBottom="10dp"
+        android:hint="User Name" />
 
     <EditText
         android:layout_width="match_parent"
@@ -58,7 +41,8 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="20dp"
-        android:maxLength="10" />
+        android:maxLength="10"
+        android:hint="Password" />
 
     <Button
         android:layout_width="match_parent"
