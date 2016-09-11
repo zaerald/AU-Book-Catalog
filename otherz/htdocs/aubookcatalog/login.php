@@ -1,18 +1,27 @@
 <?php
-	require "conn.php";
 	
-	$user_name = $_POST["userName"];
-	$user_pass = $_POST["password"];
-	//$user_name = "admin";
-	//$user_pass = "admin";
-	$mysql_qry = "SELECT * FROM tbllogin WHERE username = '$user_name' AND password = '$user_name';";
-	$result = mysqli_query($conn, $mysql_qry);
+    define('HOST', 'localhost');
+    define('USER', 'root');
+    define('PASS', '');
+    define('DB', 'dbaubookcatalog');
+
+    $conn = mysqli_connect(HOST, USER, PASS, DB);
+    
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM tbllogin WHERE username='$username' AND password='$password';";
+
+    $result = mysqli_query($conn, $sql);
+    $check = mysqli_fetch_array($result);
+
+    if(isset($check)) {
+        echo 'success';
+    } else {
+        echo 'failure';
+    }
+    
+    mysqli_close($conn);
+
 	
-	if ($result) {
-		echo "true";
-	} else {
-		echo "false";
-	}
-	
-	mysqli_close($conn);
 ?>
