@@ -67,7 +67,7 @@
         android:maxLength="10"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/btnLogin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" />
 
@@ -89,7 +89,6 @@
         android:text="@string/set_up_an_account"
         android:id="@+id/txtSetup"
         android:textIsSelectable="true"
-        android:textColor="#230fbd"
         android:linksClickable="true"
         android:focusable="false"
         android:layout_gravity="center_horizontal"
