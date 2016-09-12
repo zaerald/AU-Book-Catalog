@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="zero.zd.aubookcatalog.LoginActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/rootLayout">
 
     <ImageView
         android:layout_width="match_parent"
