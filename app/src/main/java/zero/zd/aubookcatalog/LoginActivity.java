@@ -5,13 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,24 +32,28 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        // Remove title bar
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPass = (EditText) findViewById(R.id.txtPass);
     }
 
-    public void btnLoginClick(View v) {
-
+    public void onClickLogin(View v) {
         String userName = txtUserName.getText().toString();
         String password = txtPass.getText().toString();
 
-        DatabaseWorker databaseWorker = new DatabaseWorker();
+        DatabaseWorker databaseWorker = new DatabaseWorker(v);
+//        DatabaseWorker databaseWorker = new DatabaseWorker();
         databaseWorker.execute(userName, password);
+    }
 
+    public void onClickRegister(View v) {
+        startActivity(new Intent(this, RegistrationActivity.class));
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
@@ -58,10 +61,18 @@ public class LoginActivity extends AppCompatActivity {
 
         String mEncodeType = "UTF-8";
 
+        // view from btn to create Snackbar
+        View mView;
+
+        public DatabaseWorker(View view) {
+            mView = view;
+        }
+
         @Override
         protected String doInBackground(String... strings) {
 
             String serverIp = "192.168.22.7";
+            //String serverIp = "10.0.2.3";
             String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/programmingknowledge/login.php";
@@ -132,8 +143,10 @@ public class LoginActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
             // check if connected
             if (s == null) {
-                Toast.makeText(getApplicationContext(),
-                        "Please make sure that you are connected to the Internet.", Toast.LENGTH_SHORT).show();
+                if(mView != null)
+                    Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                            Snackbar.LENGTH_LONG).show();
+
                 return;
             }
 
@@ -144,8 +157,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(getApplicationContext(),
-                        "Invalid User Name or Password", Toast.LENGTH_SHORT).show();
+                if(mView != null)
+                    Snackbar.make(mView, "Invalid User Name or Password.", Snackbar.LENGTH_LONG).show();
             }
 
             Log.i("NFO", out);
