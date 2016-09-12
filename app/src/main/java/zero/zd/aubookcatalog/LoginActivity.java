@@ -44,12 +44,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnLoginClick(View v) {
-
         String userName = txtUserName.getText().toString();
         String password = txtPass.getText().toString();
 
         DatabaseWorker databaseWorker = new DatabaseWorker();
         databaseWorker.execute(userName, password);
+    }
+
+    public void btnRegistrationClick(View v) {
+
+        
 
     }
 
