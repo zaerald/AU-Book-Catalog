@@ -23,7 +23,6 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="30dp"
         android:layout_above="@+id/textViewUserName"
         android:contentDescription="@string/au_logo_description" />
 

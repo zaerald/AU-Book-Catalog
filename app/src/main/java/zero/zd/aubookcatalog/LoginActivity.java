@@ -52,9 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnRegistrationClick(View v) {
-
-        
-
+        startActivity(new Intent(this, RegistrationActivity.class));
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{

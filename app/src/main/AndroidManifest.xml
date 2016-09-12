@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_main"/>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,6 +25,7 @@
         </activity>
 
         <activity android:name=".RegistrationActivity"
+            android:label="@string/title_activity_registration"
             android:parentActivityName=".LoginActivity"/>
 
         <activity android:name=".AllBooksActivity" />

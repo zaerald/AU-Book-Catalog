@@ -17,4 +17,8 @@
     <string name="login">Login</string>
     <string name="set_up_an_account"><u>Set up an account.</u></string>
     <!-- END Login Activity -->
+
+    <!-- Registration Activity -->
+    <string name="title_activity_registration">Registration</string>
+    <!-- END Registration Activity -->
 </resources>
