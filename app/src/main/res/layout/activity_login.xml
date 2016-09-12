@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/btnLogin"
-        android:onClick="btnLoginClick"
+        android:onClick="onClickLogin"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="false"
         android:layout_above="@+id/txtSetup"
@@ -97,7 +97,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
-        android:onClick="btnRegistrationClick"
+        android:onClick="onClickRegister"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:textColor="#5254df" />

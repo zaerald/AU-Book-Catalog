@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPass = (EditText) findViewById(R.id.txtPass);
     }
 
-    public void btnLoginClick(View v) {
+    public void onClickLogin(View v) {
         String userName = txtUserName.getText().toString();
         String password = txtPass.getText().toString();
 
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         databaseWorker.execute(userName, password);
     }
 
-    public void btnRegistrationClick(View v) {
+    public void onClickRegister(View v) {
         startActivity(new Intent(this, RegistrationActivity.class));
     }
 
