@@ -36,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         // Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = txtPass.getText().toString();
 
         DatabaseWorker databaseWorker = new DatabaseWorker(v);
+//        DatabaseWorker databaseWorker = new DatabaseWorker();
         databaseWorker.execute(userName, password);
     }
 
@@ -142,8 +144,9 @@ public class LoginActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
             // check if connected
             if (s == null) {
-                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
-                        Snackbar.LENGTH_LONG).show();
+                if(mView != null)
+                    Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                            Snackbar.LENGTH_LONG).show();
 
                 return;
             }
@@ -155,7 +158,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                Snackbar.make(mView, "Invalid User Name or Password.", Snackbar.LENGTH_LONG).show();
+                if(mView != null)
+                    Snackbar.make(mView, "Invalid User Name or Password.", Snackbar.LENGTH_LONG).show();
             }
 
             Log.i("NFO", out);
