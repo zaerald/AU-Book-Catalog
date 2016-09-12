@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String serverIp = "192.168.1.19";
+            String serverIp = "192.168.22.7";
             String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/programmingknowledge/login.php";
@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     URL url = new URL(loginUrl);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setConnectTimeout(5000);
+
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoInput(true);
                     httpURLConnection.setDoOutput(true);
@@ -127,8 +129,16 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
-            String out = s.trim();
             mLoadingDialog.dismiss();
+            // check if connected
+            if (s == null) {
+                Toast.makeText(getApplicationContext(),
+                        "Please make sure that you are connected to the Internet.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String out = s.trim();
+
             if(out.equals("success")) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
