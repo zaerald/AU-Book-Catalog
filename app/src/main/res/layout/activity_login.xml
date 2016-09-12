@@ -20,6 +20,14 @@
         android:adjustViewBounds="false"
         android:src="@drawable/au_logo" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Username"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="30dp" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +40,14 @@
         android:layout_marginRight="30dp"
         android:maxLength="10"
         android:gravity="bottom|center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Password"
+        android:id="@+id/textView4"
+        android:layout_marginLeft="30dp" />
 
     <EditText
         android:layout_width="match_parent"
