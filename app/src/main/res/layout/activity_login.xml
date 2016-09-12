@@ -34,7 +34,6 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtUserName"
-        android:hint="User Name"
         android:layout_weight=".1"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -59,8 +58,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="20dp"
-        android:maxLength="10"
-        android:hint="Password" />
+        android:maxLength="10" />
 
     <Button
         android:layout_width="match_parent"
