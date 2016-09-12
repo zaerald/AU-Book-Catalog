@@ -42,5 +42,8 @@ captures/
 /build
 /captures
 
+.idea/misc.xml
+.idea/workspace.xml
+
 # Keystore files
 *.jks
