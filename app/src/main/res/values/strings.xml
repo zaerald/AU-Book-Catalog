@@ -20,5 +20,14 @@
 
     <!-- Registration Activity -->
     <string name="title_activity_registration">Registration</string>
+    <string name="reg_info">Please fill up the fields below.</string>
+    <string name="reg_basic_info">Basic Information:</string>
+    <string name="reg_first_name">First Name:</string>
+    <string name="reg_last_name">Last Name:</string>
+    <string name="reg_stud_id">Student ID:</string>
+    <string name="reg_username">Username:</string>
+    <string name="reg_password">Password:</string>
+    <string name="reg_confirm_password">Confirm Password:</string>
+    <string name="reg_register">Register!</string>
     <!-- END Registration Activity -->
 </resources>
