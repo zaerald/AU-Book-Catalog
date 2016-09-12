@@ -1,15 +1,20 @@
 <resources>
+
+    <!-- GLOBAL -->
     <string name="app_name">AU Book Catalog</string>
     <string name="title_activity_main">AU Book Catalog</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <!-- END GLOBAL -->
 
+    <!-- Login Activity -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="au_logo_description">au logo</string>
-    <string name="id_number">ID Number</string>
-
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
     <string name="set_up_an_account"><u>Set up an account.</u></string>
+    <!-- END Login Activity -->
 </resources>
