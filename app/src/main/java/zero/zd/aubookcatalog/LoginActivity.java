@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -47,13 +49,42 @@ public class LoginActivity extends AppCompatActivity {
         String userName = txtUserName.getText().toString();
         String password = txtPass.getText().toString();
 
+        // validate input
+        userName = userName.trim();
+        password = password.trim();
+
+        if (userName.equals("")) {
+            Snackbar.make(v, "Please input your Username", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        if (password.equals("")) {
+            Snackbar.make(v, "Please input your Password", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
         DatabaseWorker databaseWorker = new DatabaseWorker(v);
-//        DatabaseWorker databaseWorker = new DatabaseWorker();
         databaseWorker.execute(userName, password);
     }
 
     public void onClickRegister(View v) {
         startActivity(new Intent(this, RegistrationActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_info) {
+            startActivity(new Intent(this, InformationActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
@@ -71,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String serverIp = "192.168.22.7";
+            String serverIp = "10.10.3.11";
             //String serverIp = "10.0.2.3";
             String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
@@ -82,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     URL url = new URL(loginUrl);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                    httpURLConnection.setConnectTimeout(5000);
+                    httpURLConnection.setConnectTimeout(3000);
 
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoInput(true);
@@ -120,13 +151,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.i("NFO", "no err");
 
-
                     return result;
 
                 } catch(IOException e) {
                     Log.e("ERR", "Error in login: " + e.getMessage());
                 }
-
 
             return null;
         }
@@ -134,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             //super.onPreExecute();
-           mLoadingDialog = ProgressDialog.show(LoginActivity.this, "Please wait", "Loading...");
+            mLoadingDialog = ProgressDialog.show(LoginActivity.this, "Please wait", "Loading...");
         }
 
         @Override
@@ -146,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(mView != null)
                     Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
                             Snackbar.LENGTH_LONG).show();
-
                 return;
             }
 
