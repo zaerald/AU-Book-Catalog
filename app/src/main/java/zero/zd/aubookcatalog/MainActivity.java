@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // welcome
-
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
     }
 
     @Override
