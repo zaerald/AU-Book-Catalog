@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String serverIp = "10.10.3.11";
+            String serverIp = "192.168.22.7";
             //String serverIp = "10.0.2.3";
             String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
             //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
