@@ -54,11 +54,11 @@ public class LoginActivity extends AppCompatActivity {
         password = password.trim();
 
         if (userName.equals("")) {
-            Snackbar.make(v, "Please input your Username", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v, "Please input your username", Snackbar.LENGTH_LONG).show();
             return;
         }
         if (password.equals("")) {
-            Snackbar.make(v, "Please input your Password", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v, "Please input your password", Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -172,9 +172,8 @@ public class LoginActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
             // check if connected
             if (s == null) {
-                if(mView != null)
-                    Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
-                            Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
                 return;
             }
 
@@ -185,8 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                if(mView != null)
-                    Snackbar.make(mView, "Invalid User Name or Password.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
             }
 
             Log.i("NFO", out);

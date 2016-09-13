@@ -1,5 +1,6 @@
 package zero.zd.aubookcatalog;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // welcome
+
     }
 
     @Override
@@ -49,9 +54,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -68,8 +70,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentManager fragmentManager = getFragmentManager();
+
         if (id == R.id.nav_all_books) {
-            // Handle the camera action
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, new AllBooksFragment()).commit();
+
+            Toast.makeText(this, "Tada", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_discover) {
 
         } else if (id == R.id.nav_track_book) {
