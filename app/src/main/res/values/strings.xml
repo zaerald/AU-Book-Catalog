@@ -39,5 +39,9 @@
 
     <!-- Information Activity -->
     <string name="title_activity_info">Information</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- END Information Activity -->
 </resources>
