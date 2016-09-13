@@ -25,13 +25,21 @@
 
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration"
-            android:parentActivityName=".LoginActivity"/>
+            android:label="@string/title_activity_registration">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>
 
         <activity
             android:name=".InformationActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName=".InformationActivity"/>
+            android:label="@string/title_activity_info">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>
 
         <activity android:name=".AllBooksActivity" />
 
