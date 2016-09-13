@@ -77,25 +77,33 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_dashboard) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, new DashboardFragment()).commit();
+        switch(id) {
 
-        } else if (id == R.id.nav_all_books) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, new AllBooksFragment()).commit();
+            case R.id.nav_dashboard:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new DashboardFragment()).commit();
+                break;
 
-        } else if (id == R.id.nav_discover) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, new DiscoverFragment()).commit();
+            case R.id.nav_all_books:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new AllBooksFragment()).commit();
+                break;
 
-        } else if (id == R.id.nav_favorites) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, new FavoritesFragment()).commit();
+            case R.id.nav_discover:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new DiscoverFragment()).commit();
+                break;
 
-        } else if (id == R.id.nav_recent) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, new RecentBorrowedFragment()).commit();
+            case R.id.nav_favorites:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new FavoritesFragment()).commit();
+                break;
+
+            case R.id.nav_recent:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new RecentBorrowedFragment()).commit();
+                break;
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
