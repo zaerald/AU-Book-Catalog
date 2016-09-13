@@ -6,6 +6,11 @@
         android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_action_dashboard"
+            android:title="Dashboard" />
+
+        <item
             android:id="@+id/nav_all_books"
             android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="All Books" />
@@ -15,10 +20,12 @@
             android:icon="@drawable/ic_explore_black_24dp"
             android:title="Discover a Book" />
 
+        <!--
         <item
             android:id="@+id/nav_track_book"
             android:icon="@drawable/ic_track_changes_black_24dp"
             android:title="Track Book" />
+        -->
 
         <group
             android:id="@+id/menu_bottom"

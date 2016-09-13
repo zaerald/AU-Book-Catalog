@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,10 +81,9 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.rootView, new AllBooksFragment()).commit();
 
-            Toast.makeText(this, "Tada", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_discover) {
-
-        } else if (id == R.id.nav_track_book) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, new DiscoverFragment()).commit();
 
         } else if (id == R.id.menu_bottom) {
 
