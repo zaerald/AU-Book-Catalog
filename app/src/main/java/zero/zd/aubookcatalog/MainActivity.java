@@ -77,7 +77,11 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_all_books) {
+        if (id == R.id.nav_dashboard) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, new DashboardFragment()).commit();
+
+        } else if (id == R.id.nav_all_books) {
             fragmentManager.beginTransaction()
                     .replace(R.id.rootView, new AllBooksFragment()).commit();
 
@@ -85,12 +89,13 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.rootView, new DiscoverFragment()).commit();
 
-        } else if (id == R.id.menu_bottom) {
-
         } else if (id == R.id.nav_favorites) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, new FavoritesFragment()).commit();
 
         } else if (id == R.id.nav_recent) {
-
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, new RecentBorrowedFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
