@@ -1,13 +1,15 @@
 <resources>
 
     <!-- GLOBAL -->
-    <string name="app_name">AU Book Catalog</string>
-    <string name="title_activity_main">AU Book Catalog</string>
+    <string name="app_name">AU-South Book Catalog</string>
+    <!-- END GLOBAL -->
 
+    <!-- Main Activity -->
+    <string name="title_activity_main">AU Book Catalog</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-    <!-- END GLOBAL -->
+    <!-- END Main Activity-->
 
     <!-- Login Activity -->
     <string name="title_activity_login">LoginActivity</string>
@@ -16,6 +18,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="set_up_an_account"><u>Set up an account.</u></string>
+
+    <string name="action_info">Info</string>
     <!-- END Login Activity -->
 
     <!-- Registration Activity -->
@@ -30,4 +34,8 @@
     <string name="reg_confirm_password">Confirm Password:</string>
     <string name="reg_register">Register!</string>
     <!-- END Registration Activity -->
+
+    <!-- Information Activity -->
+    <string name="title_activity_info">Information</string>
+    <!-- END Information Activity -->
 </resources>

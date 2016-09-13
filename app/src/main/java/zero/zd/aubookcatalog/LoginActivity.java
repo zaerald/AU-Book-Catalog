@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import java.io.BufferedReader;
@@ -35,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 //        // Remove title bar
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
@@ -54,6 +55,23 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onClickRegister(View v) {
         startActivity(new Intent(this, RegistrationActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_info) {
+            startActivity(new Intent(this, InformationActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
