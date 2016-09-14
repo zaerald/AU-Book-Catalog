@@ -15,11 +15,15 @@ public class RegistrationActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_registration);
+
+
     }
 
     public void onClickRegister(View v) {
 
     }
+
+
 
 }
 
