@@ -143,13 +143,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
             String registerUrl = "http://" + ZConstants.SERVER_IP + "/aubookcatalog/register.php";
 
+            String firstName = strings[0];
+            String lastName = strings[1];
+            String studentId = strings[2];
+            String username = strings[3];
+            String password = strings[4];
+
             try {
-                String userName = strings[0];
-                String password = strings[1];
 
                 URL url = new URL(registerUrl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setConnectTimeout(5000);
 
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
@@ -160,8 +164,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(userName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("firstName", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(firstName, ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("lastName", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(lastName, ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE) + "&" +
 
                                 URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
                                 URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
@@ -190,7 +203,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 return result;
 
             } catch (IOException e) {
-                Log.e("ERR", "Error in login: " + e.getMessage());
+                Log.e("ERR", "Error in registration: " + e.getMessage());
             }
 
             return null;
@@ -216,11 +229,13 @@ public class RegistrationActivity extends AppCompatActivity {
             String out = s.trim();
 
             if (out.equals("success")) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
+                Snackbar.make(mView, "You can now login to your recently created account.",
+                        Snackbar.LENGTH_LONG).show();
                 finish();
             } else {
-                Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
             }
 
             Log.i("NFO", out);
