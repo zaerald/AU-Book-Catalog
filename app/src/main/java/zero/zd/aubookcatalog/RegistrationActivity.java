@@ -1,13 +1,30 @@
 package zero.zd.aubookcatalog;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -105,14 +122,111 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-
-
-
-
+        DatabaseWorker databaseWorker = new DatabaseWorker(v);
+        databaseWorker.execute(firstName, lastName, studentId, username, password);
 
     }
 
 
+    private class DatabaseWorker extends AsyncTask<String, Void, String> {
+        Dialog mLoadingDialog;
 
+        // view from btn to create Snackbar
+        View mView;
+
+        public DatabaseWorker(View view) {
+            mView = view;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String registerUrl = "http://" + ZConstants.SERVER_IP + "/aubookcatalog/register.php";
+
+            try {
+                String userName = strings[0];
+                String password = strings[1];
+
+                URL url = new URL(registerUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(userName, ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String result = "";
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return result;
+
+            } catch (IOException e) {
+                Log.e("ERR", "Error in login: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            mLoadingDialog.dismiss();
+            // check if connected
+            if (s == null) {
+                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
+            String out = s.trim();
+
+            if (out.equals("success")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", out);
+
+        }
+
+    }
 }
 
