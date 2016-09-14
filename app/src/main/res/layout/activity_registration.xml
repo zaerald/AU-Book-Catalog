@@ -25,9 +25,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Password doesn&apos;t match"
+        android:text="Please fill up all the fields below."
         android:id="@+id/txtError"
         android:layout_below="@+id/txtInfo"
+        android:textColor="#ec1b1b"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Password do not match"
+        android:id="@+id/txtError2"
+        android:layout_below="@+id/txtError"
         android:textColor="#ec1b1b"
         android:layout_marginTop="10dp"
         android:visibility="gone" />
@@ -36,12 +47,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
-        android:layout_below="@+id/txtError"
+        android:layout_below="@+id/txtError2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_above="@+id/btnRegister"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
 
         <LinearLayout

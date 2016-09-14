@@ -11,6 +11,15 @@ import android.widget.TextView;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    EditText txtFirstName;
+    EditText txtLastName;
+    EditText txtStudentId;
+    EditText txtUsername;
+    EditText txtPassword;
+    EditText txtConfirmPassword;
+    TextView txtError;
+    TextView txtError2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +29,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration);
 
-        final EditText txtPassword = (EditText) findViewById(R.id.txtPassword);
-        final EditText txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
-
-        final TextView txtError = (TextView) findViewById(R.id.txtError);
+        txtFirstName = (EditText) findViewById(R.id.txtFirstName);
+        txtLastName = (EditText) findViewById(R.id.txtLastName);
+        txtStudentId = (EditText) findViewById(R.id.txtStudentId);
+        txtUsername = (EditText) findViewById(R.id.txtUsername);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
+        txtError = (TextView) findViewById(R.id.txtError);
+        txtError2 = (TextView) findViewById(R.id.txtError2);
 
         txtPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -38,15 +51,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = txtPassword.getText().toString().trim();
-                String confirmPass = txtConfirmPassword.getText().toString().trim();
+                String pass = txtPassword.getText().toString();
+                String confirmPass = txtConfirmPassword.getText().toString();
 
                 if (confirmPass.equals(""))
                     return;
                 if (!confirmPass.equalsIgnoreCase(pass))
-                    txtError.setVisibility(View.VISIBLE);
+                    txtError2.setVisibility(View.VISIBLE);
                 else
-                    txtError.setVisibility(View.GONE);
+                    txtError2.setVisibility(View.GONE);
             }
         });
 
@@ -63,20 +76,39 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = txtPassword.getText().toString().trim();
-                String confirmPass = txtConfirmPassword.getText().toString().trim();
+                String pass = txtPassword.getText().toString();
+                String confirmPass = txtConfirmPassword.getText().toString();
 
                 if (pass.equals(""))
                     return;
                 if (!pass.equalsIgnoreCase(confirmPass))
-                    txtError.setVisibility(View.VISIBLE);
+                    txtError2.setVisibility(View.VISIBLE);
                 else
-                    txtError.setVisibility(View.GONE);
+                    txtError2.setVisibility(View.GONE);
             }
         });
     }
 
     public void onClickRegister(View v) {
+
+        String firstName = txtFirstName.getText().toString();
+        String lastName = txtLastName.getText().toString();
+        String studentId = txtStudentId.getText().toString();
+        String username = txtUsername.getText().toString();
+        String password = txtStudentId.getText().toString();
+        String confirmPassword = txtStudentId.getText().toString();
+
+        // validate all inputs
+        if (firstName.equals("") || lastName.equals("") || studentId.equals("") ||
+                username.equals("") || password.equals("") || confirmPassword.equals("")) {
+            txtError.setVisibility(View.VISIBLE);
+            return;
+        }
+
+
+
+
+
 
     }
 
