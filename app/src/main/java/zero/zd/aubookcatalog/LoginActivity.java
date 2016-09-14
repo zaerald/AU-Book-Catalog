@@ -90,8 +90,6 @@ public class LoginActivity extends AppCompatActivity {
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
         Dialog mLoadingDialog;
 
-        String mEncodeType = "UTF-8";
-
         // view from btn to create Snackbar
         View mView;
 
@@ -102,11 +100,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String serverIp = "192.168.22.7";
-            //String serverIp = "10.0.2.3";
-            String loginUrl = "http://" + serverIp + "/aubookcatalog/login.php";
-            //String loginUrl = "http://192.168.1.100/aubookcatalog/login.php";
-            //String loginUrl = "http://192.168.1.100/programmingknowledge/login.php";
+            String loginUrl = "http://" + ZConstants.SERVER_IP + "/aubookcatalog/login.php";
+
                 try {
                     String userName = strings[0];
                     String password = strings[1];
@@ -121,14 +116,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(
-                            new OutputStreamWriter(outputStream, mEncodeType));
+                            new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
 
                     String postData =
-                            URLEncoder.encode("username", mEncodeType) + "=" +
-                            URLEncoder.encode(userName, mEncodeType) + "&" +
+                            URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(userName, ZConstants.DB_ENCODE_TYPE) + "&" +
 
-                            URLEncoder.encode("password", mEncodeType) + "=" +
-                            URLEncoder.encode(password, mEncodeType);
+                            URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
 
                     bufferedWriter.write(postData);
                     bufferedWriter.flush();
@@ -137,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(inputStream, mEncodeType));
+                            new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
 
                     String result = "";
                     String line;
@@ -179,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
 
             String out = s.trim();
 
-            if(out.equals("success")) {
+            if(out.equals(ZConstants.DB_SUCCESS)) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -187,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                 Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
             }
 
-            Log.i("NFO", out);
+            Log.i("NFO", "Login NFO: " + out);
 
         }
     }

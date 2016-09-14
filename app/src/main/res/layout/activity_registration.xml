@@ -80,7 +80,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|text"
                 android:ems="10"
                 android:id="@+id/txtFirstName"
                 android:layout_marginLeft="30dp"
