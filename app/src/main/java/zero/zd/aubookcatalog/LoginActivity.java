@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                 Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
             }
 
-            Log.i("NFO", out);
+            Log.i("NFO", "Login NFO: " + out);
 
         }
     }

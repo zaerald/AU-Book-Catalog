@@ -238,7 +238,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
             }
 
-            Log.i("NFO", out);
+            Log.i("NFO", "Reg NFO: " + out);
 
         }
 
