@@ -112,8 +112,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String lastName = txtLastName.getText().toString();
         String studentId = txtStudentId.getText().toString();
         String username = txtUsername.getText().toString();
-        String password = txtStudentId.getText().toString();
-        String confirmPassword = txtStudentId.getText().toString();
+        String password = txtPassword.getText().toString();
+        String confirmPassword = txtConfirmPassword.getText().toString();
 
         // validate all inputs
         if (firstName.equals("") || lastName.equals("") || studentId.equals("") ||
@@ -121,6 +121,9 @@ public class RegistrationActivity extends AppCompatActivity {
             txtError.setVisibility(View.VISIBLE);
             return;
         }
+
+        if (!(password.equalsIgnoreCase(confirmPassword)))
+            return;
 
         DatabaseWorker databaseWorker = new DatabaseWorker(v);
         databaseWorker.execute(firstName, lastName, studentId, username, password);
@@ -165,19 +168,21 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 String postData =
                         URLEncoder.encode("firstName", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(firstName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode(firstName, ZConstants.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("lastName", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(lastName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("lastName", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(lastName, ZConstants.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
+
+                Log.i("NFO", postData);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -231,8 +236,6 @@ public class RegistrationActivity extends AppCompatActivity {
             if (out.equals("success")) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
-                Snackbar.make(mView, "You can now login to your recently created account.",
-                        Snackbar.LENGTH_LONG).show();
                 finish();
             } else {
                 Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
