@@ -1,7 +1,8 @@
 <?php
-	$db_name = "dbaubookcatalog";
-	$mysql_username = "root";
-	$mysql_password = "";
-	$server_name = "localhost";
-	$conn = mysqli_connect($server_name, $mysql_username, $mysql_password, $db_name);
+	define('HOST', 'localhost');
+    define('USER', 'root');
+    define('PASS', '');
+    define('DB', 'dbaubookcatalog');
+
+    $conn = mysqli_connect(HOST, USER, PASS, DB);
 ?>

@@ -1,11 +1,6 @@
 <?php
 	
-    define('HOST', 'localhost');
-    define('USER', 'root');
-    define('PASS', '');
-    define('DB', 'dbaubookcatalog');
-
-    $conn = mysqli_connect(HOST, USER, PASS, DB);
+   require "conn.php"
     
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -22,6 +17,5 @@
     }
     
     mysqli_close($conn);
-
 	
 ?>
