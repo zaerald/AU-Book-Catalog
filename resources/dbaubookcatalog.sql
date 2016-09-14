@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2016 at 01:02 AM
+-- Generation Time: Sep 15, 2016 at 01:58 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -37,8 +37,9 @@ CREATE TABLE `tbllogin` (
 --
 
 INSERT INTO `tbllogin` (`student_id`, `username`, `password`) VALUES
-('01-1234-56789', 'zero', '01-1234-56'),
-('01-1415-00736', 'admin', 'admin');
+('01-1415-00736', 'admin', 'admin'),
+('46-6464-64466', 'laz', 'q'),
+('61-9848-76487', 'wi', '61-9848-76');
 
 -- --------------------------------------------------------
 
@@ -47,7 +48,7 @@ INSERT INTO `tbllogin` (`student_id`, `username`, `password`) VALUES
 --
 
 CREATE TABLE `tblstudentinfo` (
-  `id` varchar(15) NOT NULL,
+  `student_id` varchar(15) NOT NULL,
   `first_name` mediumtext NOT NULL,
   `last_name` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -56,9 +57,9 @@ CREATE TABLE `tblstudentinfo` (
 -- Dumping data for table `tblstudentinfo`
 --
 
-INSERT INTO `tblstudentinfo` (`id`, `first_name`, `last_name`) VALUES
-('01-1234-56789', 'Zaerald Denze', 'Lungos'),
-('01-1415-00736', 'Zaerald Denze', 'Lungos');
+INSERT INTO `tblstudentinfo` (`student_id`, `first_name`, `last_name`) VALUES
+('01-1415-00736', 'Zaerald Denze', 'Lungos'),
+('46-6464-64466', 'Lazny Mayze', 'Lungos');
 
 --
 -- Indexes for dumped tables
@@ -74,8 +75,8 @@ ALTER TABLE `tbllogin`
 -- Indexes for table `tblstudentinfo`
 --
 ALTER TABLE `tblstudentinfo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `id` (`student_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
