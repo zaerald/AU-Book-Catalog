@@ -1,6 +1,6 @@
 <?php
 	
-   require "conn.php"
+   require "conn.php";
     
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -13,7 +13,7 @@
     if(isset($check)) {
         echo 'success';
     } else {
-        echo 'failure';
+        echo 'fail';
     }
     
     mysqli_close($conn);
