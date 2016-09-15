@@ -36,6 +36,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText txtConfirmPassword;
     TextView txtError;
     TextView txtError2;
+    TextView txtError3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class RegistrationActivity extends AppCompatActivity {
         txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
         txtError = (TextView) findViewById(R.id.txtError);
         txtError2 = (TextView) findViewById(R.id.txtError2);
+        txtError3 = (TextView) findViewById(R.id.txtError3);
 
         txtPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -124,6 +126,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if (!(password.equalsIgnoreCase(confirmPassword)))
             return;
+
+        if (studentId.length() != 13) {
+            txtError3.setVisibility(View.VISIBLE);
+            return;
+        } else
+            txtError3.setVisibility(View.GONE);
 
         DatabaseWorker databaseWorker = new DatabaseWorker(v);
         databaseWorker.execute(firstName, lastName, studentId, username, password);
