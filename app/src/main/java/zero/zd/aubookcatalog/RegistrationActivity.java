@@ -30,7 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     EditText txtFirstName;
     EditText txtLastName;
-    EditText txtStudentId;
+    com.github.pinball83.maskededittext.MaskedEditText txtStudentId;
     EditText txtUsername;
     EditText txtPassword;
     EditText txtConfirmPassword;
@@ -49,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);
-        txtStudentId = (EditText) findViewById(R.id.txtStudentId);
+        txtStudentId = (com.github.pinball83.maskededittext.MaskedEditText) findViewById(R.id.txtStudentId);
         txtUsername = (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
@@ -117,17 +117,20 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = txtPassword.getText().toString();
         String confirmPassword = txtConfirmPassword.getText().toString();
 
+        //Log.i("NFO", "Unmasked Length: " + txtStudentId.getUnmaskedText().length());
+
         // validate all inputs
         if (firstName.equals("") || lastName.equals("") || studentId.equals("") ||
                 username.equals("") || password.equals("") || confirmPassword.equals("")) {
             txtError.setVisibility(View.VISIBLE);
             return;
-        }
+        } else
+            txtError.setVisibility(View.GONE);
 
         if (!(password.equalsIgnoreCase(confirmPassword)))
             return;
 
-        if (studentId.length() != 13) {
+        if (txtStudentId.getUnmaskedText().length() != 11) {
             txtError3.setVisibility(View.VISIBLE);
             return;
         } else
@@ -254,5 +257,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
 
