@@ -84,11 +84,18 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_info) {
-            startActivity(new Intent(this, InformationActivity.class));
-            return true;
+
+        switch(id) {
+            case R.id.action_info:
+                startActivity(new Intent(this, InformationActivity.class));
+                break;
+
+            case R.id.action_setup_ip:
+                startActivity(new Intent(this, SetupIPActivity.class));
+                break;
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     private class DatabaseWorker extends AsyncTask<String, Void, String>{

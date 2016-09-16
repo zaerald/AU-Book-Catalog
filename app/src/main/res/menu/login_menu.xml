@@ -12,6 +12,6 @@
         android:id="@+id/action_setup_ip"
         android:orderInCategory="100"
         android:title="@string/action_setup_ip"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>
