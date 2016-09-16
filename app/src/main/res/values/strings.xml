@@ -22,6 +22,8 @@
     <string name="set_up_an_account"><u>Set up an account.</u></string>
 
     <string name="action_info">Info</string>
+    <string name="action_setup_ip">Setup IP</string>
+
     <!-- END Login Activity -->
 
     <!-- Registration Activity -->
@@ -48,4 +50,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- END Information Activity -->
+
+    <!-- END SetupIp Activity -->
+    <string name="setup_update_ip">Update IP</string>
+    <!-- END SetupIp Activity -->
 </resources>
