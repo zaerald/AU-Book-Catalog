@@ -28,6 +28,8 @@ import java.net.URLEncoder;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    ZConstants zConstants;
+
     EditText txtFirstName;
     EditText txtLastName;
     com.github.pinball83.maskededittext.MaskedEditText txtStudentId;
@@ -46,6 +48,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_registration);
+
+        zConstants = ZConstants.getInstance();
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);
@@ -155,7 +159,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String registerUrl = "http://" + ZConstants.SERVER_IP + "/aubookcatalog/register.php";
+            String registerUrl = "http://" + zConstants.getServerIp() + "/aubookcatalog/register.php";
 
             String firstName = strings[0];
             String lastName = strings[1];

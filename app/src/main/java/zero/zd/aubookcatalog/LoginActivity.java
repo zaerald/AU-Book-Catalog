@@ -28,6 +28,8 @@ import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ZConstants zContants;
+
     private EditText txtUserName;
     private EditText txtPass;
 
@@ -40,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+        zContants = ZConstants.getInstance();
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPass = (EditText) findViewById(R.id.txtPass);
@@ -100,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String loginUrl = "http://" + ZConstants.SERVER_IP + "/aubookcatalog/login.php";
+            String loginUrl = "http://" + zContants.getServerIp() + "/aubookcatalog/login.php";
 
                 try {
                     String userName = strings[0];

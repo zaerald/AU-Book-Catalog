@@ -36,7 +36,15 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SetupIP"></activity>
+
+        <activity
+            android:name=".SetupIPActivity"
+            android:label="@string/title_activity_setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
     </application>
 
 </manifest>
