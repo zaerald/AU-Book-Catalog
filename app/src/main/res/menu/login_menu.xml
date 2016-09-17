@@ -9,10 +9,19 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_setup_ip"
+        android:id="@+id/action_overflow"
         android:orderInCategory="2"
-        android:title="@string/action_setup_ip"
-        android:icon="@drawable/ic_action_code"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_action_overflow"
+        app:showAsAction="always"
+        android:title="@string/action_overflow">
+
+        <menu>
+            <item
+                android:id="@+id/action_setup_ip"
+                android:title="@string/action_setup_ip"
+                app:showAsAction="always|withText"/>
+        </menu>
+
+    </item>
 
 </menu>
