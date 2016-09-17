@@ -21,6 +21,7 @@ public class SetupIPActivity extends AppCompatActivity {
 
         zConstants = ZConstants.getInstance();
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
+        updateText();
     }
 
     public void onClickBtnUpdateIp(View v) {

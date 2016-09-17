@@ -21,9 +21,8 @@
     <string name="login">Login</string>
     <string name="set_up_an_account"><u>Set up an account.</u></string>
 
-    <string name="action_info">Info</string>
+    <string name="action_info">Information</string>
     <string name="action_setup_ip">Setup IP</string>
-
     <!-- END Login Activity -->
 
     <!-- Registration Activity -->
@@ -40,7 +39,6 @@
     <string name="reg_err">Please fill up all the fields below.</string>
     <string name="reg_err2">Passwords do not match.</string>
     <string name="reg_err3">Your Student ID is not valid.</string>
-
     <!-- END Registration Activity -->
 
     <!-- Information Activity -->
