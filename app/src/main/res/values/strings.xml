@@ -1,12 +1,12 @@
 <resources>
 
     <!-- GLOBAL -->
-    <string name="app_name">Book Catalog</string>
+    <string name="app_name">AU-South Book Catalog</string>
+    <string name="title_activity">Book Catalog</string>
     <string name="action_overflow">Overflow</string>
     <!-- END GLOBAL -->
 
     <!-- Main Activity -->
-    <string name="title_activity_main">AU Book Catalog</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -15,7 +15,6 @@
     <!-- END Main Activity-->
 
     <!-- Login Activity -->
-    <string name="title_activity_login">LoginActivity</string>
     <string name="au_logo_description">au logo</string>
     <string name="user_name">Username</string>
     <string name="password">Password</string>
