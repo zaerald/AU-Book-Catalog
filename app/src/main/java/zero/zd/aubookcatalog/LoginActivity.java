@@ -3,6 +3,7 @@ package zero.zd.aubookcatalog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -28,7 +29,7 @@ import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ZConstants zContants;
+    private SharedPreferences preferences;
 
     private EditText txtUserName;
     private EditText txtPass;
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        zContants = ZConstants.getInstance();
+        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPass = (EditText) findViewById(R.id.txtPass);
@@ -111,7 +112,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String loginUrl = "http://" + zContants.getServerIp() + "/aubookcatalog/login.php";
+            String loginUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/login.php";
 
                 try {
                     String userName = strings[0];

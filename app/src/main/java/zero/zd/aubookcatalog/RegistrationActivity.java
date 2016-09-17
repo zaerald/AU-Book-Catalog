@@ -3,6 +3,7 @@ package zero.zd.aubookcatalog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -28,7 +29,7 @@ import java.net.URLEncoder;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    ZConstants zConstants;
+    private SharedPreferences preferences;
 
     EditText txtFirstName;
     EditText txtLastName;
@@ -46,10 +47,9 @@ public class RegistrationActivity extends AppCompatActivity {
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_registration);
 
-        zConstants = ZConstants.getInstance();
+        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);
@@ -159,7 +159,8 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String registerUrl = "http://" + zConstants.getServerIp() + "/aubookcatalog/register.php";
+            String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
+                    "/aubookcatalog/register.php";
 
             String firstName = strings[0];
             String lastName = strings[1];
