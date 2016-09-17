@@ -37,6 +37,8 @@ public class SetupIPActivity extends AppCompatActivity {
 
         updateText();
         Toast.makeText(this, "Server IP Updated!", Toast.LENGTH_SHORT).show();
+
+        txtServerIp.setText("");
     }
 
     private void updateText() {
@@ -45,4 +47,5 @@ public class SetupIPActivity extends AppCompatActivity {
         String out = "Current IP: " + serverIp;
         textViewCurIp.setText(out);
     }
+
 }
