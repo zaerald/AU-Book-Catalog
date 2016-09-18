@@ -2,11 +2,12 @@
 
     <!-- GLOBAL -->
     <string name="app_name">AU-South Book Catalog</string>
-    <string name="title_activity">Book Catalog</string>
+
     <string name="action_overflow">Overflow</string>
     <!-- END GLOBAL -->
 
     <!-- Main Activity -->
+    <string name="title_activity_main">Book Catalog</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -15,6 +16,7 @@
     <!-- END Main Activity-->
 
     <!-- Login Activity -->
+    <string name="title_activity_login">Book Catalog</string>
     <string name="au_logo_description">au logo</string>
     <string name="user_name">Username</string>
     <string name="password">Password</string>
@@ -43,13 +45,16 @@
 
     <!-- Information Activity -->
     <string name="title_activity_info">Information</string>
-
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="nfo_title_description">Araullo University - South Book Catalog</string>
+    <string name="nfo_description">\t\tBook catalog application exclusive for AU-South! You can
+        browse books, add bookmarks for the books you read to track your progress.
+        You can add the books you love to your favorites.
+        \n\n\t\tDont know what to read? you can discover a book with the help of this application, you\'ll
+        just need to answer few questions and it\'ll help you to discover a book with your taste.
+    </string>
     <!-- END Information Activity -->
 
-    <!-- END SetupIp Activity -->
+    <!-- SetupIp Activity -->
     <string name="title_activity_setup">Setup IP</string>
     <string name="setup_update_ip">Update IP</string>
     <!-- END SetupIp Activity -->
