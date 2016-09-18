@@ -19,8 +19,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:id="@+id/imageView"
                 android:src="@drawable/au_logo"
                 android:layout_alignParentTop="true"
@@ -36,7 +36,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imageView"
                 android:layout_toEndOf="@+id/imageView"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_alignBottom="@+id/imageView"
+                android:gravity="center_vertical" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -45,7 +47,7 @@
                 android:id="@+id/textViewNfoDescription"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textViewNfoTitle"
+                android:layout_below="@+id/imageView"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true" />
 
@@ -57,9 +59,9 @@
                 android:id="@+id/textViewNfoBehind"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/textViewNfoDescription"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="30dp" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -67,7 +69,7 @@
                 android:id="@+id/imgYolly"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/textViewNfoBehind"
-                android:src="@drawable/info_profile_dummy"
+                android:src="@drawable/nfo_img_yolly"
                 android:contentDescription="@string/nfo_img_desc" />
 
             <TextView
@@ -95,7 +97,7 @@
                 android:id="@+id/imgAaron"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/textViewNfoYollyInfo"
-                android:src="@drawable/info_profile_dummy"
+                android:src="@drawable/nfo_img_aaron"
                 android:contentDescription="@string/nfo_img_desc" />
 
             <TextView

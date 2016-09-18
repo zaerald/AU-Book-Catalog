@@ -16,7 +16,7 @@
     <!-- END Main Activity-->
 
     <!-- Login Activity -->
-    <string name="title_activity_login">Book Catalog</string>
+    <string name="title_activity_login">AU-South Book Catalog</string>
     <string name="user_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -48,8 +48,10 @@
     <string name="nfo_description">\t\tBook catalog application exclusive for AU-South! You can
         browse books, add bookmarks for the books you read to track your progress.
         You can add the books you love to your favorites.
-        \n\n\t\tDont know what to read? you can discover a book with the help of this application, you\'ll
-        just need to answer few questions and it\'ll help you to discover a book with your taste.
+        \n\n\t\If you want to check if the book is available at the library, you can browse the
+        books by using this application.\n
+        Don\'t know what to read? you can discover a book with the help of this application,
+        you\'ll just need to answer few questions and it\'ll help you to discover a book with your taste.
     </string>
     <string name="nfo_behind">Behind This Application</string>
     <string name="nfo_img_desc">Profile</string>
