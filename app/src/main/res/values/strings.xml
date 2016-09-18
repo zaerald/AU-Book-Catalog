@@ -2,7 +2,7 @@
 
     <!-- GLOBAL -->
     <string name="app_name">AU-South Book Catalog</string>
-
+    <string name="au_logo_description">au logo</string>
     <string name="action_overflow">Overflow</string>
     <!-- END GLOBAL -->
 
@@ -17,7 +17,6 @@
 
     <!-- Login Activity -->
     <string name="title_activity_login">Book Catalog</string>
-    <string name="au_logo_description">au logo</string>
     <string name="user_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -52,6 +51,13 @@
         \n\n\t\tDont know what to read? you can discover a book with the help of this application, you\'ll
         just need to answer few questions and it\'ll help you to discover a book with your taste.
     </string>
+    <string name="nfo_behind">Behind This Application</string>
+    <string name="nfo_img_desc">Profile</string>
+    <string name="nfo_docu">Documentation</string>
+    <string name="nfo_prog">Programmer</string>
+    <string name="nfo_yolly">Yolly Domingo</string>
+    <string name="nfo_aaron">Aaron Velasco</string>
+    <string name="nfo_zae">Zaerald Lungos</string>
     <!-- END Information Activity -->
 
     <!-- SetupIp Activity -->

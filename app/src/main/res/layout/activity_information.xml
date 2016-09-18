@@ -10,33 +10,140 @@
     tools:context="zero.zd.aubookcatalog.InformationActivity">
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/scrollView2" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nfo_description"
-                android:id="@+id/textView3"
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/au_logo"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView4"
-                android:layout_marginTop="20dp" />
+                android:contentDescription="@string/au_logo_description" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/nfo_title_description"
-                android:id="@+id/textView4"
+                android:id="@+id/textViewNfoTitle"
                 android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nfo_description"
+                android:id="@+id/textViewNfoDescription"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textViewNfoTitle"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/nfo_behind"
+                android:id="@+id/textViewNfoBehind"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textViewNfoDescription"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:layout_marginBottom="20dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/imgYolly"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textViewNfoBehind"
+                android:src="@drawable/info_profile_dummy"
+                android:contentDescription="@string/nfo_img_desc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/nfo_yolly"
+                android:id="@+id/textViewNfoYolly"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imgYolly" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/nfo_docu"
+                android:id="@+id/textViewNfoYollyInfo"
+                android:layout_below="@+id/textViewNfoYolly"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/imgAaron"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textViewNfoYollyInfo"
+                android:src="@drawable/info_profile_dummy"
+                android:contentDescription="@string/nfo_img_desc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/nfo_aaron"
+                android:id="@+id/textViewNfoAaron"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imgAaron" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/nfo_docu"
+                android:id="@+id/textViewNfoAaronInfo"
+                android:layout_below="@+id/textViewNfoAaron"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/imgZaerald"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textViewNfoAaronInfo"
+                android:src="@drawable/info_profile_dummy"
+                android:contentDescription="@string/nfo_img_desc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/nfo_zae"
+                android:id="@+id/textViewNfoZaerald"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imgZaerald" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/nfo_prog"
+                android:id="@+id/textViewNfoZaeraldInfo"
+                android:layout_below="@+id/textViewNfoZaerald"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp" />
 
         </RelativeLayout>
     </ScrollView>
