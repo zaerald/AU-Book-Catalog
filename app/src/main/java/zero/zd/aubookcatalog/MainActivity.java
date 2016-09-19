@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,11 +46,29 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
-        // set login to true
+
+
         preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
-        prefsEditor = preferences.edit();
-        prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
-        prefsEditor.apply();
+
+        // check if isLogged
+        boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
+
+
+
+        String studId = "";
+        if (!isLogged) {
+            Bundle extras = getIntent().getExtras();
+            studId = extras.getString(ZConstants.DB_STUDENT_ID, "");
+
+            // set login to true
+            prefsEditor = preferences.edit();
+            prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
+            prefsEditor.putString(ZConstants.DB_STUDENT_ID, studId);
+            prefsEditor.apply();
+        }
+
+        studId = preferences.getString(ZConstants.DB_STUDENT_ID, "");
+        Toast.makeText(this, studId, Toast.LENGTH_SHORT).show();
     }
 
     @Override

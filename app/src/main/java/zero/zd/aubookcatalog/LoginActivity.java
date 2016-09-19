@@ -15,6 +15,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -48,8 +52,10 @@ public class LoginActivity extends AppCompatActivity {
 
         // check if user has already logged in
         boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
-        if (isLogged)
+        if (isLogged) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPass = (EditText) findViewById(R.id.txtPass);
@@ -185,6 +191,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             mLoadingDialog.dismiss();
+
             // check if connected
             if (s == null) {
                 Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
@@ -194,10 +201,24 @@ public class LoginActivity extends AppCompatActivity {
 
             String out = s.trim();
 
-            if(out.equals(ZConstants.DB_SUCCESS)) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+            if(!s.equals(ZConstants.DB_FAIL)) {
+                // parse
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+
+                    String studId = jsonArray.getJSONObject(0).getString(ZConstants.DB_STUDENT_ID);
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra(ZConstants.DB_STUDENT_ID, studId);
+                    startActivity(intent);
+                    finish();
+
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             } else {
                 Snackbar.make(mView, "Invalid username or password.", Snackbar.LENGTH_LONG).show();
             }
