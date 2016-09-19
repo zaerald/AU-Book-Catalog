@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -285,7 +284,8 @@ public class MainActivity extends AppCompatActivity
                 TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
 
                 txtViewName.setText(name);
-                txtViewUsername.setText(username);
+                String usrOut = "@" + username;
+                txtViewUsername.setText(usrOut);
 
             } else {
                 Snackbar.make(mView, "Cannot find Student ID", Snackbar.LENGTH_LONG).show();

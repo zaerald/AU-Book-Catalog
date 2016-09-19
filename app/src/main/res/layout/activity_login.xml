@@ -41,7 +41,6 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtUserName"
-        android:maxLength="10"
         android:gravity="bottom"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/textViewPassword"
