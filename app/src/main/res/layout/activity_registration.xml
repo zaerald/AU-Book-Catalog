@@ -133,9 +133,11 @@
                 android:singleLine="false"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
+                android:inputType="number"
                 app:mask="**-****-*****"
                 app:notMaskedSymbol="*"
-                android:inputType="number" />
+                app:replacementChar="#"
+                app:deleteChar="#"/>
 
             <TextView
                 android:layout_width="wrap_content"

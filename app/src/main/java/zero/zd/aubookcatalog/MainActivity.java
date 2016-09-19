@@ -1,6 +1,7 @@
 package zero.zd.aubookcatalog;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -51,12 +52,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        onOptionsItemSelected(menu.getItem(R.id.nav_dashboard));
-        return true;
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -73,7 +68,8 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_logout:
-
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
 
         }
