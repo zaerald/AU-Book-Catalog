@@ -7,7 +7,7 @@
         android:id="@+id/action_overflow"
         android:orderInCategory="1"
         android:icon="@drawable/ic_action_overflow"
-        app:showAsAction="ifRoom|always"
+        app:showAsAction="ifRoom"
         android:title="@string/action_overflow">
 
         <menu>
