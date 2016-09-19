@@ -46,7 +46,7 @@
     <!-- Information Activity -->
     <string name="title_activity_info">Information</string>
     <string name="nfo_title_description">Araullo University - South Book Catalog</string>
-    <string name="nfo_description">\t\tBook catalog application exclusive for AU-South! You can
+    <string name="nfo_description">\t\tBook catalog application is exclusive for AU-South! You can
         browse books, add bookmarks for the books you read to track your progress.
         You can add the books you love to your favorites.
         \n\n\tIf you want to check if the book is available at the library, you can browse the

@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         // welcome
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
+
+        navigationView.setCheckedItem(R.id.nav_dashboard);
     }
 
     @Override

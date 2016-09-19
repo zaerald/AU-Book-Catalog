@@ -99,7 +99,7 @@
         android:layout_alignParentBottom="true"
         android:onClick="onClickRegister"
         android:paddingBottom="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="20dp"
         android:textColor="#5254df" />
 
 </RelativeLayout>
