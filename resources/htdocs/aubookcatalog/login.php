@@ -5,17 +5,17 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM tbllogin WHERE username='$username' AND password='$password';";
+    $sql = "SELECT student_id FROM tbllogin WHERE username='$username' AND password='$password';";
 
-    $result = mysqli_query($conn, $sql);
-    $check = mysqli_fetch_array($result);
+	$res = mysqli_query($conn, $sql);
+	$result = array();
 
-    if(isset($check)) {
-        echo 'success';
+	if($row = mysqli_fetch_array($res)) {
+        array_push($result, array('student_id'=>$row[0]));
+		echo json_encode(array("result"=>$result));
     } else {
         echo 'fail';
     }
     
     mysqli_close($conn);
-	
 ?>
