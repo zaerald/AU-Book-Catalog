@@ -1,19 +1,41 @@
 package zero.zd.aubookcatalog;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        String studId = "";
+        String studId;
         if (!isLogged) {
             Bundle extras = getIntent().getExtras();
             studId = extras.getString(ZConstants.DB_STUDENT_ID, "");
@@ -68,7 +90,9 @@ public class MainActivity extends AppCompatActivity
         }
 
         studId = preferences.getString(ZConstants.DB_STUDENT_ID, "");
-        Toast.makeText(this, studId, Toast.LENGTH_SHORT).show();
+        View v = getWindow().getDecorView().getRootView();
+        new DatabaseWorker(v).execute(studId);
+
     }
 
     @Override
@@ -151,5 +175,125 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class DatabaseWorker extends AsyncTask<String, Void, String> {
+        Dialog mLoadingDialog;
+
+        // view from btn to create Snackbar
+        View mView;
+
+        public DatabaseWorker(View view) {
+            mView = view;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/getname.php";
+
+            try {
+                String studentId = strings[0];
+
+                URL url = new URL(getName);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String result = "";
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return result;
+
+            } catch(IOException e) {
+                Log.e("ERR", "Error in getting name: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            mLoadingDialog.dismiss();
+
+            // check if connected
+            if (s == null) {
+                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
+            String out = s.trim();
+
+            if(!s.equals(ZConstants.DB_FAIL)) {
+                // parse
+
+                String name = "";
+                String username = "";
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jo = jsonArray.getJSONObject(i);
+                        username = jo.getString("username");
+                        name = jo.getString("name");
+                    }
+
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+                TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
+                TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
+
+                txtViewName.setText(name);
+                txtViewUsername.setText(username);
+
+            } else {
+                Snackbar.make(mView, "Cannot find Student ID", Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", "Getting Name NFO: " + out);
+
+
+        }
     }
 }
