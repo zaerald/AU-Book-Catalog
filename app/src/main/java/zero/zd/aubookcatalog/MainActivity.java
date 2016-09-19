@@ -2,6 +2,7 @@ package zero.zd.aubookcatalog;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,9 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor prefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,13 @@ public class MainActivity extends AppCompatActivity
         // welcome
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
-
         navigationView.setCheckedItem(R.id.nav_dashboard);
+
+        // set login to true
+        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        prefsEditor = preferences.edit();
+        prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
+        prefsEditor.apply();
     }
 
     @Override
@@ -70,6 +79,10 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_logout:
+                prefsEditor = preferences.edit();
+                prefsEditor.putBoolean(ZConstants.IS_LOGGED, false);
+                prefsEditor.apply();
+
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;

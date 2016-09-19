@@ -46,8 +46,15 @@ public class LoginActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
 
+        // check if user has already logged in
+        boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
+        if (isLogged)
+            startActivity(new Intent(this, MainActivity.class));
+
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPass = (EditText) findViewById(R.id.txtPass);
+
+
     }
 
     public void onClickLogin(View v) {

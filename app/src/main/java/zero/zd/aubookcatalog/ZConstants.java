@@ -10,4 +10,5 @@ public class ZConstants {
 
     //preferences
     public static final String SETTINGS = "settings";
+    public static final String IS_LOGGED = "isLogged";
 }
