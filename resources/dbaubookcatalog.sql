@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2016 at 12:22 PM
+-- Generation Time: Sep 21, 2016 at 01:26 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -23,6 +23,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblauthor`
+--
+
+CREATE TABLE `tblauthor` (
+  `book_author_id` int(5) NOT NULL,
+  `author_name` varchar(70) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblbook`
 --
 
@@ -31,6 +42,17 @@ CREATE TABLE `tblbook` (
   `book_name` varchar(200) NOT NULL,
   `book_page` int(5) NOT NULL,
   `book_category_id` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblbook_author`
+--
+
+CREATE TABLE `tblbook_author` (
+  `book_id` int(5) NOT NULL,
+  `book_author` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -87,28 +109,6 @@ INSERT INTO `tblstudentinfo` (`student_id`, `first_name`, `last_name`) VALUES
 ('01-1415-01141', 'Kyouma', 'Hououin'),
 ('01-1415-03422', 'Aaron', 'Velasco'),
 ('16-4643-95420', 'Kim', 'atienza');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_author`
---
-
-CREATE TABLE `tbl_author` (
-  `book_author_id` int(5) NOT NULL,
-  `author_name` varchar(70) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_book_author`
---
-
-CREATE TABLE `tbl_book_author` (
-  `book_id` int(5) NOT NULL,
-  `book_author` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
