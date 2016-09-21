@@ -154,6 +154,11 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.rootView, new AllBooksFragment()).commit();
                 break;
 
+            case R.id.nav_read_book:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new ReadBookFragment()).commit();
+                break;
+
             case R.id.nav_discover:
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
@@ -164,10 +169,7 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.rootView, new FavoritesFragment()).commit();
                 break;
 
-            case R.id.nav_recent:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new RecentBorrowedFragment()).commit();
-                break;
+
 
         }
 
