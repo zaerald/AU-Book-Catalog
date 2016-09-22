@@ -18,6 +18,7 @@
         <menu>
             <item
                 android:id="@+id/action_setup_ip"
+                android:icon="@drawable/ic_action_setup_ip"
                 android:title="@string/action_setup_ip"
                 app:showAsAction="always|withText"/>
         </menu>
