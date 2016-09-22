@@ -37,11 +37,7 @@
             android:name=".InformationActivity"
             android:label="@string/title_activity_info"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".MainActivity"
@@ -54,11 +50,7 @@
             android:name=".SetupIPActivity"
             android:label="@string/title_activity_setup"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
+            android:screenOrientation="portrait"/>
 
     </application>
 

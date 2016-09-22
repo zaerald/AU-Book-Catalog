@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity
         // check if isLogged
         boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
 
-
-
         String studId;
         if (!isLogged) {
             Bundle extras = getIntent().getExtras();
@@ -119,6 +117,9 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_settings:
                 break;
+
+            case R.id.action_info:
+                startActivity(new Intent(this, InformationActivity.class));
 
             case R.id.action_logout:
                 prefsEditor = preferences.edit();

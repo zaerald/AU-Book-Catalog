@@ -3,6 +3,7 @@ package zero.zd.aubookcatalog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,9 +22,26 @@ public class SetupIPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_ip);
 
+        // set nav up
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         updateText();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void onClickBtnUpdateIp(View v) {
