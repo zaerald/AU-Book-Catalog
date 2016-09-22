@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_all_books:
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new AllBooksFragment()).commit();
                 break;
