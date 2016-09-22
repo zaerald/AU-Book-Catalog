@@ -15,19 +15,25 @@
                 android:id="@+id/action_settings"
                 android:icon="@drawable/ic_action_settings"
                 android:title="@string/action_settings"
-                app:showAsAction="always|withText" />
+                app:showAsAction="ifRoom|withText" />
+
+            <item
+                android:id="@+id/action_info"
+                android:title="@string/action_info"
+                android:icon="@drawable/ic_action_info_black"
+                app:showAsAction="ifRoom|withText" />
 
             <item
                 android:id="@+id/action_setup_ip"
                 android:icon="@drawable/ic_action_setup_ip"
                 android:title="@string/action_setup_ip"
-                app:showAsAction="always|withText"/>
+                app:showAsAction="ifRoom|withText"/>
 
             <item
                 android:id="@+id/action_logout"
                 android:icon="@drawable/ic_action_sign_out"
                 android:title="@string/action_signout"
-                app:showAsAction="always|withText"/>
+                app:showAsAction="ifRoom|withText"/>
         </menu>
 
     </item>
