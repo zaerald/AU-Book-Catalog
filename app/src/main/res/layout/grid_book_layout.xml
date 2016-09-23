@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@android:color/background_light"
-    android:layout_width="102dp"
-    android:layout_height="230dp">
+    android:layout_height="230dp"
+    android:layout_width="110dp">
 
     <ImageView
         app:srcCompat="@drawable/book_dummy"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
-        android:layout_marginTop="1dp" />
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:text="About Faces"
