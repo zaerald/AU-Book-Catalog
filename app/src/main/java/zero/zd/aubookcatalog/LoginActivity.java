@@ -123,6 +123,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(LoginActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
         protected String doInBackground(String... strings) {
 
             String loginUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
@@ -135,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                     URL url = new URL(loginUrl);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                     httpURLConnection.setConnectTimeout(3000);
+                    httpURLConnection.setReadTimeout(3000);
 
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoInput(true);
@@ -181,11 +188,7 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
 
-        @Override
-        protected void onPreExecute() {
-            //super.onPreExecute();
-            mLoadingDialog = ProgressDialog.show(LoginActivity.this, "Please wait", "Loading...");
-        }
+
 
         @Override
         protected void onPostExecute(String s) {

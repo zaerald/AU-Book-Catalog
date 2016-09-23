@@ -1,22 +1,24 @@
-package zero.zd.aubookcatalog;
+package zero.zd.aubookcatalog.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class BookGridViewAdapter extends BaseAdapter {
+import java.util.List;
+
+import zero.zd.aubookcatalog.R;
+
+public class BookGridViewAdapter extends ArrayAdapter {
 
     private LayoutInflater inflater;
 
-    // test
-    private int[] resourceTest;
-
-    BookGridViewAdapter(LayoutInflater inflater, int[] resourceTest) {
+    public BookGridViewAdapter(Context context, int resource, List objects, LayoutInflater inflater) {
+        super(context, resource, objects);
         this.inflater = inflater;
-        this.resourceTest = resourceTest;
     }
 
     @Override
@@ -26,7 +28,7 @@ class BookGridViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return resourceTest[position];
+        return position;
     }
 
     @Override
@@ -60,8 +62,8 @@ class BookGridViewAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        ImageView imageView;
-        TextView txtBookTitle;
-        TextView txtBookType;
+        private ImageView imageView;
+        private TextView txtBookTitle;
+        private TextView txtBookType;
     }
 }
