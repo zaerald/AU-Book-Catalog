@@ -132,6 +132,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         switch (id) {
+
+            case R.id.action_refresh:
+                break;
+
             case R.id.action_settings:
                 break;
 
