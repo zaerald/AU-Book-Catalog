@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences preferences;
+    private int selectedNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +80,12 @@ public class MainActivity extends AppCompatActivity
         // welcome
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
-        navigationView.setCheckedItem(R.id.nav_dashboard);
+        navigationView.setCheckedItem(0);
 
         preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
         loadStudent();
 
-
+        selectedNav = ZConstants.NAV_DASHBOARD;
     }
 
     private void loadStudent() {
@@ -94,19 +95,24 @@ public class MainActivity extends AppCompatActivity
         String studId;
         if (!isLogged) {
             Bundle extras = getIntent().getExtras();
-            studId = extras.getString(ZConstants.DB_STUDENT_ID, "");
+            studId = extras.getString("student_id", "");
 
             // set login to true
             SharedPreferences.Editor prefsEditor;
             prefsEditor = preferences.edit();
             prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
-            prefsEditor.putString(ZConstants.DB_STUDENT_ID, studId);
+            prefsEditor.putString("student_id", studId);
             prefsEditor.apply();
         }
 
-        studId = preferences.getString(ZConstants.DB_STUDENT_ID, "");
+        studId = preferences.getString("student_id", "");
         View view = getWindow().getDecorView().getRootView();
         new GetNameTask(view).execute(studId);
+    }
+
+    private void execAllBooks() {
+        View view = getWindow().getDecorView().getRootView();
+        new GetBooksTask(view).execute();
     }
 
     @Override
@@ -130,17 +136,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         switch (id) {
 
             case R.id.action_refresh:
-                break;
+                //navigationView.getMenu().getItem().isChecked();
+                switch (selectedNav) {
+                    case ZConstants.NAV_DASHBOARD:
+                        break;
+                    case ZConstants.NAV_ALL_BOOKS:
+                        execAllBooks();
+                        break;
+                    case ZConstants.NAV_READ_BOOK:
+                        break;
+                    case ZConstants.NAV_DISCOVER_BOOK:
+                        break;
+                    case ZConstants.NAV_FAVORITES:
+                        break;
+                }
 
-            case R.id.action_settings:
-                break;
 
-            case R.id.action_info:
-                startActivity(new Intent(this, InformationActivity.class));
                 break;
 
             case R.id.action_setup_ip:
@@ -171,28 +185,41 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
 
             case R.id.nav_dashboard:
+                selectedNav = ZConstants.NAV_DASHBOARD;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DashboardFragment()).commit();
                 break;
 
             case R.id.nav_all_books:
-                View view = getWindow().getDecorView().getRootView();
-                new GetBooksTask(view).execute();
+                selectedNav = ZConstants.NAV_ALL_BOOKS;
+                execAllBooks();
                 break;
 
             case R.id.nav_read_book:
+                selectedNav = ZConstants.NAV_READ_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new ReadBookFragment()).commit();
                 break;
 
             case R.id.nav_discover:
+                selectedNav = ZConstants.NAV_DISCOVER_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
                 break;
 
             case R.id.nav_favorites:
+                selectedNav = ZConstants.NAV_FAVORITES;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new FavoritesFragment()).commit();
+                break;
+
+
+            // options
+            case R.id.nav_settings:
+                break;
+
+            case R.id.nav_info:
+                startActivity(new Intent(this, InformationActivity.class));
                 break;
 
         }

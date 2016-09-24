@@ -210,10 +210,10 @@ public class LoginActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-                    String studId = jsonArray.getJSONObject(0).getString(ZConstants.DB_STUDENT_ID);
+                    String studId = jsonArray.getJSONObject(0).getString("student_id");
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra(ZConstants.DB_STUDENT_ID, studId);
+                    intent.putExtra("student_id", studId);
                     startActivity(intent);
                     finish();
 

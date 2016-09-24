@@ -5,34 +5,53 @@
         android:id="@+id/menu"
         android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_toc"
-            android:title="Dashboard" />
+        <item android:title="@string/nav_title_menu">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_dashboard"
+                        android:icon="@drawable/ic_toc"
+                        android:title="@string/nav_dashboard"/>
 
-        <item
-            android:id="@+id/nav_all_books"
-            android:icon="@drawable/ic_dashboard_black_24dp"
-            android:title="All Books" />
+                    <item
+                        android:id="@+id/nav_all_books"
+                        android:icon="@drawable/ic_dashboard_black_24dp"
+                        android:title="@string/nav_all_books" />
 
-        <item
-            android:id="@+id/nav_read_book"
-            android:icon="@drawable/ic_read_book"
-            android:title="Read Book" />
+                    <item
+                        android:id="@+id/nav_read_book"
+                        android:icon="@drawable/ic_read_book"
+                        android:title="@string/nav_read_book" />
 
-        <item
-            android:id="@+id/nav_discover"
-            android:icon="@drawable/ic_explore_black_24dp"
-            android:title="Discover a Book" />
+                    <item
+                        android:id="@+id/nav_discover"
+                        android:icon="@drawable/ic_explore_black_24dp"
+                        android:title="@string/nav_discover_book" />
 
-        <item
-            android:id="@+id/nav_favorites"
-            android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="Favorites" />
+                    <item
+                        android:id="@+id/nav_favorites"
+                        android:icon="@drawable/ic_favorite_black_24dp"
+                        android:title="@string/nav_favorites" />
+                </group>
+            </menu>
+        </item>
+
+        <item android:title="@string/nav_title_options">
+            <menu>
+                <group>
+                    <item
+                        android:id="@+id/nav_settings"
+                        android:icon="@drawable/ic_action_settings"
+                        android:title="@string/nav_settings"/>
+
+                    <item
+                        android:id="@+id/nav_info"
+                        android:icon="@drawable/ic_action_info_black"
+                        android:title="@string/action_info"/>
+                </group>
+            </menu>
+        </item>
 
     </group>
-
-
-
 
 </menu>
