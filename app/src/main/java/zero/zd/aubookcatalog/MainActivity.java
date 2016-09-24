@@ -157,9 +157,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_all_books:
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new AllBooksFragment()).commit();
+                new GetBooksTask().execute();
                 break;
 
             case R.id.nav_read_book:
@@ -206,6 +204,7 @@ public class MainActivity extends AppCompatActivity
                 URL url = new URL(getName);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
 
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
@@ -287,6 +286,79 @@ public class MainActivity extends AppCompatActivity
             String usrOut = "@" + result.get(0).getUsername();
             txtViewUsername.setText(usrOut);
         }
+    }
+
+    private class GetBooksTask extends AsyncTask<Object, Object, String> {
+
+        @Override
+        protected String doInBackground(Object... strings) {
+
+            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/getbook.php";
+
+            try {
+
+                URL url = new URL(getName);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+//                String JsonResult = builder.toString();
+//                JSONObject jsonObject = new JSONObject(JsonResult);
+//                JSONArray jsonArray = jsonObject.getJSONArray("result");
+//
+//                List<BookGridModel> bookGridList = new ArrayList<>();
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject finalObject = jsonArray.getJSONObject(i);
+//                    BookGridModel bookGridModel = new BookGridModel();
+//                    bookGridModel.setBookImage(finalObject.getString("bookImage"));
+//                    bookGridModel.setBookTitle(finalObject.getString("title"));
+//                    bookGridModel.setBookType(finalObject.getString("type"));
+//                    bookGridList.add(bookGridModel);
+//                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return builder.toString();
+
+            } catch(IOException e) {
+                Log.e("ERR", "Error in getting book: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            FragmentManager fragmentManager = getFragmentManager();
+            AllBooksFragment allBooksFragment = new AllBooksFragment();
+            Bundle args = new Bundle();
+            args.putString("result", result);
+            allBooksFragment.setArguments(args);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, allBooksFragment).commit();
+        }
+
+
     }
 
 

@@ -1,6 +1,7 @@
 package zero.zd.aubookcatalog.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,24 +12,29 @@ import android.widget.TextView;
 import java.util.List;
 
 import zero.zd.aubookcatalog.R;
+import zero.zd.aubookcatalog.model.BookGridModel;
 
 public class BookGridViewAdapter extends ArrayAdapter {
 
-    private LayoutInflater inflater;
+    Context context;
+    private int resource;
+    private List<BookGridModel> bookList;
 
-    public BookGridViewAdapter(Context context, int resource, List objects, LayoutInflater inflater) {
-        super(context, resource, objects);
-        this.inflater = inflater;
+    public BookGridViewAdapter(Context context, int resource, List<BookGridModel> bookList) {
+        super(context, resource, bookList);
+        this.context = context;
+        this.bookList = bookList;
+        this.resource = resource;
     }
 
     @Override
     public int getCount() {
-        return 100;
+        return bookList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return bookList.get(position);
     }
 
     @Override
@@ -41,8 +47,8 @@ public class BookGridViewAdapter extends ArrayAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-
-            convertView = inflater.inflate(R.layout.grid_book_layout, parent, false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(resource, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
@@ -55,8 +61,10 @@ public class BookGridViewAdapter extends ArrayAdapter {
         }
 
         viewHolder.imageView.setImageResource(R.drawable.book_dummy);
-        viewHolder.txtBookTitle.setText("SOOOOOO LOOOONGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-        viewHolder.txtBookType.setText("PDF");
+        viewHolder.txtBookTitle.setText(bookList.get(position).getBookTitle());
+        viewHolder.txtBookType.setText(bookList.get(position).getBookType());
+
+        Log.i("NFO", "Book TYPE: " + bookList.get(0).getBookType());
 
         return convertView;
     }
