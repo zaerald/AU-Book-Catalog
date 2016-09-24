@@ -137,6 +137,11 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.action_info:
                 startActivity(new Intent(this, InformationActivity.class));
+                break;
+
+            case R.id.action_setup_ip:
+                startActivity(new Intent(this, SetupIPActivity.class));
+                break;
 
             case R.id.action_logout:
                 SharedPreferences.Editor prefsEditor;
@@ -147,9 +152,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
-
         }
-
         return true;
     }
 
