@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/darker_gray"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <GridView
         android:layout_width="match_parent"
@@ -14,7 +16,7 @@
         android:clickable="true"
         android:verticalSpacing="5dp"
         android:numColumns="auto_fit"
-        android:stretchMode="spacingWidthUniform"
+        android:stretchMode="spacingWidth"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp" />
 </RelativeLayout>
