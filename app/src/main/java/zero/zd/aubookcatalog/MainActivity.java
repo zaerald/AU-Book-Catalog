@@ -35,6 +35,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import zero.zd.aubookcatalog.model.UserModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,10 +71,13 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
-
-
         preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        loadStudent();
 
+
+    }
+
+    private void loadStudent() {
         // check if isLogged
         boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
 
@@ -88,8 +95,7 @@ public class MainActivity extends AppCompatActivity
 
         studId = preferences.getString(ZConstants.DB_STUDENT_ID, "");
         View v = getWindow().getDecorView().getRootView();
-        new DatabaseWorker(v).execute(studId);
-
+        new GetNameTask(v).execute(studId);
     }
 
     @Override
@@ -151,9 +157,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_all_books:
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new AllBooksFragment()).commit();
+                new GetBooksTask().execute();
                 break;
 
             case R.id.nav_read_book:
@@ -171,8 +175,6 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.rootView, new FavoritesFragment()).commit();
                 break;
 
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -180,18 +182,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private class DatabaseWorker extends AsyncTask<String, Void, String> {
+    private class GetNameTask extends AsyncTask<String, Void, List<UserModel>> {
         Dialog mLoadingDialog;
 
         // view from btn to create Snackbar
         View mView;
 
-        public DatabaseWorker(View view) {
+        public GetNameTask(View view) {
             mView = view;
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected List<UserModel> doInBackground(String... strings) {
 
             String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
                     + "/aubookcatalog/getname.php";
@@ -202,6 +204,7 @@ public class MainActivity extends AppCompatActivity
                 URL url = new URL(getName);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
 
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
@@ -224,10 +227,23 @@ public class MainActivity extends AppCompatActivity
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
 
-                String result = "";
+                StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
+                    builder.append(line);
+                }
+
+                String JsonResult = builder.toString();
+                JSONObject jsonObject = new JSONObject(JsonResult);
+                JSONArray jsonArray = jsonObject.getJSONArray("result");
+
+                List<UserModel> userList = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject finalObject = jsonArray.getJSONObject(i);
+                    UserModel userModel = new UserModel();
+                    userModel.setUsername(finalObject.getString("username"));
+                    userModel.setFullname(finalObject.getString("fullname"));
+                    userList.add(userModel);
                 }
 
                 bufferedReader.close();
@@ -236,9 +252,9 @@ public class MainActivity extends AppCompatActivity
 
                 Log.i("NFO", "no err");
 
-                return result;
+                return userList;
 
-            } catch(IOException e) {
+            } catch(IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
             }
 
@@ -252,52 +268,98 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(List<UserModel> result) {
             //super.onPostExecute(s);
             mLoadingDialog.dismiss();
 
             // check if connected
-            if (s == null) {
+            if (result == null) {
                 Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
                 return;
             }
 
-            String out = s.trim();
+            TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
+            TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
 
-            if(!s.equals(ZConstants.DB_FAIL)) {
-                // parse
-
-                String name = "";
-                String username = "";
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONArray jsonArray = jsonObject.getJSONArray("result");
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jo = jsonArray.getJSONObject(i);
-                        username = jo.getString("username");
-                        name = jo.getString("name");
-                    }
-
-                } catch(JSONException e) {
-                    e.printStackTrace();
-                }
-
-                TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
-                TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
-
-                txtViewName.setText(name);
-                String usrOut = "@" + username;
-                txtViewUsername.setText(usrOut);
-
-            } else {
-                Snackbar.make(mView, "Cannot find Student ID", Snackbar.LENGTH_LONG).show();
-            }
-
-            Log.i("NFO", "Getting Name NFO: " + out);
-
-
+            txtViewName.setText(result.get(0).getFullname());
+            String usrOut = "@" + result.get(0).getUsername();
+            txtViewUsername.setText(usrOut);
         }
     }
+
+    private class GetBooksTask extends AsyncTask<Object, Object, String> {
+
+        @Override
+        protected String doInBackground(Object... strings) {
+
+            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/getbook.php";
+
+            try {
+
+                URL url = new URL(getName);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+//                String JsonResult = builder.toString();
+//                JSONObject jsonObject = new JSONObject(JsonResult);
+//                JSONArray jsonArray = jsonObject.getJSONArray("result");
+//
+//                List<BookGridModel> bookGridList = new ArrayList<>();
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject finalObject = jsonArray.getJSONObject(i);
+//                    BookGridModel bookGridModel = new BookGridModel();
+//                    bookGridModel.setBookImage(finalObject.getString("bookImage"));
+//                    bookGridModel.setBookTitle(finalObject.getString("title"));
+//                    bookGridModel.setBookType(finalObject.getString("type"));
+//                    bookGridList.add(bookGridModel);
+//                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return builder.toString();
+
+            } catch(IOException e) {
+                Log.e("ERR", "Error in getting book: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            FragmentManager fragmentManager = getFragmentManager();
+            AllBooksFragment allBooksFragment = new AllBooksFragment();
+            Bundle args = new Bundle();
+            args.putString("result", result);
+            allBooksFragment.setArguments(args);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, allBooksFragment).commit();
+        }
+
+
+    }
+
+
 }
