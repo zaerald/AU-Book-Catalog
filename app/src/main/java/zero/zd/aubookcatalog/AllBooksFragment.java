@@ -3,6 +3,7 @@ package zero.zd.aubookcatalog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,27 +29,29 @@ public class AllBooksFragment extends Fragment{
 
         String JsonResult = getArguments().getString("result");
 
-        try {
-            JSONObject jsonObject = new JSONObject(JsonResult);
-            JSONArray jsonArray = jsonObject.getJSONArray("result");
+        if (JsonResult != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(JsonResult);
+                JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-            List<BookGridModel> bookGridList = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject finalObject = jsonArray.getJSONObject(i);
-                BookGridModel bookGridModel = new BookGridModel();
-                bookGridModel.setBookImage(finalObject.getString("bookImage"));
-                bookGridModel.setBookTitle(finalObject.getString("title"));
-                bookGridModel.setBookType(finalObject.getString("type"));
-                bookGridList.add(bookGridModel);
+                List<BookGridModel> bookGridList = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject finalObject = jsonArray.getJSONObject(i);
+                    BookGridModel bookGridModel = new BookGridModel();
+                    bookGridModel.setBookImage(finalObject.getString("bookImage"));
+                    bookGridModel.setBookTitle(finalObject.getString("title"));
+                    bookGridModel.setBookType(finalObject.getString("type"));
+                    bookGridList.add(bookGridModel);
+                }
+
+                BookGridViewAdapter adapter =
+                        new BookGridViewAdapter(getActivity().getApplicationContext(),
+                                R.layout.grid_book_layout, bookGridList);
+
+                gridView.setAdapter(adapter);
+            } catch (JSONException e) {
+                Log.e("ERR", e.getMessage());
             }
-
-            BookGridViewAdapter adapter =
-                    new BookGridViewAdapter(getActivity().getApplicationContext(),
-                            R.layout.grid_book_layout, bookGridList);
-
-            gridView.setAdapter(adapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         return view;

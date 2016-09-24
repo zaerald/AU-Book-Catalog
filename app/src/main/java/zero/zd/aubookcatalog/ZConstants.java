@@ -14,6 +14,7 @@ public class ZConstants {
     //preferences
     public static final String SETTINGS = "settings";
     public static final String IS_LOGGED = "isLogged";
+    public static final String ALL_BOOKS_RESULT = "all_books_result";
 
     // DB
     public static final String DB_STUDENT_ID = "student_id";

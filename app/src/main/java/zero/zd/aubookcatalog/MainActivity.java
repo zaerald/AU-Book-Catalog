@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         studId = preferences.getString(ZConstants.DB_STUDENT_ID, "");
-        View v = getWindow().getDecorView().getRootView();
-        new GetNameTask(v).execute(studId);
+        View view = getWindow().getDecorView().getRootView();
+        new GetNameTask(view).execute(studId);
     }
 
     @Override
@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_all_books:
-                new GetBooksTask().execute();
+                View view = getWindow().getDecorView().getRootView();
+                new GetBooksTask(view).execute();
                 break;
 
             case R.id.nav_read_book:
@@ -205,6 +206,12 @@ public class MainActivity extends AppCompatActivity
 
         public GetNameTask(View view) {
             mView = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
         }
 
         @Override
@@ -277,12 +284,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onPreExecute() {
-            //super.onPreExecute();
-            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
-        }
-
-        @Override
         protected void onPostExecute(List<UserModel> result) {
             //super.onPostExecute(s);
             mLoadingDialog.dismiss();
@@ -304,6 +305,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     private class GetBooksTask extends AsyncTask<Object, Object, String> {
+
+        Dialog mLoadingDialog;
+        View view;
+
+        public GetBooksTask(View view) {
+            this.view = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+        }
 
         @Override
         protected String doInBackground(Object... strings) {
@@ -351,6 +365,23 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            mLoadingDialog.dismiss();
+
+
+            if (result == null) {
+                Snackbar.make(view, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+                // load old result
+                result = preferences.getString(ZConstants.ALL_BOOKS_RESULT, null);
+            } else {
+                // refresh prefs
+                SharedPreferences.Editor prefsEditor;
+                prefsEditor = preferences.edit();
+                prefsEditor.putString(ZConstants.ALL_BOOKS_RESULT, result);
+                prefsEditor.apply();
+            }
+
             FragmentManager fragmentManager = getFragmentManager();
             AllBooksFragment allBooksFragment = new AllBooksFragment();
             Bundle args = new Bundle();
