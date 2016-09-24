@@ -1,13 +1,18 @@
 package zero.zd.aubookcatalog.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -52,6 +57,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
 
             viewHolder = new ViewHolder();
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
             viewHolder.txtBookTitle = (TextView) convertView.findViewById(R.id.txtBookTitle);
             viewHolder.txtBookType = (TextView) convertView.findViewById(R.id.txtBookType);
 
@@ -60,18 +66,39 @@ public class BookGridViewAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.imageView.setImageResource(R.drawable.book_dummy);
+        final ViewHolder holder = viewHolder;
+        ImageLoader.getInstance().displayImage(bookList.get(position).getBookImage(), viewHolder.imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                holder.progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+        });
         viewHolder.txtBookTitle.setText(bookList.get(position).getBookTitle());
         viewHolder.txtBookType.setText(bookList.get(position).getBookType());
-
-        Log.i("NFO", "Book TYPE: " + bookList.get(0).getBookType());
 
         return convertView;
     }
 
     private class ViewHolder {
         private ImageView imageView;
+        private ProgressBar progressBar;
         private TextView txtBookTitle;
         private TextView txtBookType;
+
     }
 }

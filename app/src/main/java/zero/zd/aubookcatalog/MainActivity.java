@@ -21,6 +21,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,6 +69,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // for loading images
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions).build();
+        ImageLoader.getInstance().init(config);
 
         // welcome
         FragmentManager fm = getFragmentManager();
@@ -292,13 +303,14 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Object... strings) {
-
-            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
-                    + "/aubookcatalog/getbook.php";
+            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/";
+            String getBook = server + "getbook.php";
+            ZConstants.getInstance().setServer(server);
 
             try {
 
-                URL url = new URL(getName);
+                URL url = new URL(getBook);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
                 httpURLConnection.setReadTimeout(3000);
@@ -316,20 +328,6 @@ public class MainActivity extends AppCompatActivity
                 while ((line = bufferedReader.readLine()) != null) {
                     builder.append(line);
                 }
-
-//                String JsonResult = builder.toString();
-//                JSONObject jsonObject = new JSONObject(JsonResult);
-//                JSONArray jsonArray = jsonObject.getJSONArray("result");
-//
-//                List<BookGridModel> bookGridList = new ArrayList<>();
-//                for (int i = 0; i < jsonArray.length(); i++) {
-//                    JSONObject finalObject = jsonArray.getJSONObject(i);
-//                    BookGridModel bookGridModel = new BookGridModel();
-//                    bookGridModel.setBookImage(finalObject.getString("bookImage"));
-//                    bookGridModel.setBookTitle(finalObject.getString("title"));
-//                    bookGridModel.setBookType(finalObject.getString("type"));
-//                    bookGridList.add(bookGridModel);
-//                }
 
                 bufferedReader.close();
                 inputStream.close();
