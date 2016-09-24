@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences preferences;
-    private SharedPreferences.Editor prefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity
             studId = extras.getString(ZConstants.DB_STUDENT_ID, "");
 
             // set login to true
+            SharedPreferences.Editor prefsEditor;
             prefsEditor = preferences.edit();
             prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
             prefsEditor.putString(ZConstants.DB_STUDENT_ID, studId);
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(this, InformationActivity.class));
 
             case R.id.action_logout:
+                SharedPreferences.Editor prefsEditor;
                 prefsEditor = preferences.edit();
                 prefsEditor.putBoolean(ZConstants.IS_LOGGED, false);
                 prefsEditor.apply();
