@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="#5260b1"
+    android:background="@drawable/drawer_bg"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,5 +26,16 @@
         android:layout_height="wrap_content"
         android:text="username here"
         android:layout_alignParentBottom="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/au_logo"
+        android:layout_centerInParent="false"
+        android:id="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="false"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/txtViewName" />
 
 </RelativeLayout>
