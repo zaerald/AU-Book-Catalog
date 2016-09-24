@@ -153,8 +153,6 @@ public class MainActivity extends AppCompatActivity
                     case ZConstants.NAV_FAVORITES:
                         break;
                 }
-
-
                 break;
 
             case R.id.action_setup_ip:
@@ -367,6 +365,8 @@ public class MainActivity extends AppCompatActivity
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
+
+
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(

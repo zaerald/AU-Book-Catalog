@@ -38,8 +38,9 @@ public class AllBooksFragment extends Fragment{
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     BookGridModel bookGridModel = new BookGridModel();
-                    bookGridModel.setBookImage(finalObject.getString("bookImage"));
-                    bookGridModel.setBookTitle(finalObject.getString("title"));
+                    bookGridModel.setBookId(finalObject.getInt("book_id"));
+                    bookGridModel.setBookImage(finalObject.getString("book_img"));
+                    bookGridModel.setBookTitle(finalObject.getString("book_name"));
                     bookGridModel.setBookType(finalObject.getString("type"));
                     bookGridList.add(bookGridModel);
                 }
@@ -50,7 +51,8 @@ public class AllBooksFragment extends Fragment{
 
                 gridView.setAdapter(adapter);
             } catch (JSONException e) {
-                Log.e("ERR", e.getMessage());
+                Log.e("JSON ERR", e.getMessage());
+                e.printStackTrace();
             }
         }
 
