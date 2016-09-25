@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity
         // view from btn to create Snackbar
         View mView;
 
-        public GetNameTask(View view) {
+        GetNameTask(View view) {
             mView = view;
         }
 
@@ -292,6 +293,7 @@ public class MainActivity extends AppCompatActivity
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     UserModel userModel = new UserModel();
+                    userModel.setStudentId(studentId);
                     userModel.setUsername(finalObject.getString("username"));
                     userModel.setFullname(finalObject.getString("fullname"));
                     userList.add(userModel);
@@ -325,9 +327,11 @@ public class MainActivity extends AppCompatActivity
             }
 
             TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
+            TextView txtStudentid = (TextView) findViewById(R.id.txtStudentId);
             TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
 
             txtViewName.setText(result.get(0).getFullname());
+            txtStudentid.setText(result.get(0).getStudentId());
             String usrOut = "@" + result.get(0).getUsername();
             txtViewUsername.setText(usrOut);
         }
@@ -338,7 +342,7 @@ public class MainActivity extends AppCompatActivity
         Dialog mLoadingDialog;
         View view;
 
-        public GetBooksTask(View view) {
+        GetBooksTask(View view) {
             this.view = view;
         }
 
