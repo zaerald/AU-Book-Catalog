@@ -45,7 +45,7 @@ public class AllBooksFragment extends Fragment{
                     BookGridModel bookGridModel = new BookGridModel();
                     bookGridModel.setBookId(finalObject.getLong("book_id"));
                     bookGridModel.setBookImage(finalObject.getString("book_img"));
-                    bookGridModel.setBookTitle(finalObject.getString("book_name"));
+                    bookGridModel.setBookTitle(finalObject.getString("book_title"));
                     bookGridModel.setBookType(finalObject.getString("type"));
                     bookGridList.add(bookGridModel);
                 }

@@ -1,7 +1,5 @@
 package zero.zd.aubookcatalog.model;
 
-import android.util.Log;
-
 import zero.zd.aubookcatalog.ZConstants;
 
 public class BookGridModel {
@@ -24,11 +22,8 @@ public class BookGridModel {
     }
 
     public void setBookImage(String bookImage) {
-
         String bookPath = "/book_img/";
-        String bookLoc = ZConstants.getInstance().getServer() + bookPath + bookImage;
-        Log.i("NFO", bookLoc);
-        this.bookImage = bookLoc;
+        this.bookImage = ZConstants.getInstance().getServer() + bookPath + bookImage;
     }
 
     public String getBookTitle() {
