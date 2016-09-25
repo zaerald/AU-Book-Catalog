@@ -48,14 +48,12 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_setup"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".BookInformationActivity"
-            android:label="@string/ittle_activity_bookinfo"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:label="@string/ittle_activity_bookinfo"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
