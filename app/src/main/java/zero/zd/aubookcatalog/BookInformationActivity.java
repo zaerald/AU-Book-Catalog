@@ -3,15 +3,20 @@ package zero.zd.aubookcatalog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -160,6 +165,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             TextView tvBookTitle = (TextView) findViewById(R.id.tvBookTitle);
             ImageView imgBook = (ImageView) findViewById(R.id.imgBook);
+            final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
             TextView tvAuthor = (TextView) findViewById(R.id.tvAuthor);
             TextView tvSubject = (TextView) findViewById(R.id.tvSubject);
             TextView tvPages = (TextView) findViewById(R.id.tvPages);
@@ -168,9 +174,30 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
 
+
             tvBookTitle.setText(bookModel.get(0).getBookTitle());
             String author = "Author: " + bookModel.get(0).getAuthor();
-            ImageLoader.getInstance().displayImage(bookModel.get(0).getBookImage(), imgBook);
+            ImageLoader.getInstance().displayImage(bookModel.get(0).getBookImage(), imgBook, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
             tvAuthor.setText(author);
             String subject = "Subject: " + bookModel.get(0).getSubject();
             tvSubject.setText(subject);

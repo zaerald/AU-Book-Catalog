@@ -7,4 +7,5 @@
     <color name="black_overlay">#66000000</color>
     <color name="all_books">#BDBDBD</color>
     <color name="grid_book_container">#ffffff</color>
+    <color name="semi_black">#212121</color>
 </resources>

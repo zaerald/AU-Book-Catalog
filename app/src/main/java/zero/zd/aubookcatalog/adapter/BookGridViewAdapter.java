@@ -67,7 +67,8 @@ public class BookGridViewAdapter extends ArrayAdapter {
         }
 
         final ViewHolder holder = viewHolder;
-        ImageLoader.getInstance().displayImage(bookList.get(position).getBookImage(), viewHolder.imageView, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(bookList.get(position).getBookImage(),
+                viewHolder.imageView, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
                 holder.progressBar.setVisibility(View.VISIBLE);

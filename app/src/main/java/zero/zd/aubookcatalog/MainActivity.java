@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity
         ImageLoader.getInstance().init(config);
 
         // welcome
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
+        execDashboard();
         navigationView.setCheckedItem(0);
 
         preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
@@ -116,6 +115,11 @@ public class MainActivity extends AppCompatActivity
         new GetBookTask(view).execute();
     }
 
+    private void execDashboard() {
+        View view = getWindow().getDecorView().getRootView();
+        new GetDashboardTask(view).execute();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,11 +142,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-
             case R.id.action_refresh:
+                loadStudent();
                 //navigationView.getMenu().getItem().isChecked();
                 switch (selectedNav) {
                     case ZConstants.NAV_DASHBOARD:
+                        execDashboard();
                         break;
                     case ZConstants.NAV_ALL_BOOKS:
                         execAllBooks();
@@ -152,6 +157,7 @@ public class MainActivity extends AppCompatActivity
                     case ZConstants.NAV_DISCOVER_BOOK:
                         break;
                     case ZConstants.NAV_FAVORITES:
+
                         break;
                 }
                 break;
@@ -185,8 +191,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_dashboard:
                 selectedNav = ZConstants.NAV_DASHBOARD;
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new DashboardFragment()).commit();
+                execDashboard();
                 break;
 
             case R.id.nav_all_books:
@@ -429,5 +434,88 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private class GetDashboardTask extends AsyncTask<Object, Object, String> {
 
+        Dialog mLoadingDialog;
+        View view;
+
+        GetDashboardTask(View view) {
+            this.view = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected String doInBackground(Object... strings) {
+            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/";
+            String getDash = server + "getdash.php";
+            ZConstants.getInstance().setServer(server);
+
+            Log.i("NFO", "SERVER: " + getDash);
+
+            try {
+
+                URL url = new URL(getDash);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return builder.toString();
+
+            } catch(IOException e) {
+                Log.e("ERR", "Error in getting dash: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            mLoadingDialog.dismiss();
+
+            if (result == null) {
+                Snackbar.make(view, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", "RESULT: " + result);
+
+            FragmentManager fragmentManager = getFragmentManager();
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            Bundle args = new Bundle();
+            args.putString("result", result);
+            dashboardFragment.setArguments(args);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, dashboardFragment).commit();
+        }
+
+
+    }
 }
