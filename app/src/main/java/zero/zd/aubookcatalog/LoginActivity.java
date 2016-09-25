@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         databaseWorker.execute(userName, password);
     }
 
-    public void onClickRegister(View v) {
+    public void onClickSignUp(View v) {
         startActivity(new Intent(this, RegistrationActivity.class));
     }
 

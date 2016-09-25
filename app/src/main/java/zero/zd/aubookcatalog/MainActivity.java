@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
         // welcome
         execDashboard();
-        navigationView.setCheckedItem(0);
+        navigationView.setCheckedItem(R.id.nav_dashboard);
 
         preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
         loadStudent();
