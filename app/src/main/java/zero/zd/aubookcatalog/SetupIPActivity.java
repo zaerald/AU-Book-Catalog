@@ -27,7 +27,7 @@ public class SetupIPActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         updateText();
     }

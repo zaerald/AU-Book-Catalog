@@ -44,7 +44,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
 
     @Override
     public long getItemId(int position) {
-        return (long) bookList.get(position).getBookId();
+        return bookList.get(position).getBookId();
     }
 
     @Override

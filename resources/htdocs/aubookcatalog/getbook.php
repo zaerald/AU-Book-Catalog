@@ -1,7 +1,7 @@
 <?php
    require "conn.php";
    
-    $sql = "SELECT book_id, book_img, book_name, type FROM tblbook;";
+    $sql = "SELECT book_id, book_img, book_title, type FROM tblbook;";
 
     $res = mysqli_query($conn, $sql);
 	$result = array();

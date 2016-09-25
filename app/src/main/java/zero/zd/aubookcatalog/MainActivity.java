@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().replace(R.id.rootView, new DashboardFragment()).commit();
         navigationView.setCheckedItem(0);
 
-        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
         loadStudent();
 
         selectedNav = ZConstants.NAV_DASHBOARD;
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
 
     private void execAllBooks() {
         View view = getWindow().getDecorView().getRootView();
-        new GetBooksTask(view).execute();
+        new GetBookTask(view).execute();
     }
 
     @Override
@@ -337,12 +337,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private class GetBooksTask extends AsyncTask<Object, Object, String> {
+    private class GetBookTask extends AsyncTask<Object, Object, String> {
 
         Dialog mLoadingDialog;
         View view;
 
-        GetBooksTask(View view) {
+        GetBookTask(View view) {
             this.view = view;
         }
 

@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
 
         // check if user has already logged in
         boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);

@@ -49,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
-        preferences = getSharedPreferences(ZConstants.SETTINGS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);

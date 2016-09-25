@@ -2,7 +2,6 @@ package zero.zd.aubookcatalog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class InformationActivity extends AppCompatActivity {
@@ -14,8 +13,6 @@ public class InformationActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        Log.i("NFO", "isNull: " + getSupportActionBar());
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ZConstants {
     public static final String DB_ENCODE_TYPE="UTF-8";
 
     // preferences
-    public static final String SETTINGS = "settings";
+    public static final String PREFS = "settings";
     public static final String IS_LOGGED = "isLogged";
     public static final String ALL_BOOKS_RESULT = "all_books_result";
 
