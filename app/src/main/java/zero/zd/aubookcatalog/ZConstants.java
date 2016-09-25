@@ -15,6 +15,7 @@ public class ZConstants {
     static final String PREFS = "settings";
     static final String IS_LOGGED = "isLogged";
     static final String ALL_BOOKS_RESULT = "all_books_result";
+    static final String FAV_BOOKS_RESULT = "fav_books_result";
 
     // nav
     static final int NAV_DASHBOARD = 0;

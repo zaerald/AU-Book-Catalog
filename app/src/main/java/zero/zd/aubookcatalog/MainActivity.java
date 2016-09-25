@@ -110,15 +110,22 @@ public class MainActivity extends AppCompatActivity
         new GetNameTask(view).execute(studId);
     }
 
+    private void execDashboard() {
+        View view = getWindow().getDecorView().getRootView();
+        new GetDashboardTask(view).execute();
+    }
+
+
     private void execAllBooks() {
         View view = getWindow().getDecorView().getRootView();
         new GetBookTask(view).execute();
     }
 
-    private void execDashboard() {
+    private void execFavorite() {
         View view = getWindow().getDecorView().getRootView();
-        new GetDashboardTask(view).execute();
+        new GetFavoritetask(view).execute();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity
                     case ZConstants.NAV_DISCOVER_BOOK:
                         break;
                     case ZConstants.NAV_FAVORITES:
-
+                        execFavorite();
                         break;
                 }
                 break;
@@ -213,13 +220,13 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_favorites:
                 selectedNav = ZConstants.NAV_FAVORITES;
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new FavoritesFragment()).commit();
+                execFavorite();
                 break;
 
 
             // options
             case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
             case R.id.nav_info:
@@ -342,6 +349,91 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private class GetDashboardTask extends AsyncTask<Object, Object, String> {
+
+        Dialog mLoadingDialog;
+        View view;
+
+        GetDashboardTask(View view) {
+            this.view = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected String doInBackground(Object... strings) {
+            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/";
+            String getDash = server + "getdash.php";
+            ZConstants.getInstance().setServer(server);
+
+            Log.i("NFO", "SERVER: " + getDash);
+
+            try {
+
+                URL url = new URL(getDash);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return builder.toString();
+
+            } catch(IOException e) {
+                Log.e("ERR", "Error in getting dash: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            mLoadingDialog.dismiss();
+
+            if (result == null) {
+                Snackbar.make(view, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", "RESULT: " + result);
+
+            FragmentManager fragmentManager = getFragmentManager();
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            Bundle args = new Bundle();
+            args.putString("result", result);
+            dashboardFragment.setArguments(args);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.rootView, dashboardFragment).commit();
+        }
+
+
+    }
+
     private class GetBookTask extends AsyncTask<Object, Object, String> {
 
         Dialog mLoadingDialog;
@@ -434,12 +526,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class GetDashboardTask extends AsyncTask<Object, Object, String> {
+    private class GetFavoritetask extends AsyncTask<Object, Object, String> {
 
         Dialog mLoadingDialog;
         View view;
 
-        GetDashboardTask(View view) {
+        GetFavoritetask(View view) {
             this.view = view;
         }
 
@@ -453,14 +545,13 @@ public class MainActivity extends AppCompatActivity
         protected String doInBackground(Object... strings) {
             String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
                     + "/aubookcatalog/";
-            String getDash = server + "getdash.php";
+            String getBook = server + "getfav.php";
             ZConstants.getInstance().setServer(server);
 
-            Log.i("NFO", "SERVER: " + getDash);
-
             try {
+                String studentId = preferences.getString("student_id", null);
 
-                URL url = new URL(getDash);
+                URL url = new URL(getBook);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
                 httpURLConnection.setReadTimeout(3000);
@@ -468,6 +559,20 @@ public class MainActivity extends AppCompatActivity
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
@@ -488,7 +593,7 @@ public class MainActivity extends AppCompatActivity
                 return builder.toString();
 
             } catch(IOException e) {
-                Log.e("ERR", "Error in getting dash: " + e.getMessage());
+                Log.e("ERR", "Error in getting fav: " + e.getMessage());
             }
 
             return null;
@@ -500,22 +605,31 @@ public class MainActivity extends AppCompatActivity
 
             mLoadingDialog.dismiss();
 
+
             if (result == null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
+                // load old result
+                result = preferences.getString(ZConstants.FAV_BOOKS_RESULT, null);
+            } else {
+                // refresh prefs
+                SharedPreferences.Editor prefsEditor;
+                prefsEditor = preferences.edit();
+                prefsEditor.putString(ZConstants.FAV_BOOKS_RESULT, result);
+                prefsEditor.apply();
             }
 
-            Log.i("NFO", "RESULT: " + result);
-
             FragmentManager fragmentManager = getFragmentManager();
-            DashboardFragment dashboardFragment = new DashboardFragment();
+            FavoritesFragment favoritesFragment = new FavoritesFragment();
             Bundle args = new Bundle();
             args.putString("result", result);
-            dashboardFragment.setArguments(args);
+            favoritesFragment.setArguments(args);
             fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, dashboardFragment).commit();
+                    .replace(R.id.rootView, favoritesFragment).commit();
         }
 
 
     }
+
+
 }

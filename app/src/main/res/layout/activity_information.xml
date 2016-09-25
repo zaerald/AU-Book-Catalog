@@ -36,8 +36,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imageView"
                 android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:layout_above="@+id/textViewNfoDescription" />
+                android:gravity="center_vertical" />
 
             <TextView
                 android:layout_width="match_parent"

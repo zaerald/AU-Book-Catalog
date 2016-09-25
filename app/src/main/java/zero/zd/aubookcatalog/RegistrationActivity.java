@@ -112,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    public void onClickRegister(View v) {
+    public void onClickSignUp(View v) {
 
         String firstName = txtFirstName.getText().toString();
         String lastName = txtLastName.getText().toString();
