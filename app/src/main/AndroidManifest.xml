@@ -12,47 +12,43 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
             android:configChanges="orientation"
+            android:label="@string/title_activity_login"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration"
             android:configChanges="orientation"
+            android:label="@string/title_activity_registration"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity
             android:name=".InformationActivity"
-            android:label="@string/title_activity_info"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:label="@string/title_activity_info"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SetupIPActivity"
-            android:label="@string/title_activity_setup"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:label="@string/title_activity_setup"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BookInformationActivity"></activity>
     </application>
 
 </manifest>

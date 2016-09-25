@@ -1,12 +1,12 @@
 <?php
    require "conn.php";
-
-    $sql = "SELECT book_img, book_name, type FROM tblbook;";
+   
+    $sql = "SELECT book_id, book_img, book_name, type FROM tblbook;";
 
     $res = mysqli_query($conn, $sql);
 	$result = array();
 	
-	
+	/*
     while($row = mysqli_fetch_array($res)) {
         array_push($result, array(
 			'bookImage'=>$row[0],
@@ -14,6 +14,10 @@
 			'type'=>$row[2]
 		));
     }
-	echo json_encode(array("result"=>$result));
+	*/
+	while ($row=mysqli_fetch_assoc($res)) {
+		$result['result'][] = $row;
+	}
+	echo json_encode($result);
     mysqli_close($conn);
 ?>

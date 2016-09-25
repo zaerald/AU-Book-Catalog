@@ -6,16 +6,16 @@ import zero.zd.aubookcatalog.ZConstants;
 
 public class BookGridModel {
 
-    private int bookId;
+    private long bookId;
     private String bookImage;
     private String bookTitle;
     private String bookType;
 
-    public int getBookId() {
+    public long getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(long bookId) {
         this.bookId = bookId;
     }
 
