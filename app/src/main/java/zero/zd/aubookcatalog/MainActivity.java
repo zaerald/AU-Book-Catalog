@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         ImageLoader.getInstance().init(config);
 
         // welcome
-        execDashboard();
+        //execDashboard();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
         preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);

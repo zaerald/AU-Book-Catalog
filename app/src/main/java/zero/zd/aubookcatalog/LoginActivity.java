@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtUserName;
     private EditText txtPass;
 
+    private Dialog mLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +114,19 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        try {
+            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                mLoadingDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
+    }
+
     private class DatabaseWorker extends AsyncTask<String, Void, String>{
-        Dialog mLoadingDialog;
 
         // view from btn to create Snackbar
         View mView;
