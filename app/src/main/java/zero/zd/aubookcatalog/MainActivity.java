@@ -88,6 +88,27 @@ public class MainActivity extends AppCompatActivity
         selectedNav = ZConstants.NAV_DASHBOARD;
     }
 
+    private void reloadAll() {
+        loadStudent();
+        //navigationView.getMenu().getItem().isChecked();
+        switch (selectedNav) {
+            case ZConstants.NAV_DASHBOARD:
+                execDashboard();
+                break;
+            case ZConstants.NAV_ALL_BOOKS:
+                execAllBooks();
+                break;
+            case ZConstants.NAV_READ_BOOK:
+                break;
+            case ZConstants.NAV_DISCOVER_BOOK:
+                break;
+            case ZConstants.NAV_FAVORITES:
+                execFavorite();
+                break;
+        }
+    }
+
+
     private void loadStudent() {
         // check if isLogged
         boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
@@ -127,6 +148,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -150,23 +173,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_refresh:
-                loadStudent();
-                //navigationView.getMenu().getItem().isChecked();
-                switch (selectedNav) {
-                    case ZConstants.NAV_DASHBOARD:
-                        execDashboard();
-                        break;
-                    case ZConstants.NAV_ALL_BOOKS:
-                        execAllBooks();
-                        break;
-                    case ZConstants.NAV_READ_BOOK:
-                        break;
-                    case ZConstants.NAV_DISCOVER_BOOK:
-                        break;
-                    case ZConstants.NAV_FAVORITES:
-                        execFavorite();
-                        break;
-                }
+                reloadAll();
                 break;
 
             case R.id.action_setup_ip:
@@ -238,6 +245,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadAll();
     }
 
     private class GetNameTask extends AsyncTask<String, Void, List<UserModel>> {
@@ -371,8 +384,6 @@ public class MainActivity extends AppCompatActivity
             String getDash = server + "getdash.php";
             ZConstants.getInstance().setServer(server);
 
-            Log.i("NFO", "SERVER: " + getDash);
-
             try {
 
                 URL url = new URL(getDash);
@@ -419,8 +430,6 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
             }
-
-            Log.i("NFO", "RESULT: " + result);
 
             FragmentManager fragmentManager = getFragmentManager();
             DashboardFragment dashboardFragment = new DashboardFragment();

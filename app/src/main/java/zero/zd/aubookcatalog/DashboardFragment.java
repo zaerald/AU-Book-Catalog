@@ -37,14 +37,12 @@ public class DashboardFragment extends Fragment {
             JSONArray jsonArray = jsonObject.getJSONArray("result");
 
             int rand = (new Random().nextInt(jsonArray.length() - 1));
-            Log.i("NFO", rand + " : rand");
             JSONObject finalObject = jsonArray.getJSONObject(rand);
             image = finalObject.getString("dash_img");
         } catch (JSONException e) {
             Log.i("ERR", "Dash JSON ERRR: " + e.getMessage());
         }
         bookPath += image;
-        Log.i("NFO", bookPath);
 
         ImageView imgView = (ImageView) view.findViewById(R.id.imgDash);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);

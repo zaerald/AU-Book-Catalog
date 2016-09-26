@@ -116,7 +116,8 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/imgStar"
         android:layout_height="30dp"
-        android:layout_width="30dp" />
+        android:layout_width="30dp"
+        android:onClick="onClickFavorite" />
 
     <ScrollView
         android:layout_width="match_parent"

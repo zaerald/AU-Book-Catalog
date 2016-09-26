@@ -40,14 +40,17 @@ import zero.zd.aubookcatalog.model.BookModel;
 
 public class BookInformationActivity extends AppCompatActivity {
 
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
+    private long bookId;
+    private String studentId;
+
+    private boolean isFavorite;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_information);
-
-
         // add up
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,10 +58,12 @@ public class BookInformationActivity extends AppCompatActivity {
 
         // load server string
         preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        // load studId
+        studentId = preferences.getString("student_id", null);
+        Bundle extras = getIntent().getExtras();
+        bookId = extras.getLong("bookId");
 
         // load book info
-        Bundle extras = getIntent().getExtras();
-        long bookId = extras.getLong("bookId");
         new BookInformationTask().execute(bookId);
     }
 
@@ -67,6 +72,10 @@ public class BookInformationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+
+            case R.id.action_refresh:
+                new BookInformationTask().execute(bookId);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,6 +86,21 @@ public class BookInformationActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.activity_book_info, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
+    public void onClickFavorite (View view) {
+        new FavoriteTask().execute();
+    }
+
+    private void setFavoriteImage() {
+        ImageView imgView = (ImageView) findViewById(R.id.imgStar);
+
+        if (isFavorite)
+            imgView.setImageResource(R.drawable.ic_star_1);
+        else
+            imgView.setImageResource(R.drawable.ic_star_0);
+    }
+
 
     class BookInformationTask extends AsyncTask<Long, String, List<BookModel>> {
 
@@ -218,7 +242,174 @@ public class BookInformationActivity extends AppCompatActivity {
             tvTotal.setText(total);
             tvDescription.setText(bookModel.get(0).getDescription());
 
+            new CheckFavoriteTask().execute();
+        }
+    }
 
+    class CheckFavoriteTask extends AsyncTask<Void, Void, String> {
+
+        Dialog mLoadingDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(BookInformationActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String getFav = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/getbookfav.php";
+
+            try {
+                URL url = new URL(getFav);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                        URLEncoder.encode("bookId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(bookId + "", ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return builder.toString();
+
+            }catch(IOException e) {
+                Log.e("ERR", "Error in getting updatefav: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            mLoadingDialog.dismiss();
+
+            if (result.equals("success"))
+                isFavorite = true;
+            else if(result.equals("none"))
+                isFavorite = false;
+            else
+                Log.e("ERR", "Error in retrieving fav");
+
+            // update
+            setFavoriteImage();
+            Log.i("NFO", "Check result: " + result);
+            Log.i("NFO", "Check Fav: " + isFavorite);
+        }
+    }
+
+    class FavoriteTask extends AsyncTask<Void, String, String> {
+
+        Dialog mLoadingDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(BookInformationActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/setbookfav.php";
+
+            try {
+
+                URL url = new URL(getName);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(3000);
+                httpURLConnection.setReadTimeout(3000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId + "", ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("bookId", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(bookId + "", ZConstants.DB_ENCODE_TYPE) + "&" +
+
+                                URLEncoder.encode("fav", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(isFavorite + "", ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return builder.toString();
+
+            } catch(IOException  e) {
+                Log.e("ERR", "Error in getting name: " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            mLoadingDialog.dismiss();
+
+            if(result.equals("success"))
+                isFavorite = !isFavorite;
+
+            Log.i("NFO", "CHECK RESULT: " + result + " : fav: " + isFavorite);
+            setFavoriteImage();
         }
     }
 
