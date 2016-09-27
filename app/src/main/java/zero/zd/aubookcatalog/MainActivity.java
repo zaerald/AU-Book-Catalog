@@ -339,21 +339,37 @@ public class MainActivity extends AppCompatActivity
             //super.onPostExecute(s);
             mLoadingDialog.dismiss();
 
+            TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
+            TextView txtViewStudentid = (TextView) findViewById(R.id.txtViewStudentId);
+            TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
+
             // check if connected
             if (result == null) {
                 Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
+
+                // set user data from prefs
+                txtViewName.setText(preferences.getString("stud_fullname", ""));
+                txtViewStudentid.setText(preferences.getString("student_id", ""));
+                String usrOut = "@" + preferences.getString("stud_username", "");
+                txtViewUsername.setText(usrOut);
                 return;
             }
+            UserModel user = result.get(0);
 
-            TextView txtViewName = (TextView) findViewById(R.id.txtViewName);
-            TextView txtStudentid = (TextView) findViewById(R.id.txtStudentId);
-            TextView txtViewUsername = (TextView) findViewById(R.id.txtViewUsername);
-
-            txtViewName.setText(result.get(0).getFullname());
-            txtStudentid.setText(result.get(0).getStudentId());
-            String usrOut = "@" + result.get(0).getUsername();
+            txtViewName.setText(user.getFullname());
+            txtViewStudentid.setText(user.getStudentId());
+            String usrOut = "@" + user.getUsername();
             txtViewUsername.setText(usrOut);
+
+            // write to prefs
+            SharedPreferences.Editor prefsEditor;
+            prefsEditor = preferences.edit();
+            prefsEditor.putString("stud_fullname", user.getFullname());
+            prefsEditor.putString("stud_username", user.getUsername());
+            prefsEditor.apply();
+
+
         }
     }
 

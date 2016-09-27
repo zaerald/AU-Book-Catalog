@@ -53,7 +53,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);
-        txtStudentId = (com.github.pinball83.maskededittext.MaskedEditText) findViewById(R.id.txtStudentId);
+        txtStudentId = (com.github.pinball83.maskededittext.MaskedEditText) findViewById(R.id.txtViewStudentId);
         txtUsername = (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);

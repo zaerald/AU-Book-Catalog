@@ -196,7 +196,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             mLoadingDialog.dismiss();
 
-            if (bookModel.isEmpty()) {
+            if (bookModel == null) {
                 View view = findViewById(R.id.activity_book_information);
                 Snackbar.make(view, ZConstants.NO_CONN_PROMPT, Snackbar.LENGTH_SHORT).show();
                 return;
@@ -413,6 +413,9 @@ public class BookInformationActivity extends AppCompatActivity {
 
             mLoadingDialog.dismiss();
 
+            if (result == null)
+                return;
+
             if(result.equals("success"))
                 isFavorite = !isFavorite;
 
@@ -421,7 +424,6 @@ public class BookInformationActivity extends AppCompatActivity {
             setFavoriteImage();
 
             View view = findViewById(R.id.activity_book_information);
-
             if(isFavorite)
                 Snackbar.make(view, "Book is added to favorites.", Snackbar.LENGTH_SHORT).show();
             else
