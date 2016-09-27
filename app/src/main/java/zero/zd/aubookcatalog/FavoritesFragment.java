@@ -35,30 +35,33 @@ public class FavoritesFragment extends Fragment {
         // parse JSON result
         String JsonResult = getArguments().getString("result");
 
-        if (JsonResult != null) {
-            try {
-                JSONObject jsonObject = new JSONObject(JsonResult);
-                JSONArray jsonArray = jsonObject.getJSONArray("result");
+        if (JsonResult == null) {
+            Log.i("NFO", "No internet");
+            return view;
+        }
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject finalObject = jsonArray.getJSONObject(i);
-                    BookGridModel bookGridModel = new BookGridModel();
-                    bookGridModel.setBookId(finalObject.getLong("book_id"));
-                    bookGridModel.setBookImage(finalObject.getString("book_img"));
-                    bookGridModel.setBookTitle(finalObject.getString("book_title"));
-                    bookGridModel.setBookType(finalObject.getString("type"));
-                    bookGridList.add(bookGridModel);
-                }
+        try {
+            JSONObject jsonObject = new JSONObject(JsonResult);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-                BookGridViewAdapter adapter =
-                        new BookGridViewAdapter(getActivity().getApplicationContext(),
-                                R.layout.grid_book_layout, bookGridList);
-
-                gridView.setAdapter(adapter);
-            } catch (JSONException e) {
-                Log.e("JSON ERR", e.getMessage());
-                e.printStackTrace();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject finalObject = jsonArray.getJSONObject(i);
+                BookGridModel bookGridModel = new BookGridModel();
+                bookGridModel.setBookId(finalObject.getLong("book_id"));
+                bookGridModel.setBookImage(finalObject.getString("book_img"));
+                bookGridModel.setBookTitle(finalObject.getString("book_title"));
+                bookGridModel.setBookType(finalObject.getString("type"));
+                bookGridList.add(bookGridModel);
             }
+
+            BookGridViewAdapter adapter =
+                    new BookGridViewAdapter(getActivity().getApplicationContext(),
+                            R.layout.grid_book_layout, bookGridList);
+
+            gridView.setAdapter(adapter);
+        } catch (JSONException e) {
+            Log.e("JSON ERR", e.getMessage());
+            e.printStackTrace();
         }
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +72,11 @@ public class FavoritesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Log.i("NFO", "isEmpty: " + bookGridList.isEmpty());
+
+        if (bookGridList.isEmpty())
+            view = inflater.inflate(R.layout.fragment_favorites_no_data, container, false);
 
         return view;
     }

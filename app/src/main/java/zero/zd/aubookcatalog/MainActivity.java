@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences preferences;
     private int selectedNav;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void reloadAll() {
+        loadStudent();
 
         switch (selectedNav) {
             case ZConstants.NAV_DASHBOARD:
@@ -141,9 +143,6 @@ public class MainActivity extends AppCompatActivity
         new GetFavoritetask(view).execute();
     }
 
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -198,7 +197,6 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
 
             case R.id.nav_dashboard:
-                Log.i("NFO", "Dash executed");
                 selectedNav = ZConstants.NAV_DASHBOARD;
                 execDashboard();
                 break;
@@ -354,8 +352,6 @@ public class MainActivity extends AppCompatActivity
             txtStudentid.setText(result.get(0).getStudentId());
             String usrOut = "@" + result.get(0).getUsername();
             txtViewUsername.setText(usrOut);
-
-            reloadAll();
         }
     }
 

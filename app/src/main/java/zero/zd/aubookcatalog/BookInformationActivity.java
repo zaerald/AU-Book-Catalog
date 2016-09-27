@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -99,6 +100,7 @@ public class BookInformationActivity extends AppCompatActivity {
             imgView.setImageResource(R.drawable.ic_star_1);
         else
             imgView.setImageResource(R.drawable.ic_star_0);
+
     }
 
 
@@ -408,8 +410,18 @@ public class BookInformationActivity extends AppCompatActivity {
             if(result.equals("success"))
                 isFavorite = !isFavorite;
 
+
             Log.i("NFO", "CHECK RESULT: " + result + " : fav: " + isFavorite);
             setFavoriteImage();
+
+            View view = findViewById(R.id.activity_book_information);
+
+            if(isFavorite)
+                Snackbar.make(view, "Book is added to favorites.", Snackbar.LENGTH_SHORT).show();
+            else
+                Snackbar.make(view, "Book is removed from favorites.", Snackbar.LENGTH_SHORT).show();
+
+
         }
     }
 
