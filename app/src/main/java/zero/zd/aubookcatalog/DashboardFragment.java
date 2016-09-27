@@ -31,6 +31,11 @@ public class DashboardFragment extends Fragment {
         String bookPath = ZConstants.getInstance().getServer() + "dash_img/";
         String result = getArguments().getString("result");
         String image = "";
+
+        if (result == null) {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+
         // parse
         try {
             JSONObject jsonObject = new JSONObject(result);

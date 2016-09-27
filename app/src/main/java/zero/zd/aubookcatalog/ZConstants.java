@@ -3,7 +3,7 @@ package zero.zd.aubookcatalog;
 
 public class ZConstants {
 
-    static ZConstants instance = new ZConstants();
+    private static ZConstants instance = new ZConstants();
 
     private String server;
 

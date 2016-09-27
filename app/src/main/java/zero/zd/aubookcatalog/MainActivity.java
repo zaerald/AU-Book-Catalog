@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+
         // for loading images
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true).cacheOnDisk(true).build();
@@ -78,19 +80,12 @@ public class MainActivity extends AppCompatActivity
                 .defaultDisplayImageOptions(defaultOptions).build();
         ImageLoader.getInstance().init(config);
 
-        // welcome
-        //execDashboard();
-        navigationView.setCheckedItem(R.id.nav_dashboard);
-
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
         loadStudent();
-
-        selectedNav = ZConstants.NAV_DASHBOARD;
+        navigationView.setCheckedItem(R.id.nav_dashboard);
     }
 
     private void reloadAll() {
-        loadStudent();
-        //navigationView.getMenu().getItem().isChecked();
+
         switch (selectedNav) {
             case ZConstants.NAV_DASHBOARD:
                 execDashboard();
@@ -107,7 +102,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
-
 
     private void loadStudent() {
         // check if isLogged
@@ -204,6 +198,7 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
 
             case R.id.nav_dashboard:
+                Log.i("NFO", "Dash executed");
                 selectedNav = ZConstants.NAV_DASHBOARD;
                 execDashboard();
                 break;
@@ -359,6 +354,8 @@ public class MainActivity extends AppCompatActivity
             txtStudentid.setText(result.get(0).getStudentId());
             String usrOut = "@" + result.get(0).getUsername();
             txtViewUsername.setText(usrOut);
+
+            reloadAll();
         }
     }
 
