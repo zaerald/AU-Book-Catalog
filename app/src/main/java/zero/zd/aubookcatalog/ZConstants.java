@@ -24,6 +24,7 @@ public class ZConstants {
     static final int NAV_DISCOVER_BOOK = 3;
     static final int NAV_FAVORITES = 4;
 
+    static final String NO_CONN_PROMPT = "Please make sure you are connected to the internet.";
 
 
     private ZConstants() {}

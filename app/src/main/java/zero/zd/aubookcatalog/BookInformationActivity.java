@@ -196,6 +196,12 @@ public class BookInformationActivity extends AppCompatActivity {
 
             mLoadingDialog.dismiss();
 
+            if (bookModel.isEmpty()) {
+                View view = findViewById(R.id.activity_book_information);
+                Snackbar.make(view, ZConstants.NO_CONN_PROMPT, Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
             TextView tvBookTitle = (TextView) findViewById(R.id.tvBookTitle);
             ImageView imgBook = (ImageView) findViewById(R.id.imgBook);
             final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -208,7 +214,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
 
 
-            tvBookTitle.setText(bookModel.get(0).getBookTitle());
+             tvBookTitle.setText(bookModel.get(0).getBookTitle());
             String author = "Author: " + bookModel.get(0).getAuthor();
             ImageLoader.getInstance().displayImage(bookModel.get(0).getBookImage(), imgBook, new ImageLoadingListener() {
                 @Override
