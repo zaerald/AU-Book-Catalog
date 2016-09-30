@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity
             case ZConstants.NAV_ALL_BOOKS:
                 execAllBooks();
                 break;
-            case ZConstants.NAV_READ_BOOK:
-                break;
             case ZConstants.NAV_DISCOVER_BOOK:
+                break;
+            case ZConstants.NAV_BROWSE_PDF_BOOK:
                 break;
             case ZConstants.NAV_FAVORITES:
                 execFavorite();
@@ -206,16 +206,16 @@ public class MainActivity extends AppCompatActivity
                 execAllBooks();
                 break;
 
-            case R.id.nav_read_book:
-                selectedNav = ZConstants.NAV_READ_BOOK;
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new ReadBookFragment()).commit();
-                break;
-
             case R.id.nav_discover:
                 selectedNav = ZConstants.NAV_DISCOVER_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
+                break;
+
+            case R.id.nav_browse_pdf:
+                selectedNav = ZConstants.NAV_BROWSE_PDF_BOOK;
+                fragmentManager.beginTransaction()
+                        .replace(R.id.rootView, new ReadBookFragment()).commit();
                 break;
 
             case R.id.nav_favorites:

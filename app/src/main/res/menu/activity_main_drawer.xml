@@ -19,15 +19,14 @@
                         android:title="@string/nav_all_books" />
 
                     <item
-                        android:id="@+id/nav_read_book"
-                        android:icon="@drawable/ic_read_book"
-                        android:title="@string/nav_read_book" />
-
-
-                    <item
                         android:id="@+id/nav_discover"
                         android:icon="@drawable/ic_explore_black_24dp"
                         android:title="@string/nav_discover_book" />
+
+                    <item
+                        android:id="@+id/nav_browse_pdf"
+                        android:icon="@drawable/ic_browse_pdf_books"
+                        android:title="@string/nav_browse_pdf_books" />
 
                     <item
                         android:id="@+id/nav_favorites"

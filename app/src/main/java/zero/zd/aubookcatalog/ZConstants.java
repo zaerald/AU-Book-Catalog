@@ -20,8 +20,8 @@ public class ZConstants {
     // nav
     static final int NAV_DASHBOARD = 0;
     static final int NAV_ALL_BOOKS = 1;
-    static final int NAV_READ_BOOK= 2;
-    static final int NAV_DISCOVER_BOOK = 3;
+    static final int NAV_DISCOVER_BOOK = 2;
+    static final int NAV_BROWSE_PDF_BOOK= 3;
     static final int NAV_FAVORITES = 4;
 
     static final String NO_CONN_PROMPT = "Please make sure you are connected to the internet.";
