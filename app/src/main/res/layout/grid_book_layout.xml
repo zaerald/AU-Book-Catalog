@@ -3,53 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/grid_book_container"
+    android:background="@android:color/darker_gray"
     android:layout_width="100dp"
     android:layout_height="205dp">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="3dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="98dp"
+        android:layout_height="203dp"
+        android:background="@color/grid_book_container">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:adjustViewBounds="true"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp" />
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center" />
-    </FrameLayout>
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="3dp">
 
-    <TextView
-        android:text="About Faces"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtBookTitle"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Caption"
-        android:lines="2"
-        android:ellipsize="end"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textStyle="normal|bold"
-        android:textAllCaps="false"
-        android:textColor="@android:color/background_dark" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="140dp" />
 
-    <TextView
-        android:text="Book"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/txtBookType"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@android:color/background_dark" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:text="About Faces"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtBookTitle"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Caption"
+            android:lines="2"
+            android:ellipsize="end"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textStyle="normal|bold"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="Book"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/txtBookType"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@android:color/background_dark" />
+
+    </LinearLayout>
+
 </LinearLayout>
