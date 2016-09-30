@@ -18,7 +18,6 @@
                         android:icon="@drawable/ic_dashboard_black_24dp"
                         android:title="@string/nav_all_books" />
 
-                    <!--
                     <item
                         android:id="@+id/nav_read_book"
                         android:icon="@drawable/ic_read_book"
@@ -29,7 +28,6 @@
                         android:id="@+id/nav_discover"
                         android:icon="@drawable/ic_explore_black_24dp"
                         android:title="@string/nav_discover_book" />
-                    -->
 
                     <item
                         android:id="@+id/nav_favorites"
@@ -42,12 +40,11 @@
         <item android:title="@string/nav_title_options">
             <menu>
                 <group>
-                    <!--
                     <item
                         android:id="@+id/nav_settings"
                         android:icon="@drawable/ic_action_settings"
                         android:title="@string/nav_settings"/>
-                    -->
+
                     <item
                         android:id="@+id/nav_info"
                         android:icon="@drawable/ic_action_info_black"

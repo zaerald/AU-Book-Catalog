@@ -206,7 +206,6 @@ public class MainActivity extends AppCompatActivity
                 execAllBooks();
                 break;
 
-            /*
             case R.id.nav_read_book:
                 selectedNav = ZConstants.NAV_READ_BOOK;
                 fragmentManager.beginTransaction()
@@ -218,18 +217,16 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
                 break;
-            */
 
             case R.id.nav_favorites:
                 selectedNav = ZConstants.NAV_FAVORITES;
                 execFavorite();
                 break;
 
-
             // options
-//            case R.id.nav_settings:
-//                startActivity(new Intent(this, SettingsActivity.class));
-//                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
 
             case R.id.nav_info:
                 startActivity(new Intent(this, InformationActivity.class));
