@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -228,6 +229,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvAvailable= (TextView) findViewById(R.id.tvAvailable);
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
+            Button btnDownload = (Button) findViewById(R.id.btnDownload);
 
 
              tvBookTitle.setText(bookModel.get(0).getBookTitle());
@@ -266,6 +268,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 tvAvailable.setText(available);
                 String total = "Total No. of Books: : " + bookModel.get(0).getAvailable();
                 tvTotal.setText(total);
+                btnDownload.setVisibility(View.GONE);
             } else {
                 tvAvailable.setVisibility(View.GONE);
                 tvTotal.setVisibility(View.GONE);
