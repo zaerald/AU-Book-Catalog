@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvAuthor"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/tvBookTitle"
         android:layout_toRightOf="@+id/frameLayout"
         android:layout_toEndOf="@+id/frameLayout"
@@ -109,6 +109,16 @@
         android:id="@+id/tvAvailable"
         android:layout_marginBottom="10dp" />
 
+    <TextView
+        android:text="Total No. of Books: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAvailable"
+        android:layout_alignLeft="@+id/tvAvailable"
+        android:layout_alignStart="@+id/tvAvailable"
+        android:textColor="@android:color/black"
+        android:id="@+id/tvTotal" />
+
     <ImageView
         app:srcCompat="@drawable/ic_star_0"
         android:layout_alignParentTop="true"
@@ -141,16 +151,6 @@
                 android:text="Description" />
         </FrameLayout>
     </ScrollView>
-
-    <TextView
-        android:text="Total No. of Books: 0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAvailable"
-        android:layout_alignLeft="@+id/tvAvailable"
-        android:layout_alignStart="@+id/tvAvailable"
-        android:textColor="@android:color/black"
-        android:id="@+id/tvTotal" />
 
 </RelativeLayout>
 

@@ -43,6 +43,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private long bookId;
+    private String bookType;
     private String studentId;
 
     private boolean isFavorite;
@@ -63,6 +64,7 @@ public class BookInformationActivity extends AppCompatActivity {
         studentId = preferences.getString("student_id", null);
         Bundle extras = getIntent().getExtras();
         bookId = extras.getLong("bookId");
+        bookType = extras.getString("bookType");
 
         // load book info
         new BookInformationTask().execute(bookId);
@@ -107,6 +109,7 @@ public class BookInformationActivity extends AppCompatActivity {
     class BookInformationTask extends AsyncTask<Long, String, List<BookModel>> {
 
         Dialog mLoadingDialog;
+        boolean isBook;
 
         @Override
         protected void onPreExecute() {
@@ -116,13 +119,23 @@ public class BookInformationActivity extends AppCompatActivity {
 
         @Override
         protected List<BookModel> doInBackground(Long... params) {
-            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
-                    + "/aubookcatalog/getbookinfo.php";
+            String getInfo = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/";
+
+            if(bookType.equals("Book")) {
+                getInfo += "getbookinfo.php";
+                isBook = true;
+            }
+            else {
+                getInfo += "getbookinfopdf.php";
+                isBook = false;
+            }
+
 
             try {
                 long bookId = params[0];
 
-                URL url = new URL(getName);
+                URL url = new URL(getInfo);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
                 httpURLConnection.setReadTimeout(3000);
@@ -169,8 +182,11 @@ public class BookInformationActivity extends AppCompatActivity {
                     bookModel.setSubject(finalObject.getString("subject"));
                     bookModel.setPages(finalObject.getInt("book_page"));
                     bookModel.setType(finalObject.getString("type"));
-                    bookModel.setAvailable(finalObject.getInt("available"));
-                    bookModel.setTotal(finalObject.getInt("total"));
+
+                    if (isBook) {
+                        bookModel.setAvailable(finalObject.getInt("available"));
+                        bookModel.setTotal(finalObject.getInt("total"));
+                    }
                     bookModel.setDescription(finalObject.getString("description"));
                     bookList.add(bookModel);
                 }
@@ -244,10 +260,16 @@ public class BookInformationActivity extends AppCompatActivity {
             tvPages.setText(pages);
             String type = "Type: " + bookModel.get(0).getType();
             tvType.setText(type);
-            String available = "No. of Books Available: " + bookModel.get(0).getAvailable();
-            tvAvailable.setText(available);
-            String total = "Total No. of Books: : " + bookModel.get(0).getAvailable();
-            tvTotal.setText(total);
+
+            if (isBook) {
+                String available = "No. of Books Available: " + bookModel.get(0).getAvailable();
+                tvAvailable.setText(available);
+                String total = "Total No. of Books: : " + bookModel.get(0).getAvailable();
+                tvTotal.setText(total);
+            } else {
+                tvAvailable.setVisibility(View.GONE);
+                tvTotal.setVisibility(View.GONE);
+            }
             tvDescription.setText(bookModel.get(0).getDescription());
 
             new CheckFavoriteTask().execute();
