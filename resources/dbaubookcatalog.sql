@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2016 at 12:14 AM
+-- Generation Time: Sep 30, 2016 at 10:00 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -47,7 +47,16 @@ INSERT INTO `tblauthor` (`book_author_id`, `author_name`) VALUES
 (10, 'Isabelita O''dell'),
 (11, 'Ma. Luisa V. Tesorio'),
 (12, 'Bertram G. Katzung'),
-(13, 'Sheldon B. Liss');
+(13, 'Sheldon B. Liss'),
+(14, 'Kevlin Henney'),
+(15, 'Phil Dutson'),
+(16, 'Rachna Kapur'),
+(17, 'Mario Briggs'),
+(18, 'Pedro Carvalho'),
+(19, 'Ulisses Costa'),
+(20, ' Tapas Saha'),
+(21, 'Raul F. Chong'),
+(22, 'Peter Kohlmann');
 
 -- --------------------------------------------------------
 
@@ -75,7 +84,10 @@ INSERT INTO `tblavailability` (`book_id`, `available`, `total`) VALUES
 (7, 2, 4),
 (8, 5, 7),
 (9, 1, 6),
-(10, 4, 4);
+(10, 4, 4),
+(11, 1, 1),
+(12, 1, 1),
+(13, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +119,10 @@ INSERT INTO `tblbook` (`book_id`, `book_title`, `book_page`, `subject_id`, `type
 (7, 'Cost Accounting', 194, 6, 1, 'cost_accounting.jpg', 'This book is the sixth of seven books which introduces the basic principles of accounting. This book introduces managerial accounting, with a primary focus on internal business reporting, decision making, planning, strategy, budgets, and cost control. Cost-volume-profit analysis, variable cost, fixed costs, mixed costs are introduced. Break-even analysis, contributions margin, target income calculations, and sensitivity analysis are all discussed in detail. In addition, product costs, job costing, process costing, and activity-based costing are introduced.'),
 (8, 'Elementary Algebra', 462, 7, 1, 'elementary_algebra.jpg', 'It is essential to lay a solid foundation in mathematics if a student is to be competitive in today’s global market. The importance of algebra, in particular, cannot be overstated, as it is the basis of all mathematical modeling used in applications found in all disciplines. Traditionally, the study of algebra is separated into a two parts, elementary algebra and intermediate algebra. This textbook, Elementary Algebra, is the first part, written in a clear and concise manner, making no assumption of prior algebra experience. It carefully guides students from the basics to the more advanced techniques required to be successful in the next course.'),
 (9, 'Basic and Clinical Pharmacology', 1046, 8, 1, 'basic_and_clinical_pharmacology.jpg', 'The twelfth edition of Basic & Clinical Pharmacology continues the important changes inaugurated in the eleventh edition, with extensive use of full-color illustrations and expanded coverage of transporters, pharmacogenomics, and new drugs. Case studies have been added to several chapters and answers to questions posed in the case studies now appear at the end of each chapter. As in prior editions, the book is designed to provide a comprehensive, authoritative, and readable pharmacology textbook for students in the health sciences. Frequent revision is necessary to keep pace with the rapid changes in pharmacology and therapeutics; the 2–3 year revision cycle of the printed text is among the shortest in the field and the availability of an online version provides even greater currency. In addition to the full-color illustrations, other new features have been introduced. The Case Study Answer section at the end of chapters will make the learning process even more interesting and efficient. The book also offers special features that make it a useful reference for house officers and practicing clinicians.\r\n\r\nInformation is organized according to the sequence used in many pharmacology courses and in integrated curricula: basic principles; autonomic drugs; cardiovascular-renal drugs; drugs with important actions on smooth muscle; central nervous system drugs; drugs used to treat inflammation, gout, and diseases of the blood; endocrine drugs; chemotherapeutic drugs; toxicology; and special topics. This sequence builds new information on a foundation of information already assimilated. For example, early presentation of autonomic nervous system pharmacology allows students to integrate the physiology and neuroscience they have learned elsewhere with the pharmacology they are learning and prepares them to understand the autonomic effects of other drugs. This is especially important for the cardiovascular and central nervous system drug groups. However, chapters can be used equally well in courses and curricula that present these topics in a different sequence.'),
-(10, 'Roots of Revolution', 269, 9, 1, 'roots_of_revolution.jpg', 'A history of Iran focuses on the Shah''s rise and fall and the causes of the Iranian revolution.\r\n\r\nIn this updated edition of Nikki Keddie’s Modern Iran—itself a substantially revised and expanded version of her classic work Roots of Revolution—the  author provides a new preface and a fully annotated and indexed epilogue, reviewing recent developments in Iran since 2003. Keddie provides insightful commentary on Iran’s nuclear and foreign policy, its relations with the United Nations and the United States, increasing conservative and hard-line tendencies in the government, and recent developments in the economy, cultural and intellectual life, and human rights.');
+(10, 'Roots of Revolution', 269, 9, 1, 'roots_of_revolution.jpg', 'A history of Iran focuses on the Shah''s rise and fall and the causes of the Iranian revolution.\r\n\r\nIn this updated edition of Nikki Keddie’s Modern Iran—itself a substantially revised and expanded version of her classic work Roots of Revolution—the  author provides a new preface and a fully annotated and indexed epilogue, reviewing recent developments in Iran since 2003. Keddie provides insightful commentary on Iran’s nuclear and foreign policy, its relations with the United Nations and the United States, increasing conservative and hard-line tendencies in the government, and recent developments in the economy, cultural and intellectual life, and human rights.'),
+(11, '97 Things Every Programmer Should Know', 111, 10, 2, '97_things_every_programmer_should_know.jpg', 'The collection is intended simply to contain multiple and varied perspectives on what it is that contributors to the project feel programmers should know. This can be anything from code-focused advice to culture, from algorithm usage to agile thinking, from implementation know-how to professionalism, from style to substance, etc.'),
+(12, 'Android Development Patterns: Best Practices for Professional Developers', 316, 10, 2, 'Android_Development_Patterns_Best_Practices_for_Professional_Developers_Developer.jpg', 'A must read for all developers that want to begin serious Android development.”\r\n—Justin Anderson, Freelance Android Developer\r\n \r\n“From start to finish, this book contains a variety of great tips and insight into the most important attributes of Android design. This book will definitely be required reading for any of our future Android engineers.”\r\n—Cameron Banga, Cofounder, 9magnets, LLC\r\n \r\nThere’s a downside to Android’s amazing openness and versatility: it’s easy for developers to write code that’s inefficient, unreliable, insecure, or hard to maintain. In Android Development Patterns , enterprise Android developer Phil Dutson helps you leverage Android 5.0+’s amazing power without falling victim to those pitfalls. Dutson presents today’s most comprehensive set of patterns and procedures for building optimized, robust apps with Android 5.0+.\r\n \r\nFirst, Dutson guides you through establishing a highly efficient development environment and workflow, and testing your app to ensure that your code works just as you expect. Then, he walks through the modern best practices for structuring apps, using widgets and components, and working with views.\r\n \r\nYou learn how to build apps that are easy to manage and update, deliver accurate and up-to-date information without wasting precious battery power, and take advantage of new hardware, such as Android Wear and Android TV. Dutson concludes by presenting powerful strategies for optimizing your apps and packaging them for distribution.'),
+(13, 'Getting Started with Open Source Development', 136, 10, 2, 'Getting_started_with_open_source_development.jpg', 'Open source software development is a community-driven methodology to develop products, from the design and development stages to distribution. Developers across differents part of the world are passionate about their collaboration, and several successful projects including Firefox, Moodle, and Drupal are widely used today. Moreover, many companies are using open source software as the foundation to build their business models.\r\nThis book gets you started into the fascinating world of open source software development. Using the exercises and case studies provided, you will get good hands-on experience to contribute to and start open source projects.');
 
 -- --------------------------------------------------------
 
@@ -136,7 +151,27 @@ INSERT INTO `tblbook_author` (`book_id`, `book_author`) VALUES
 (8, 10),
 (8, 11),
 (9, 12),
-(10, 13);
+(10, 13),
+(11, 14),
+(12, 15),
+(13, 16),
+(13, 17),
+(13, 18),
+(13, 19),
+(13, 20),
+(13, 21),
+(13, 22);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblbook_borrowed`
+--
+
+CREATE TABLE `tblbook_borrowed` (
+  `book_id` int(5) NOT NULL,
+  `student_id` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -145,8 +180,8 @@ INSERT INTO `tblbook_author` (`book_id`, `book_author`) VALUES
 --
 
 CREATE TABLE `tblbook_favorites` (
-  `book_id` int(5) NOT NULL,
-  `student_id` varchar(15) NOT NULL
+  `student_id` varchar(15) NOT NULL,
+  `book_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -196,7 +231,10 @@ CREATE TABLE `tbllogin` (
 --
 
 INSERT INTO `tbllogin` (`student_id`, `username`, `password`) VALUES
-('01-1415-00736', 'admin', 'admin');
+('00-0000-00000', 'admin', 'admin'),
+('01-1415-00736', 'z', 'z'),
+('01-1415-03422', 'aaron', 'aaron'),
+('01-1415-03777', 'yolly', 'yolly');
 
 -- --------------------------------------------------------
 
@@ -206,7 +244,7 @@ INSERT INTO `tbllogin` (`student_id`, `username`, `password`) VALUES
 
 CREATE TABLE `tblpdf` (
   `pdf_id` int(5) NOT NULL,
-  `pdf` longblob NOT NULL,
+  `pdf` text NOT NULL,
   `book_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -215,7 +253,9 @@ CREATE TABLE `tblpdf` (
 --
 
 INSERT INTO `tblpdf` (`pdf_id`, `pdf`, `book_id`) VALUES
-(1, '', 0);
+(2, '97-things-every-programmer-should-know.pdf', 11),
+(3, 'Android_Development_Patterns_Best_Practices_for_Professional_Developers_Developer.pdf', 12),
+(4, 'Getting_started_with_open_source_development.pdf', 13);
 
 -- --------------------------------------------------------
 
@@ -234,7 +274,10 @@ CREATE TABLE `tblstudentinfo` (
 --
 
 INSERT INTO `tblstudentinfo` (`student_id`, `first_name`, `last_name`) VALUES
-('01-1415-00736', 'Zaerald Denze', 'Lungos');
+('00-0000-00000', 'Admin', 'Me'),
+('01-1415-00736', 'Zaerald Denze', 'Lungos'),
+('01-1415-03777', 'Yolly', 'Domingo'),
+('12-3456-79787', 'Aaron', 'Velasco');
 
 -- --------------------------------------------------------
 
@@ -260,7 +303,8 @@ INSERT INTO `tblsubject` (`subject_id`, `subject`) VALUES
 (6, 'Accounting'),
 (7, 'Algebra'),
 (8, 'Pharmacology'),
-(9, 'Philosophy');
+(9, 'Philosophy'),
+(10, 'Programming');
 
 -- --------------------------------------------------------
 
@@ -348,12 +392,12 @@ ALTER TABLE `tbltype`
 -- AUTO_INCREMENT for table `tblauthor`
 --
 ALTER TABLE `tblauthor`
-  MODIFY `book_author_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `book_author_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tblbook`
 --
 ALTER TABLE `tblbook`
-  MODIFY `book_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `book_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tbldashboard`
 --
@@ -363,12 +407,12 @@ ALTER TABLE `tbldashboard`
 -- AUTO_INCREMENT for table `tblpdf`
 --
 ALTER TABLE `tblpdf`
-  MODIFY `pdf_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pdf_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblsubject`
 --
 ALTER TABLE `tblsubject`
-  MODIFY `subject_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `subject_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tbltype`
 --
