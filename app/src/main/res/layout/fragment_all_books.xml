@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/all_books">
 
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/imgSearch"
+        android:layout_toLeftOf="@+id/imgSearch"
+        android:hint="Search Title, Author, Subject"
+        android:imeOptions="actionSearch"/>
+
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
         android:id="@+id/gridView"
         android:choiceMode="singleChoice"
         android:columnWidth="100dp"
@@ -15,6 +31,21 @@
         android:verticalSpacing="10dp"
         android:numColumns="auto_fit"
         android:stretchMode="spacingWidthUniform"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etSearch"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_info_black"
+        android:id="@+id/imgSearch"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_alignBottom="@+id/etSearch"
+        android:layout_width="50dp"
+        android:layout_alignTop="@+id/etSearch" />
 </RelativeLayout>
