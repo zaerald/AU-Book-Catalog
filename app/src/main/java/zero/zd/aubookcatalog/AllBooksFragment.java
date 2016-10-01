@@ -26,11 +26,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +50,7 @@ public class AllBooksFragment extends Fragment{
 
     private SharedPreferences preferences;
 
-    private View view;
+    View view;
 
     @Nullable
     @Override
@@ -59,8 +63,6 @@ public class AllBooksFragment extends Fragment{
         // parse JSON result
         String JsonResult = getArguments().getString("result");
 
-        Log.i("NFO", "RESULT: " + JsonResult);
-
         parseBookResult(JsonResult);
 
         // search bar
@@ -72,8 +74,9 @@ public class AllBooksFragment extends Fragment{
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZConstants.SERVER_IP), Toast.LENGTH_SHORT).show();
 
+                    String keyword = textView.getText().toString();
                     View v = viewClone.findViewById(R.id.fragment_all_books_layout);
-                    new GetBookTask(v).execute();
+                    new GetBookTask(v).execute(keyword);
                     return true;
                 }
                 return false;
@@ -123,7 +126,7 @@ public class AllBooksFragment extends Fragment{
         });
     }
 
-    private class GetBookTask extends AsyncTask<Void, Object, String> {
+    private class GetBookTask extends AsyncTask<String, Object, String> {
 
         Dialog mLoadingDialog;
         View view;
@@ -139,9 +142,11 @@ public class AllBooksFragment extends Fragment{
         }
 
         @Override
-        protected String doInBackground(Void... strings) {
+        protected String doInBackground(String... strings) {
             String server = "http://" +  preferences.getString("serverIp", ZConstants.SERVER_IP) +
                     "/aubookcatalog/getbooksearch.php";
+
+            String keyword = strings[0];
 
             try {
 
@@ -153,6 +158,19 @@ public class AllBooksFragment extends Fragment{
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =
+                        URLEncoder.encode("keyword", ZConstants.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(keyword, ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
@@ -173,7 +191,7 @@ public class AllBooksFragment extends Fragment{
                 return builder.toString();
 
             } catch(IOException e) {
-                Log.e("ERR", "Error in getting book: " + e.getMessage());
+                Log.e("ERR", "Error in getting book search: " + e.getMessage());
             }
 
             return null;
