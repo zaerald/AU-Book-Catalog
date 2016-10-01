@@ -92,12 +92,12 @@ public class MainActivity extends AppCompatActivity
             case ZConstants.NAV_DASHBOARD:
                 execDashboard();
                 break;
-            case ZConstants.NAV_ALL_BOOKS:
-                execAllBooks();
-                break;
+//            case ZConstants.NAV_ALL_BOOKS:
+//                execAllBooks();
+//                break;
             case ZConstants.NAV_DISCOVER_BOOK:
                 break;
-            case ZConstants.NAV_BROWSE_PDF_BOOK:
+            case ZConstants.NAV_DOWNLOADED_PDF_BOOK:
                 break;
             case ZConstants.NAV_FAVORITES:
                 execFavorite();
@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_refresh:
                 reloadAll();
+                if (selectedNav == ZConstants.NAV_ALL_BOOKS)
+                    execAllBooks();
                 break;
 
             case R.id.action_setup_ip:
@@ -212,8 +214,8 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
                 break;
 
-            case R.id.nav_browse_pdf:
-                selectedNav = ZConstants.NAV_BROWSE_PDF_BOOK;
+            case R.id.nav_downloaded_pdf:
+                selectedNav = ZConstants.NAV_DOWNLOADED_PDF_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new ReadBookFragment()).commit();
                 break;
