@@ -272,6 +272,7 @@ public class BookInformationActivity extends AppCompatActivity {
             } else {
                 tvAvailable.setVisibility(View.GONE);
                 tvTotal.setVisibility(View.GONE);
+                btnDownload.setVisibility(View.VISIBLE);
             }
             tvDescription.setText(bookModel.get(0).getDescription());
 

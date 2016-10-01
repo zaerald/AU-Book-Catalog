@@ -2,24 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/all_books">
+    android:background="@color/all_books"
+    android:id="@+id/fragment_all_books_layout">
+
+    <TextView
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvSearch" />
 
     <EditText
         android:id="@+id/etSearch"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="13dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/imgSearch"
         android:layout_toLeftOf="@+id/imgSearch"
         android:hint="Search Title, Author, Subject"
-        android:imeOptions="actionSearch"/>
+        android:imeOptions="actionSearch"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/tvSearch" />
 
     <GridView
         android:layout_width="match_parent"
@@ -35,17 +48,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/etSearch"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="10dp" />
 
-    <ImageView
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_action_info_black"
-        android:id="@+id/imgSearch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp"
-        android:layout_alignBottom="@+id/etSearch"
-        android:layout_width="50dp"
-        android:layout_alignTop="@+id/etSearch" />
 </RelativeLayout>
