@@ -118,10 +118,12 @@ public class AllBooksFragment extends Fragment{
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), BookInformationActivity.class);
-                intent.putExtra("bookId", bookGridList.get(position).getBookId());
-                intent.putExtra("bookType", bookGridList.get(position).getBookType());
-                startActivity(intent);
+                if (!bookGridList.isEmpty()) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), BookInformationActivity.class);
+                    intent.putExtra("bookId", bookGridList.get(position).getBookId());
+                    intent.putExtra("bookType", bookGridList.get(position).getBookType());
+                    startActivity(intent);
+                }
             }
         });
     }
