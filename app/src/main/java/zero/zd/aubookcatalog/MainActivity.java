@@ -536,7 +536,6 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getFragmentManager();
             AllBooksFragment allBooksFragment = new AllBooksFragment();
             Bundle args = new Bundle();
-            args.putString("serverIp", preferences.getString("serverIp", ZConstants.SERVER_IP));
             args.putString("result", result);
             allBooksFragment.setArguments(args);
             fragmentManager.beginTransaction()

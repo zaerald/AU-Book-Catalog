@@ -1,8 +1,10 @@
 package zero.zd.aubookcatalog;
 
+import android.app.Dialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,24 +37,30 @@ import java.util.List;
 import zero.zd.aubookcatalog.adapter.BookGridViewAdapter;
 import zero.zd.aubookcatalog.model.BookGridModel;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AllBooksFragment extends Fragment{
 
     private List<BookGridModel> bookGridList;
     private GridView gridView;
 
-    private String serverIp;
+    private SharedPreferences preferences;
+
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all_books, container, false);
+        view = inflater.inflate(R.layout.fragment_all_books, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
-        bookGridList = new ArrayList<>();
 
-        serverIp = getArguments().getString("serverIp");
+        preferences = getActivity().getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
 
         // parse JSON result
         String JsonResult = getArguments().getString("result");
+
+        Log.i("NFO", "RESULT: " + JsonResult);
+
         parseBookResult(JsonResult);
 
         // search bar
@@ -62,8 +70,7 @@ public class AllBooksFragment extends Fragment{
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Will add search", Toast.LENGTH_SHORT).show();
-                    bookGridList = new ArrayList<>();
+                    Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZConstants.SERVER_IP), Toast.LENGTH_SHORT).show();
 
                     View v = viewClone.findViewById(R.id.fragment_all_books_layout);
                     new GetBookTask(v).execute();
@@ -77,6 +84,8 @@ public class AllBooksFragment extends Fragment{
     }
 
     private void parseBookResult(String JsonResult)  {
+        bookGridList = new ArrayList<>();
+
         if (JsonResult != null) {
             try {
                 JSONObject jsonObject = new JSONObject(JsonResult);
@@ -114,9 +123,9 @@ public class AllBooksFragment extends Fragment{
         });
     }
 
-    private class GetBookTask extends AsyncTask<Object, Object, String> {
+    private class GetBookTask extends AsyncTask<Void, Object, String> {
 
-        //Dialog mLoadingDialog;
+        Dialog mLoadingDialog;
         View view;
 
         GetBookTask(View view) {
@@ -126,18 +135,17 @@ public class AllBooksFragment extends Fragment{
         @Override
         protected void onPreExecute() {
             //super.onPreExecute();
-            //mLoadingDialog = ProgressDialog.show(getActivity().getApplicationContext(), "Please wait", "Loading...");
+            mLoadingDialog = ProgressDialog.show(getActivity(), "Please wait", "Loading...");
         }
 
         @Override
-        protected String doInBackground(Object... strings) {
-            String server = "http://" + serverIp + "/aubookcatalog/";
-            String getBook = server + "getbook.php";
-            ZConstants.getInstance().setServer(server);
+        protected String doInBackground(Void... strings) {
+            String server = "http://" +  preferences.getString("serverIp", ZConstants.SERVER_IP) +
+                    "/aubookcatalog/getbooksearch.php";
 
             try {
 
-                URL url = new URL(getBook);
+                URL url = new URL(server);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setConnectTimeout(3000);
                 httpURLConnection.setReadTimeout(3000);
@@ -145,8 +153,6 @@ public class AllBooksFragment extends Fragment{
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
-
-
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
@@ -177,20 +183,15 @@ public class AllBooksFragment extends Fragment{
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            //mLoadingDialog.dismiss();
+            mLoadingDialog.dismiss();
 
             if (result == null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
             }
 
-            FragmentManager fragmentManager = getFragmentManager();
-            AllBooksFragment allBooksFragment = new AllBooksFragment();
-            Bundle args = new Bundle();
-            args.putString("result", result);
-            allBooksFragment.setArguments(args);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.rootView, allBooksFragment).commit();
+            parseBookResult(result);
+            view.invalidate();
         }
     }
 
