@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2016 at 10:00 PM
+-- Generation Time: Oct 03, 2016 at 12:40 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -84,10 +84,7 @@ INSERT INTO `tblavailability` (`book_id`, `available`, `total`) VALUES
 (7, 2, 4),
 (8, 5, 7),
 (9, 1, 6),
-(10, 4, 4),
-(11, 1, 1),
-(12, 1, 1),
-(13, 1, 1);
+(10, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -165,17 +162,6 @@ INSERT INTO `tblbook_author` (`book_id`, `book_author`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblbook_borrowed`
---
-
-CREATE TABLE `tblbook_borrowed` (
-  `book_id` int(5) NOT NULL,
-  `student_id` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblbook_favorites`
 --
 
@@ -183,6 +169,15 @@ CREATE TABLE `tblbook_favorites` (
   `student_id` varchar(15) NOT NULL,
   `book_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblbook_favorites`
+--
+
+INSERT INTO `tblbook_favorites` (`student_id`, `book_id`) VALUES
+('00-0000-00000', 12),
+('00-0000-00000', 6),
+('46-4664-64646', 2);
 
 -- --------------------------------------------------------
 
@@ -212,29 +207,16 @@ INSERT INTO `tbldashboard` (`dashboard_id`, `dash_img`) VALUES
 (10, 'dash10.png'),
 (11, 'dash11.png'),
 (12, 'dash12.png'),
-(13, 'dash13.png');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbllogin`
---
-
-CREATE TABLE `tbllogin` (
-  `student_id` varchar(15) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbllogin`
---
-
-INSERT INTO `tbllogin` (`student_id`, `username`, `password`) VALUES
-('00-0000-00000', 'admin', 'admin'),
-('01-1415-00736', 'z', 'z'),
-('01-1415-03422', 'aaron', 'aaron'),
-('01-1415-03777', 'yolly', 'yolly');
+(13, 'dash13.png'),
+(14, 'dash14.png'),
+(15, 'dash15.png'),
+(16, 'dash16.png'),
+(17, 'dash17.png'),
+(18, 'dash18.png'),
+(19, 'dash19.png'),
+(20, 'dash20.png'),
+(21, 'dash21.png'),
+(22, 'dash22.png');
 
 -- --------------------------------------------------------
 
@@ -265,6 +247,8 @@ INSERT INTO `tblpdf` (`pdf_id`, `pdf`, `book_id`) VALUES
 
 CREATE TABLE `tblstudentinfo` (
   `student_id` varchar(15) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `first_name` mediumtext NOT NULL,
   `last_name` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -273,11 +257,13 @@ CREATE TABLE `tblstudentinfo` (
 -- Dumping data for table `tblstudentinfo`
 --
 
-INSERT INTO `tblstudentinfo` (`student_id`, `first_name`, `last_name`) VALUES
-('00-0000-00000', 'Admin', 'Me'),
-('01-1415-00736', 'Zaerald Denze', 'Lungos'),
-('01-1415-03777', 'Yolly', 'Domingo'),
-('12-3456-79787', 'Aaron', 'Velasco');
+INSERT INTO `tblstudentinfo` (`student_id`, `username`, `password`, `first_name`, `last_name`) VALUES
+('00-0000-00000', 'admin', 'admin', 'Admin', 'Me'),
+('01-1415-00736', 'z', 'z', 'Zaerald Denze', 'Lungos'),
+('01-1415-03422', 'aaron', 'aaron', 'Aaron', 'Velasco'),
+('01-1415-03777', 'yolly', 'yolly', 'Yolly', 'Domingo'),
+('12-1212-11212', 'test', 'test', 'Testing', 'Lang'),
+('46-4664-64646', 'f', 'f', 'Sksk', 'Sksk');
 
 -- --------------------------------------------------------
 
@@ -354,12 +340,6 @@ ALTER TABLE `tbldashboard`
   ADD PRIMARY KEY (`dashboard_id`);
 
 --
--- Indexes for table `tbllogin`
---
-ALTER TABLE `tbllogin`
-  ADD PRIMARY KEY (`student_id`);
-
---
 -- Indexes for table `tblpdf`
 --
 ALTER TABLE `tblpdf`
@@ -402,7 +382,7 @@ ALTER TABLE `tblbook`
 -- AUTO_INCREMENT for table `tbldashboard`
 --
 ALTER TABLE `tbldashboard`
-  MODIFY `dashboard_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `dashboard_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tblpdf`
 --
