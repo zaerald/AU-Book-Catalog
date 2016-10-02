@@ -1,15 +1,21 @@
 <?php
 	
-   require "conn.php";
+	require "conn.php";
     
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
 	$studentId = $_POST['studentId'];
 	$username = $_POST['username'];
     $password = $_POST['password'];
-
-    $sql = "INSERT INTO tblstudentinfo VALUES('$studentId', '$firstName', '$lastName');
-			INSERT INTO tbllogin(username, password, student_id) VALUES('$username', '$password', '$studentId');";
+	
+	/*
+	$firstName = "First";
+	$lastName = "Last";
+	$studentId = "01-2345-67890";
+	$username = "user";
+    $password = "password";
+	*/
+    $sql = "INSERT INTO tblstudentinfo VALUES('$studentId', '$username', '$password', '$firstName', '$lastName');";
 			
 	$result = mysqli_multi_query($conn, $sql);
     // $result = mysqli_query($conn, $sql);

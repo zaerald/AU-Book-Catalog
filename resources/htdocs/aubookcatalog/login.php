@@ -5,7 +5,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT student_id FROM tbllogin WHERE username='$username' AND password='$password';";
+    $sql = "SELECT student_id FROM tblstudentinfo WHERE username='$username' AND password='$password';";
 
 	$res = mysqli_query($conn, $sql);
 	$result = array();
