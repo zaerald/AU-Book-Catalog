@@ -140,19 +140,22 @@ public class RegistrationActivity extends AppCompatActivity {
         } else
             txtError3.setVisibility(View.GONE);
 
-        DatabaseWorker databaseWorker = new DatabaseWorker(v);
-        databaseWorker.execute(firstName, lastName, studentId, username, password);
+        // check if username does exist
+
+
+        RegisterTask registerTask = new RegisterTask(v);
+        registerTask.execute(firstName, lastName, studentId, username, password);
 
     }
 
 
-    private class DatabaseWorker extends AsyncTask<String, Void, String> {
+    private class RegisterTask extends AsyncTask<String, Void, String> {
         Dialog mLoadingDialog;
 
         // view from btn to create Snackbar
         View mView;
 
-        public DatabaseWorker(View view) {
+        public RegisterTask(View view) {
             mView = view;
         }
 
@@ -198,7 +201,104 @@ public class RegistrationActivity extends AppCompatActivity {
                         URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
                         URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
 
-                Log.i("NFO", postData);
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String result = "";
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return result;
+
+            } catch (IOException e) {
+                Log.e("ERR", "Error in registration: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            mLoadingDialog.dismiss();
+            // check if connected
+            if (s == null) {
+                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
+            String out = s.trim();
+
+            if (out.equals("success")) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", "Reg NFO: " + out);
+
+        }
+
+    }
+
+    private class CheckUserTask extends AsyncTask<String, Void, String> {
+        Dialog mLoadingDialog;
+
+        // view from btn to create Snackbar
+        View mView;
+
+        public CheckUserTask(View view) {
+            mView = view;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
+                    "/aubookcatalog/registerusernamecheck.php";
+
+            String username = strings[0];
+
+            try {
+
+                URL url = new URL(registerUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(5000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -225,6 +325,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 Log.e("ERR", "Error in registration: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
