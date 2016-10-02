@@ -52,6 +52,7 @@
     <string name="reg_err">Please fill up all the fields below.</string>
     <string name="reg_err2">Passwords do not match.</string>
     <string name="reg_err3">Your Student ID is not valid.</string>
+    <string name="reg_err4">Username is already taken.</string>
     <!-- END Registration Activity -->
 
     <!-- Information Activity -->
