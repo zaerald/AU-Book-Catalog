@@ -31,15 +31,23 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
-    EditText txtFirstName;
-    EditText txtLastName;
-    com.github.pinball83.maskededittext.MaskedEditText txtStudentId;
-    EditText txtUsername;
-    EditText txtPassword;
-    EditText txtConfirmPassword;
-    TextView txtError;
-    TextView txtError2;
-    TextView txtError3;
+    private EditText txtFirstName;
+    private EditText txtLastName;
+    private com.github.pinball83.maskededittext.MaskedEditText txtStudentId;
+    private EditText txtUsername;
+    private EditText txtPassword;
+    private EditText txtConfirmPassword;
+    private TextView txtError;
+    private TextView txtError2;
+    private TextView txtError3;
+    private TextView txtError4;
+
+    private String firstName;
+    private String lastName;
+    private String studentId;
+    private String username;
+    private String password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
         txtError = (TextView) findViewById(R.id.txtError);
         txtError2 = (TextView) findViewById(R.id.txtError2);
         txtError3 = (TextView) findViewById(R.id.txtError3);
+        txtError4 = (TextView) findViewById(R.id.txtError4);
 
         txtPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,11 +123,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void onClickSignUp(View v) {
 
-        String firstName = txtFirstName.getText().toString();
-        String lastName = txtLastName.getText().toString();
-        String studentId = txtStudentId.getText().toString();
-        String username = txtUsername.getText().toString();
-        String password = txtPassword.getText().toString();
+        firstName = txtFirstName.getText().toString();
+        lastName = txtLastName.getText().toString();
+        studentId = txtStudentId.getText().toString();
+        username = txtUsername.getText().toString();
+        password = txtPassword.getText().toString();
         String confirmPassword = txtConfirmPassword.getText().toString();
 
         //Log.i("NFO", "Unmasked Length: " + txtStudentId.getUnmaskedText().length());
@@ -131,6 +140,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else
             txtError.setVisibility(View.GONE);
 
+        // pass not equal
         if (!(password.equalsIgnoreCase(confirmPassword)))
             return;
 
@@ -140,33 +150,58 @@ public class RegistrationActivity extends AppCompatActivity {
         } else
             txtError3.setVisibility(View.GONE);
 
-        DatabaseWorker databaseWorker = new DatabaseWorker(v);
-        databaseWorker.execute(firstName, lastName, studentId, username, password);
+        // manipulate strings
+        firstName = nameFix(firstName);
+        lastName = nameFix(firstName);;
+        username = username.toLowerCase();
+
+        // check if username does exist
+        txtError4.setVisibility(View.GONE);
+        new CheckUserTask(v).execute();
 
     }
 
+    private String nameFix(String name) {
+        String out = "";
 
-    private class DatabaseWorker extends AsyncTask<String, Void, String> {
+        if (name.length() == 1) {
+            name = name.toUpperCase();
+            return name;
+        }
+        // check if name has a space
+        if (name.contains(" ")) {
+            out += Character.toUpperCase(name.charAt(0));
+            for (int i = 1; i < name.length(); i++) {
+                if (name.charAt(i) == ' ') {
+                    out += " "; i++;
+                    out += Character.toUpperCase(name.charAt(i));
+                } else {
+                    out += Character.toLowerCase(name.charAt(i));
+                }
+            }
+            name = out;
+        } else {
+            name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        }
+
+        return name;
+    }
+
+    private class RegisterTask extends AsyncTask<Void, Void, String> {
         Dialog mLoadingDialog;
 
         // view from btn to create Snackbar
         View mView;
 
-        public DatabaseWorker(View view) {
+        public RegisterTask(View view) {
             mView = view;
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(Void... strings) {
 
             String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
                     "/aubookcatalog/register.php";
-
-            String firstName = strings[0];
-            String lastName = strings[1];
-            String studentId = strings[2];
-            String username = strings[3];
-            String password = strings[4];
 
             try {
 
@@ -198,8 +233,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
                         URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
 
-                Log.i("NFO", postData);
-
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -225,6 +258,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 Log.e("ERR", "Error in registration: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -261,6 +295,107 @@ public class RegistrationActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private class CheckUserTask extends AsyncTask<Void, Void, String> {
+        Dialog mLoadingDialog;
+
+        // view from btn to create Snackbar
+        View mView;
+
+        public CheckUserTask(View view) {
+            mView = view;
+        }
+
+        @Override
+        protected String doInBackground(Void... strings) {
+
+            String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
+                    "/aubookcatalog/registerusernamecheck.php";
+
+            try {
+
+                URL url = new URL(registerUrl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(5000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String postData =URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE);
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+
+                String result = "";
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                Log.i("NFO", "no err");
+
+                return result;
+
+            } catch (IOException e) {
+                Log.e("ERR", "Error in registration: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mLoadingDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait", "Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //super.onPostExecute(s);
+            mLoadingDialog.dismiss();
+            // check if connected
+            if (result == null) {
+                Snackbar.make(mView, "Please make sure that you are connected to the Internet.",
+                        Snackbar.LENGTH_LONG).show();
+                return;
+            }
+
+            result = result.trim();
+
+            if (result.equals("success")) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (result.equals("duplicate")) {
+                txtError4.setVisibility(View.VISIBLE);
+                return;
+            } else {
+                Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
+            }
+
+            Log.i("NFO", "user check NFO: " + result);
+
+            View view = findViewById(R.id.activity_registration_layout);
+            new RegisterTask(view).execute();
+        }
     }
 
 

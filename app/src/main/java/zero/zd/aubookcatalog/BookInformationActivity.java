@@ -202,6 +202,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             } catch(IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -339,6 +340,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             }catch(IOException e) {
                 Log.e("ERR", "Error in getting updatefav: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -428,6 +430,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             } catch(IOException  e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;

@@ -196,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch(IOException e) {
                     Log.e("ERR", "Error in login: " + e.getMessage());
+                    e.printStackTrace();
                 }
 
             return null;

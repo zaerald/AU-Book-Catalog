@@ -194,6 +194,7 @@ public class AllBooksFragment extends Fragment{
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in getting book search: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
