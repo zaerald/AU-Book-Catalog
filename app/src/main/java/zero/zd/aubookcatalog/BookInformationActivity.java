@@ -109,13 +109,13 @@ public class BookInformationActivity extends AppCompatActivity {
 
     class BookInformationTask extends AsyncTask<Long, String, List<BookModel>> {
 
-        Dialog mLoadingDialog;
+//        Dialog mLoadingDialog;
         boolean isBook;
 
         @Override
         protected void onPreExecute() {
+//            mLoadingDialog = ProgressDialog.show(getApplicationContext(), "Please wait", "Loading...");
             super.onPreExecute();
-            mLoadingDialog = ProgressDialog.show(BookInformationActivity.this, "Please wait", "Loading...");
         }
 
         @Override
@@ -212,7 +212,7 @@ public class BookInformationActivity extends AppCompatActivity {
         protected void onPostExecute(List<BookModel> bookModel) {
             super.onPostExecute(bookModel);
 
-            mLoadingDialog.dismiss();
+//            mLoadingDialog.dismiss();
 
             if (bookModel == null) {
                 View view = findViewById(R.id.activity_book_information);

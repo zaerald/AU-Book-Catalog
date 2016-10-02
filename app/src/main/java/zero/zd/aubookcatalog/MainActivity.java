@@ -650,8 +650,6 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.rootView, favoritesFragment).commit();
         }
-
-
     }
 
 
