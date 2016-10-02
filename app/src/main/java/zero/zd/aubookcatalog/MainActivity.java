@@ -328,6 +328,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch(IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -425,6 +426,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in getting dash: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -508,6 +510,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in getting book: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -613,6 +616,7 @@ public class MainActivity extends AppCompatActivity
 
             } catch(IOException e) {
                 Log.e("ERR", "Error in getting fav: " + e.getMessage());
+                e.printStackTrace();
             }
 
             return null;

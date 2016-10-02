@@ -46,6 +46,7 @@ public class DashboardFragment extends Fragment {
             image = finalObject.getString("dash_img");
         } catch (JSONException e) {
             Log.i("ERR", "Dash JSON ERRR: " + e.getMessage());
+            e.printStackTrace();
         }
         bookPath += image;
 
