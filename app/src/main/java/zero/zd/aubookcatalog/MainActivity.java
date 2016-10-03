@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences preferences;
     private int selectedNav;
 
+    private boolean isStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
                 .defaultDisplayImageOptions(defaultOptions).build();
         ImageLoader.getInstance().init(config);
 
+        isStarted = true;
         loadStudent();
         navigationView.setCheckedItem(R.id.nav_dashboard);
     }
@@ -244,6 +246,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if (isStarted)
+            return;
+
         reloadAll();
     }
 
@@ -368,8 +373,6 @@ public class MainActivity extends AppCompatActivity
             prefsEditor.putString("stud_fullname", user.getFullname());
             prefsEditor.putString("stud_username", user.getUsername());
             prefsEditor.apply();
-
-
         }
     }
 
@@ -385,6 +388,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             //super.onPreExecute();
+            if (isStarted)
+                isStarted =  false;
+
             mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
         }
 
