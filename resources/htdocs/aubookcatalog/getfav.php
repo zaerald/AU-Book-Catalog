@@ -5,7 +5,8 @@
 	$studId = $_POST['studentId'];
 	//$studId = '01-1415-00736';
 	
-	$sql = "SELECT b.book_id, b.book_img, b.book_title, t.type FROM tblbook b, tbltype t, tblbook_favorites bf, tblstudentinfo s WHERE bf.book_id = b.book_id AND bf.student_id = s.student_id AND s.student_id='$studId' GROUP BY b.book_id";
+	//$sql = "SELECT b.book_id, b.book_img, b.book_title, t.type FROM tblbook b, tbltype t, tblbook_favorites bf, tblstudentinfo s WHERE bf.book_id = b.book_id AND bf.student_id = s.student_id AND s.student_id='$studId' GROUP BY b.book_id";
+	$sql = "SELECT b.book_id, b.book_img, b.book_title, t.type FROM tblbook b, tbltype t, tblbook_favorites bf, tblstudentinfo s WHERE bf.book_id = b.book_id AND t.tbltype_id = b.type_id AND bf.student_id = s.student_id AND s.student_id='$studId' GROUP BY b.book_id";
 
 	$res = mysqli_query($conn, $sql) or die("Error Selecting" . mysqli_error($conn));
 	$result = array();
