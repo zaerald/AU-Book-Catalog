@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         isStarted = true;
         loadStudent();
         navigationView.setCheckedItem(R.id.nav_dashboard);
+        new GetDashboardTask().execute();
     }
 
     private void reloadAll() {
@@ -376,14 +377,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private class GetDashboardTask extends AsyncTask<Object, Object, String> {
+    private class GetDashboardTask extends AsyncTask<Void, Object, String> {
 
         Dialog mLoadingDialog;
         View view;
 
+        GetDashboardTask() {}
+
         GetDashboardTask(View view) {
             this.view = view;
         }
+
 
         @Override
         protected void onPreExecute() {
@@ -391,11 +395,12 @@ public class MainActivity extends AppCompatActivity
             if (isStarted)
                 isStarted =  false;
 
-            mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+            if (view != null)
+                mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
         }
 
         @Override
-        protected String doInBackground(Object... strings) {
+        protected String doInBackground(Void... strings) {
             String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
                     + "/aubookcatalog/";
             String getDash = server + "getdash.php";
@@ -442,7 +447,8 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            mLoadingDialog.dismiss();
+            if (view != null)
+                mLoadingDialog.dismiss();
 
             if (result == null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",

@@ -3,12 +3,14 @@ package zero.zd.aubookcatalog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,8 +73,7 @@ public class AllBooksFragment extends Fragment{
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZConstants.SERVER_IP), Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZConstants.SERVER_IP), Toast.LENGTH_SHORT).show();
                     String keyword = textView.getText().toString();
                     View v = viewClone.findViewById(R.id.fragment_all_books_layout);
                     new GetBookTask(v).execute(keyword);
@@ -208,7 +208,21 @@ public class AllBooksFragment extends Fragment{
 
             if (result == null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
-                        Snackbar.LENGTH_LONG).show();
+                        Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            // if result length = 2, there is no result
+            if (result.length() == 2) {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity())
+                        .setMessage("No Results Found.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {}
+                        });
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
+                return;
             }
 
             parseBookResult(result);
