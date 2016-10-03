@@ -8,5 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
         android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 </FrameLayout>
