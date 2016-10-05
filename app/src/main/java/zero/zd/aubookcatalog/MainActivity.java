@@ -271,9 +271,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected List<UserModel> doInBackground(String... strings) {
-
-            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
-                    + "/aubookcatalog/getname.php";
+            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+                    + "/aubookcatalog/";
+            String getName = server + "getname.php";
+            ZConstants.getInstance().setServer(server);
 
             try {
                 String studentId = strings[0];
@@ -404,7 +405,6 @@ public class MainActivity extends AppCompatActivity
             String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
                     + "/aubookcatalog/";
             String getDash = server + "getdash.php";
-            ZConstants.getInstance().setServer(server);
 
             try {
 
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity
             if (view != null)
                 mLoadingDialog.dismiss();
 
-            if (result == null) {
+            if (result == null && view != null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
             }
