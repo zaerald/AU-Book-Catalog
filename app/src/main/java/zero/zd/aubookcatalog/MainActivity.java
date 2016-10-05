@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // for loading images
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -92,17 +92,17 @@ public class MainActivity extends AppCompatActivity
         loadStudent();
 
         switch (selectedNav) {
-            case ZConstants.NAV_DASHBOARD:
+            case ZHelper.NAV_DASHBOARD:
                 execDashboard();
                 break;
-//            case ZConstants.NAV_ALL_BOOKS:
+//            case ZHelper.NAV_ALL_BOOKS:
 //                execAllBooks();
 //                break;
-            case ZConstants.NAV_DISCOVER_BOOK:
+            case ZHelper.NAV_DISCOVER_BOOK:
                 break;
-            case ZConstants.NAV_DOWNLOADED_PDF_BOOK:
+            case ZHelper.NAV_DOWNLOADED_PDF_BOOK:
                 break;
-            case ZConstants.NAV_FAVORITES:
+            case ZHelper.NAV_FAVORITES:
                 execFavorite();
                 break;
         }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadStudent() {
         // check if isLogged
-        boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
+        boolean isLogged = preferences.getBoolean(ZHelper.IS_LOGGED, false);
 
         String studId;
         if (!isLogged) {
@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity
             // set login to true
             SharedPreferences.Editor prefsEditor;
             prefsEditor = preferences.edit();
-            prefsEditor.putBoolean(ZConstants.IS_LOGGED, true);
+            prefsEditor.putBoolean(ZHelper.IS_LOGGED, true);
             prefsEditor.putString("student_id", studId);
             prefsEditor.apply();
         }
 
         studId = preferences.getString("student_id", "");
         View view = getWindow().getDecorView().getRootView();
-        ZConstants.getInstance().setStudentId(studId);
+        ZHelper.getInstance().setStudentId(studId);
         new GetNameTask(view).execute(studId);
     }
 
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_refresh:
                 reloadAll();
-                if (selectedNav == ZConstants.NAV_ALL_BOOKS)
+                if (selectedNav == ZHelper.NAV_ALL_BOOKS)
                     execAllBooks();
                 break;
 
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_logout:
                 SharedPreferences.Editor prefsEditor;
                 prefsEditor = preferences.edit();
-                prefsEditor.putBoolean(ZConstants.IS_LOGGED, false);
+                prefsEditor.putBoolean(ZHelper.IS_LOGGED, false);
                 prefsEditor.apply();
 
                 startActivity(new Intent(this, LoginActivity.class));
@@ -203,29 +203,29 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
 
             case R.id.nav_dashboard:
-                selectedNav = ZConstants.NAV_DASHBOARD;
+                selectedNav = ZHelper.NAV_DASHBOARD;
                 execDashboard();
                 break;
 
             case R.id.nav_all_books:
-                selectedNav = ZConstants.NAV_ALL_BOOKS;
+                selectedNav = ZHelper.NAV_ALL_BOOKS;
                 execAllBooks();
                 break;
 
             case R.id.nav_discover:
-                selectedNav = ZConstants.NAV_DISCOVER_BOOK;
+                selectedNav = ZHelper.NAV_DISCOVER_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new DiscoverFragment()).commit();
                 break;
 
             case R.id.nav_downloaded_pdf:
-                selectedNav = ZConstants.NAV_DOWNLOADED_PDF_BOOK;
+                selectedNav = ZHelper.NAV_DOWNLOADED_PDF_BOOK;
                 fragmentManager.beginTransaction()
                         .replace(R.id.rootView, new ReadBookFragment()).commit();
                 break;
 
             case R.id.nav_favorites:
-                selectedNav = ZConstants.NAV_FAVORITES;
+                selectedNav = ZHelper.NAV_FAVORITES;
                 execFavorite();
                 break;
 
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected List<UserModel> doInBackground(String... strings) {
 
-            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String getName = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/getname.php";
 
             try {
@@ -290,11 +290,11 @@ public class MainActivity extends AppCompatActivity
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -401,10 +401,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Void... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getDash = server + "getdash.php";
-            ZConstants.getInstance().setServer(server);
+            ZHelper.getInstance().setServer(server);
 
             try {
 
@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -484,10 +484,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Object... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getbook.php";
-            ZConstants.getInstance().setServer(server);
+            ZHelper.getInstance().setServer(server);
 
             try {
 
@@ -504,7 +504,7 @@ public class MainActivity extends AppCompatActivity
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -539,12 +539,12 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
                 // load old result
-                result = preferences.getString(ZConstants.ALL_BOOKS_RESULT, null);
+                result = preferences.getString(ZHelper.ALL_BOOKS_RESULT, null);
             } else {
                 // refresh prefs
                 SharedPreferences.Editor prefsEditor;
                 prefsEditor = preferences.edit();
-                prefsEditor.putString(ZConstants.ALL_BOOKS_RESULT, result);
+                prefsEditor.putString(ZHelper.ALL_BOOKS_RESULT, result);
                 prefsEditor.apply();
             }
 
@@ -577,10 +577,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Object... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getfav.php";
-            ZConstants.getInstance().setServer(server);
+            ZHelper.getInstance().setServer(server);
 
             try {
                 String studentId = preferences.getString("student_id", null);
@@ -596,11 +596,11 @@ public class MainActivity extends AppCompatActivity
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -610,7 +610,7 @@ public class MainActivity extends AppCompatActivity
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -645,12 +645,12 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
                 // load old result
-                result = preferences.getString(ZConstants.FAV_BOOKS_RESULT, null);
+                result = preferences.getString(ZHelper.FAV_BOOKS_RESULT, null);
             } else {
                 // refresh prefs
                 SharedPreferences.Editor prefsEditor;
                 prefsEditor = preferences.edit();
-                prefsEditor.putString(ZConstants.FAV_BOOKS_RESULT, result);
+                prefsEditor.putString(ZHelper.FAV_BOOKS_RESULT, result);
                 prefsEditor.apply();
             }
 

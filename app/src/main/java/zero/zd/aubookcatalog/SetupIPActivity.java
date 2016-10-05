@@ -27,7 +27,7 @@ public class SetupIPActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         updateText();
     }
@@ -61,7 +61,7 @@ public class SetupIPActivity extends AppCompatActivity {
 
     private void updateText() {
         TextView textViewCurIp = (TextView) findViewById(R.id.textViewCurIP);
-        String serverIp = preferences.getString("serverIp", ZConstants.SERVER_IP);
+        String serverIp = preferences.getString("serverIp", ZHelper.SERVER_IP);
         String out = "Current IP: " + serverIp;
         textViewCurIp.setText(out);
     }

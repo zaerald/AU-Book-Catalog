@@ -60,7 +60,7 @@ public class BookInformationActivity extends AppCompatActivity {
         }
 
         // load server string
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
         // load studId
         studentId = preferences.getString("student_id", null);
         Bundle extras = getIntent().getExtras();
@@ -120,7 +120,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
         @Override
         protected List<BookModel> doInBackground(Long... params) {
-            String getInfo = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String getInfo = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
 
             if(bookType.equals("Book")) {
@@ -147,11 +147,11 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("bookId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(bookId + "", ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("bookId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(bookId + "", ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -160,7 +160,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -216,7 +216,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             if (bookModel == null) {
                 View view = findViewById(R.id.activity_book_information);
-                Snackbar.make(view, ZConstants.NO_CONN_PROMPT, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, ZHelper.NO_CONN_PROMPT, Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
@@ -293,7 +293,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String getFav = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String getFav = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/getbookfav.php";
 
             try {
@@ -308,14 +308,14 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("bookId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                            URLEncoder.encode(bookId + "", ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("bookId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(bookId + "", ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -324,7 +324,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
@@ -377,7 +377,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String getName = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String getName = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/setbookfav.php";
 
             try {
@@ -393,17 +393,17 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(studentId + "", ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(studentId + "", ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("bookId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(bookId + "", ZConstants.DB_ENCODE_TYPE) + "&" +
+                                URLEncoder.encode("bookId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(bookId + "", ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                                URLEncoder.encode("fav", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(isFavorite + "", ZConstants.DB_ENCODE_TYPE);
+                                URLEncoder.encode("fav", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(isFavorite + "", ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -412,7 +412,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;

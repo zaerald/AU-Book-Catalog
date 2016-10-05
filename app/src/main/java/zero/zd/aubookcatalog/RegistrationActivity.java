@@ -57,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         txtFirstName = (EditText) findViewById(R.id.txtFirstName);
         txtLastName = (EditText) findViewById(R.id.txtLastName);
@@ -200,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... strings) {
 
-            String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
+            String registerUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/register.php";
 
             try {
@@ -215,23 +215,23 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("firstName", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(firstName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("firstName", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(firstName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("lastName", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(lastName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("lastName", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(lastName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("studentId", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(studentId, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(studentId, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("username", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(username, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("password", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(password, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -240,7 +240,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String result = "";
                 String line;
@@ -310,7 +310,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... strings) {
 
-            String registerUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP) +
+            String registerUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/registerusernamecheck.php";
 
             try {
@@ -325,10 +325,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
-                String postData =URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(username, ZConstants.DB_ENCODE_TYPE);
+                String postData =URLEncoder.encode("username", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(username, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -337,7 +337,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String result = "";
                 String line;

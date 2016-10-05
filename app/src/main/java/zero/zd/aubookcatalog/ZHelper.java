@@ -1,9 +1,9 @@
 package zero.zd.aubookcatalog;
 
 
-public class ZConstants {
+public class ZHelper {
 
-    private static ZConstants instance = new ZConstants();
+    private static ZHelper instance = new ZHelper();
 
     private String server;
     private String studentId;
@@ -28,9 +28,9 @@ public class ZConstants {
     static final String NO_CONN_PROMPT = "Please make sure you are connected to the internet.";
 
 
-    private ZConstants() {}
+    private ZHelper() {}
 
-    public static ZConstants getInstance() {
+    public static ZHelper getInstance() {
         return instance;
     }
 

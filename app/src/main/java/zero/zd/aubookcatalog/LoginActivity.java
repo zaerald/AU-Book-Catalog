@@ -50,10 +50,10 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        preferences = getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // check if user has already logged in
-        boolean isLogged = preferences.getBoolean(ZConstants.IS_LOGGED, false);
+        boolean isLogged = preferences.getBoolean(ZHelper.IS_LOGGED, false);
         if (isLogged) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String loginUrl = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String loginUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/login.php";
 
                 try {
@@ -162,14 +162,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(
-                            new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                            new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                     String postData =
-                            URLEncoder.encode("username", ZConstants.DB_ENCODE_TYPE) + "=" +
-                            URLEncoder.encode(userName, ZConstants.DB_ENCODE_TYPE) + "&" +
+                            URLEncoder.encode("username", ZHelper.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(userName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                            URLEncoder.encode("password", ZConstants.DB_ENCODE_TYPE) + "=" +
-                            URLEncoder.encode(password, ZConstants.DB_ENCODE_TYPE);
+                            URLEncoder.encode("password", ZHelper.DB_ENCODE_TYPE) + "=" +
+                            URLEncoder.encode(password, ZHelper.DB_ENCODE_TYPE);
 
                     bufferedWriter.write(postData);
                     bufferedWriter.flush();
@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                            new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                     String result = "";
                     String line;
@@ -218,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
 
             String out = s.trim();
 
-            if(!s.equals(ZConstants.DB_FAIL)) {
+            if(!s.equals(ZHelper.DB_FAIL)) {
                 // parse
                 try {
                     JSONObject jsonObject = new JSONObject(s);

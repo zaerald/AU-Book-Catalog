@@ -1,6 +1,6 @@
 package zero.zd.aubookcatalog.model;
 
-import zero.zd.aubookcatalog.ZConstants;
+import zero.zd.aubookcatalog.ZHelper;
 
 public class BookModel {
 
@@ -38,7 +38,7 @@ public class BookModel {
 
     public void setBookImage(String bookImage) {
         String bookPath = "/book_img/";
-        this.bookImage = ZConstants.getInstance().getServer() + bookPath + bookImage;
+        this.bookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
     }
 
     public String getAuthor() {

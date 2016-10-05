@@ -62,7 +62,7 @@ public class AllBooksFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_all_books, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
 
-        preferences = getActivity().getSharedPreferences(ZConstants.PREFS, MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // parse JSON result
         String JsonResult = getArguments().getString("result");
@@ -79,7 +79,7 @@ public class AllBooksFragment extends Fragment{
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    //Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZConstants.SERVER_IP), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZHelper.SERVER_IP), Toast.LENGTH_SHORT).show();
                     String keyword = textView.getText().toString();
                     View v = viewClone.findViewById(R.id.fragment_all_books_layout);
                     new GetBookTask(v).execute(keyword);
@@ -177,7 +177,7 @@ public class AllBooksFragment extends Fragment{
 
         @Override
         protected String doInBackground(String... strings) {
-            String server = "http://" +  preferences.getString("serverIp", ZConstants.SERVER_IP) +
+            String server = "http://" +  preferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/getbooksearch.php";
 
             String keyword = strings[0];
@@ -195,11 +195,11 @@ public class AllBooksFragment extends Fragment{
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, ZConstants.DB_ENCODE_TYPE));
+                        new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("keyword", ZConstants.DB_ENCODE_TYPE) + "=" +
-                                URLEncoder.encode(keyword, ZConstants.DB_ENCODE_TYPE);
+                        URLEncoder.encode("keyword", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(keyword, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -208,7 +208,7 @@ public class AllBooksFragment extends Fragment{
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(inputStream, ZConstants.DB_ENCODE_TYPE));
+                        new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
 
                 StringBuilder builder = new StringBuilder();
                 String line;
