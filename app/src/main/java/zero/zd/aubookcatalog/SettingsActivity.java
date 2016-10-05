@@ -1,10 +1,19 @@
 package zero.zd.aubookcatalog;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import zero.zd.aubookcatalog.adapter.SettingsAdapter;
+import zero.zd.aubookcatalog.model.SettingsModel;
 
 public class SettingsActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +22,15 @@ public class SettingsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        List<SettingsModel> settingsModels = new ArrayList<>();
+        settingsModels.add(new SettingsModel(R.id.imgZaerald, "Change Username", "Current username"));
+        settingsModels.add(new SettingsModel(R.id.imgZaerald, "Change Z", "Current Z"));
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(new SettingsAdapter(this, R.layout.settings_layout, settingsModels));
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -23,7 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
