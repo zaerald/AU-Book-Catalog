@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app2=""
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/all_books"
     android:id="@+id/fragment_all_books_layout">
@@ -16,23 +17,35 @@
         android:layout_marginTop="10dp"
         android:id="@+id/tvSearch" />
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
+        android:id="@+id/frameLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSearch"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/imgSearch"
-        android:layout_toLeftOf="@+id/imgSearch"
-        android:hint="Search book title, author"
-        android:imeOptions="actionSearch"
-        android:layout_marginRight="30dp"
-        android:layout_below="@+id/tvSearch" />
+        android:layout_marginRight="30dp">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Search book title, author"
+            android:imeOptions="actionSearch" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_action_close"
+            android:id="@+id/btnClose"
+            android:layout_gravity="right|center_vertical"
+            android:background="@null" />
+
+    </FrameLayout>
 
     <GridView
         android:layout_width="match_parent"
@@ -47,7 +60,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/etSearch"
+        android:layout_below="@+id/frameLayout"
         android:layout_marginTop="10dp" />
 
 </RelativeLayout>
