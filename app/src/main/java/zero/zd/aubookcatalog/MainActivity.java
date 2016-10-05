@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity
 
         studId = preferences.getString("student_id", "");
         View view = getWindow().getDecorView().getRootView();
+        ZConstants.getInstance().setStudentId(studId);
         new GetNameTask(view).execute(studId);
     }
 
@@ -315,14 +316,13 @@ public class MainActivity extends AppCompatActivity
                 JSONArray jsonArray = jsonObject.getJSONArray("result");
 
                 List<UserModel> userList = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject finalObject = jsonArray.getJSONObject(i);
-                    UserModel userModel = new UserModel();
-                    userModel.setStudentId(studentId);
-                    userModel.setUsername(finalObject.getString("username"));
-                    userModel.setFullname(finalObject.getString("fullname"));
-                    userList.add(userModel);
-                }
+                JSONObject finalObject = jsonArray.getJSONObject(0);
+                UserModel userModel = new UserModel();
+                userModel.setStudentId(studentId);
+                userModel.setUsername(finalObject.getString("username"));
+                userModel.setFullname(finalObject.getString("fullname"));
+                userList.add(userModel);
+
 
                 bufferedReader.close();
                 inputStream.close();

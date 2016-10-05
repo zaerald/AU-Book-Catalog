@@ -6,6 +6,7 @@ public class ZConstants {
     private static ZConstants instance = new ZConstants();
 
     private String server;
+    private String studentId;
 
     static final String SERVER_IP = "10.0.0.3";
     static final String DB_FAIL = "fail";
@@ -39,6 +40,14 @@ public class ZConstants {
 
     public void setServer(String server) {
         this.server = server;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
 }
