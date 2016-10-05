@@ -82,6 +82,10 @@
     <!-- END SetupIp Activity -->
 
     <!-- BookInformation Activity -->
-    <string name="ittle_activity_bookinfo">Book Information</string>
+    <string name="title_activity_bookinfo">Book Information</string>
     <!-- END BookInformation Activity -->
+
+    <!-- Settings Activity -->
+    <string name="title_activity_settings">Settings</string>
+    <!-- END Settings Activity -->
 </resources>
