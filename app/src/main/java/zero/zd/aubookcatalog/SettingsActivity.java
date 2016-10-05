@@ -24,8 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         List<SettingsModel> settingsModels = new ArrayList<>();
-        settingsModels.add(new SettingsModel(R.id.imgZaerald, "Change Username", "Current username"));
-        settingsModels.add(new SettingsModel(R.id.imgZaerald, "Change Z", "Current Z"));
+        settingsModels.add(new SettingsModel(R.drawable.au_logo, "Change Username", "Current username"));
+        settingsModels.add(new SettingsModel(R.drawable.dash_dummy, "Change Z", "Current Z"));
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new SettingsAdapter(this, R.layout.settings_layout, settingsModels));
 
