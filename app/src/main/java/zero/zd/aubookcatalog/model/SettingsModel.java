@@ -49,7 +49,6 @@ public class SettingsModel {
         this.subtitle = subtitle;
     }
 
-
     public int getId() {
         return id;
     }
@@ -65,4 +64,5 @@ public class SettingsModel {
     public void setHeading(String heading) {
         this.heading = heading;
     }
+
 }

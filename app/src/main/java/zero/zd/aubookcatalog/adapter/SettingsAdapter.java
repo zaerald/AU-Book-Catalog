@@ -58,6 +58,7 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
 
                 viewHolder.txtHeading.setText(settingsModel.getHeading());
                 break;
+
             case SettingsModel.CONTENT:
                 viewHolder.contentLayout.setVisibility(View.VISIBLE);
                 viewHolder.headingLayout.setVisibility(View.GONE);
@@ -68,10 +69,12 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
                 break;
         }
 
+        viewHolder.imgView.setImageResource(settingsModel.getImgResource());
+        viewHolder.txtTitle.setText(settingsModel.getTitle());
+        viewHolder.txtSubtitle.setText(settingsModel.getSubtitle());
 
         return convertView;
     }
-
 
 
     private class ViewHolder {
