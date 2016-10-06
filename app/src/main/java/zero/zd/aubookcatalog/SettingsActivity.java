@@ -3,6 +3,8 @@ package zero.zd.aubookcatalog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,8 +15,6 @@ import zero.zd.aubookcatalog.model.SettingsModel;
 
 public class SettingsActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +23,19 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        List<SettingsModel> settingsModels = new ArrayList<>();
-
-        settingsModels.add(new SettingsModel(SettingsModel.HEADING, "Palitan mo icons"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.au_logo, "Dota Muna", "OO nga namn dota na muna"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Ano hero?", "Random!!!!"));
-        settingsModels.add(new SettingsModel(SettingsModel.HEADING, "Dota na ituuu"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 1"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 2"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 3"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 4"));
-        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 5"));
+        SettingsModel[] settingsModels = new SettingsModel[2];
+        settingsModels[0] = new SettingsModel(SettingsModel.HEADING, "Palitan mo icons");
+        settingsModels[1] = new SettingsModel(SettingsModel.CONTENT, R.drawable.au_logo, "Dota Muna", "OO nga namn dota na muna");
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new SettingsAdapter(this, R.layout.settings_layout, settingsModels));
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
+            }
+        });
     }
 
 
