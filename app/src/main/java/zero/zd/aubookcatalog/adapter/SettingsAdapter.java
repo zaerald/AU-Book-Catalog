@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,6 +37,10 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
             convertView = inflater.inflate(R.layout.settings_layout, parent, false);
 
             viewHolder = new ViewHolder();
+            viewHolder.headingLayout = (LinearLayout) convertView.findViewById(R.id.heading_layout);
+            viewHolder.txtHeading = (TextView) convertView.findViewById(R.id.txtHeading);
+
+            viewHolder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.content_layout);
             viewHolder.imgView = (ImageView) convertView.findViewById(R.id.imgView);
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
             viewHolder.txtSubtitle = (TextView) convertView.findViewById(R.id.txtSubTitle);
@@ -45,14 +51,34 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
         }
 
         SettingsModel settingsModel = settingsModels.get(position);
-        viewHolder.imgView.setImageResource(settingsModel.getImgResource());
-        viewHolder.txtTitle.setText(settingsModel.getTitle());
-        viewHolder.txtSubtitle.setText(settingsModel.getSubtitle());
+        switch (settingsModel.getId()) {
+            case SettingsModel.HEADING:
+                viewHolder.headingLayout.setVisibility(View.VISIBLE);
+                viewHolder.contentLayout.setVisibility(View.GONE);
+
+                viewHolder.txtHeading.setText(settingsModel.getHeading());
+                break;
+            case SettingsModel.CONTENT:
+                viewHolder.contentLayout.setVisibility(View.VISIBLE);
+                viewHolder.headingLayout.setVisibility(View.GONE);
+
+                viewHolder.imgView.setImageResource(settingsModel.getImgResource());
+                viewHolder.txtTitle.setText(settingsModel.getTitle());
+                viewHolder.txtSubtitle.setText(settingsModel.getSubtitle());
+                break;
+        }
+
 
         return convertView;
     }
 
+
+
     private class ViewHolder {
+        private LinearLayout headingLayout;
+        private TextView txtHeading;
+
+        private RelativeLayout contentLayout;
         private ImageView imgView;
         private TextView txtTitle;
         private TextView txtSubtitle;

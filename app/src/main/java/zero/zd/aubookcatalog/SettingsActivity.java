@@ -24,8 +24,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         List<SettingsModel> settingsModels = new ArrayList<>();
-        settingsModels.add(new SettingsModel(R.drawable.au_logo, "Change Username", "Current username"));
-        settingsModels.add(new SettingsModel(R.drawable.dash_dummy, "Change Z", "Current Z"));
+        settingsModels.add(new SettingsModel(SettingsModel.HEADING, "Palitan mo icons"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.au_logo, "Dota Muna", "OO nga namn dota na muna"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Ano hero?", "Random!!!!"));
+        settingsModels.add(new SettingsModel(SettingsModel.HEADING, "Dota na ituuu"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 1"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 2"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 3"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 4"));
+        settingsModels.add(new SettingsModel(SettingsModel.CONTENT, R.drawable.dash_dummy, "Meepo", "Meepo 5"));
+
+
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new SettingsAdapter(this, R.layout.settings_layout, settingsModels));
 

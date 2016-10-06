@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity
             if (view != null)
                 mLoadingDialog.dismiss();
 
-            if (result == null) {
+            if (result == null && view != null) {
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
             }
@@ -487,7 +487,6 @@ public class MainActivity extends AppCompatActivity
             String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getbook.php";
-            ZHelper.getInstance().setServer(server);
 
             try {
 
@@ -580,7 +579,6 @@ public class MainActivity extends AppCompatActivity
             String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getfav.php";
-            ZHelper.getInstance().setServer(server);
 
             try {
                 String studentId = preferences.getString("student_id", null);
