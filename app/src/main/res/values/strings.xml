@@ -59,10 +59,10 @@
     <!-- Information Activity -->
     <string name="title_activity_info">Information</string>
     <string name="nfo_title_description">PHINMA Araullo University - South Book Catalog</string>
-    <string name="nfo_description">\t\tBook catalog application is exclusive for AU-South! You can
-        browse books. You can add the books you love to your favorites.
+    <string name="nfo_description">\t\tBook catalog application is exclusive for PHINMA AU-South!
+        You can browse books. You can add the books that you love to your favorites.
         \n\n\tIf you want to check if the book is available at the library, you can browse the
-        books by using this application. Start reading books here by reading PDF fiiles!\n\n
+        books by using this application. Start reading books here by reading PDF files!\n\n
 
         Don\'t know what to read? you can discover a book with the help of this application,
         you\'ll just need to answer few questions and it\'ll help you to discover a book of your taste.
