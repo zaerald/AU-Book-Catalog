@@ -35,7 +35,7 @@
         android:layout_below="@+id/tvBookTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/frameLayout">
+        android:id="@+id/linearLayout">
 
         <ImageView
             android:id="@+id/imgBook"
@@ -58,8 +58,8 @@
         android:id="@+id/tvAuthor"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/tvBookTitle"
-        android:layout_toRightOf="@+id/frameLayout"
-        android:layout_toEndOf="@+id/frameLayout"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:layout_toEndOf="@+id/linearLayout"
         android:layout_marginLeft="13dp"
         android:layout_marginStart="13dp"
         android:textColor="@android:color/black"
@@ -136,7 +136,7 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
-        android:layout_below="@+id/frameLayout"
+        android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp"
         android:layout_above="@+id/btnDownload">
 

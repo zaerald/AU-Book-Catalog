@@ -273,10 +273,10 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected List<UserModel> doInBackground(String... strings) {
 
-            String server = "http://" + preferences.getString("serverIp", ZConstants.SERVER_IP)
+            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getName = server + "getname.php";
-            ZConstants.getInstance().setServer(server);
+            ZHelper.getInstance().setServer(server);
 
             try {
                 String studentId = strings[0];
@@ -406,10 +406,7 @@ public class MainActivity extends AppCompatActivity
             String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getDash = server + "getdash.php";
-<<<<<<< HEAD
             ZHelper.getInstance().setServer(server);
-=======
->>>>>>> origin/settings-activity
 
             try {
 

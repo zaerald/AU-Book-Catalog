@@ -16,35 +16,40 @@
         android:layout_marginTop="10dp"
         android:id="@+id/tvSearch" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/frameLayout"
+        android:id="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvSearch"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:hint="Search book title, author"
-            android:imeOptions="actionSearch" />
+            android:imeOptions="actionSearch"
+            android:layout_weight=".9" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_action_close"
             android:id="@+id/btnClose"
-            android:layout_gravity="right|center_vertical"
-            android:background="@null" />
+            android:background="@null"
+            android:elevation="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".1" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <GridView
         android:layout_width="match_parent"
@@ -59,7 +64,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/frameLayout"
+        android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp" />
 
 </RelativeLayout>
