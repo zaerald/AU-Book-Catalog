@@ -230,9 +230,9 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             // options
-            case R.id.nav_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
+//            case R.id.nav_settings:
+//                startActivity(new Intent(this, SettingsActivity.class));
+//                break;
 
             case R.id.nav_info:
                 startActivity(new Intent(this, InformationActivity.class));
