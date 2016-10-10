@@ -1,12 +1,15 @@
 package zero.zd.aubookcatalog;
 
 
+import java.io.File;
+
 public class ZHelper {
 
     private static ZHelper instance = new ZHelper();
 
     private String server;
     private String studentId;
+    private File pdf;
 
     static final String SERVER_IP = "10.0.0.3";
     static final String DB_FAIL = "fail";
@@ -50,4 +53,11 @@ public class ZHelper {
         this.studentId = studentId;
     }
 
+    public File getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(File pdf) {
+        this.pdf = pdf;
+    }
 }

@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -79,15 +80,8 @@ public class BookInformationActivity extends AppCompatActivity {
         // load book info
         new BookInformationTask().execute(bookId);
 
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (referenceId == pdfDownload) {
-                    Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(downloadReceiver,
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -110,13 +104,17 @@ public class BookInformationActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(downloadReceiver);
+    }
 
     public void onClickFavorite (View view) {
         new FavoriteTask().execute();
     }
 
     public void onClickDownload(View view) {
-        Log.i("NFO", "URI: " + bookModel.getPdf());
         Uri pdfUri = Uri.parse(bookModel.getPdf());
         pdfDownload = DownloadData(pdfUri);
     }
@@ -145,6 +143,25 @@ public class BookInformationActivity extends AppCompatActivity {
 
         return downloadReference;
     }
+
+    private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (referenceId == pdfDownload) {
+                Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
+
+                // invoke pdf reader
+                File file = ZHelper.getInstance().getPdf();
+                File pdf = new File(file.getAbsolutePath() + "/" + bookModel.getBookTitle() + ".pdf");
+                //Log.i("NFO", "PATH: " + file);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setDataAndType(Uri.fromFile(pdf), "application/pdf");
+                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(i);
+            }
+        }
+    };
 
     class BookInformationTask extends AsyncTask<Long, String, BookModel> {
 

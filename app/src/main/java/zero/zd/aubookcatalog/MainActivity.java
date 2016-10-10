@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -81,6 +83,16 @@ public class MainActivity extends AppCompatActivity
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions).build();
         ImageLoader.getInstance().init(config);
+
+        // create and set pdf directory
+        File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        if (file != null && !file.exists()) {
+            if (!file.mkdirs()) {
+                Log.e("ERR", "Failed creation");
+            }
+        }
+        ZHelper.getInstance().setPdf(file);
+
 
         isStarted = true;
         loadStudent();
@@ -330,8 +342,6 @@ public class MainActivity extends AppCompatActivity
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-                Log.i("NFO", "no err");
-
                 return userList;
 
             } catch(IOException | JSONException e) {
@@ -433,8 +443,6 @@ public class MainActivity extends AppCompatActivity
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-                Log.i("NFO", "no err");
-
                 return builder.toString();
 
             } catch(IOException e) {
@@ -516,8 +524,6 @@ public class MainActivity extends AppCompatActivity
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-
-                Log.i("NFO", "no err");
 
                 return builder.toString();
 
@@ -621,8 +627,6 @@ public class MainActivity extends AppCompatActivity
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-
-                Log.i("NFO", "no err");
 
                 return builder.toString();
 
