@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -56,7 +57,6 @@ public class BookInformationActivity extends AppCompatActivity {
     BookModel bookModel;
 
     DownloadManager downloadManager;
-    BroadcastReceiver receiver;
     private long pdfDownload;
 
     @Override
@@ -79,15 +79,15 @@ public class BookInformationActivity extends AppCompatActivity {
         // load book info
         new BookInformationTask().execute(bookId);
 
-        receiver = new BroadcastReceiver() {
+        registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (referenceId == pdfDownload) {
-                    Toast.makeText(BookInformationActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
                 }
             }
-        };
+        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
