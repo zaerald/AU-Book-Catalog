@@ -83,6 +83,7 @@
 
     <!-- BookInformation Activity -->
     <string name="title_activity_bookinfo">Book Information</string>
+    <string name="read_pdf">Read PDF</string>
     <!-- END BookInformation Activity -->
 
     <!-- Settings Activity -->

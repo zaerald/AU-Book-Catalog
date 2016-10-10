@@ -49,6 +49,14 @@ import zero.zd.aubookcatalog.model.BookModel;
 
 public class BookInformationActivity extends AppCompatActivity {
 
+    private int pdfAction;
+    private final int PDF_ACTION_DOWNLOAD = 0;
+    private final int PDF_ACTION_CANCEL = 1;
+    private final int PDF_ACTION_READ = 2;
+
+    private final String FAV_SUCCESS = "success";
+    private final String FAV_NONE = "none";
+
     private SharedPreferences preferences;
     private long bookId;
     private String bookType;
@@ -107,16 +115,53 @@ public class BookInformationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(downloadReceiver);
+        if (pdfAction != PDF_ACTION_READ)
+            unregisterReceiver(downloadReceiver);
     }
 
     public void onClickFavorite (View view) {
         new FavoriteTask().execute();
     }
 
-    public void onClickDownload(View view) {
-        Uri pdfUri = Uri.parse(bookModel.getPdf());
-        pdfDownload = DownloadData(pdfUri);
+    public void onClickBtnActionPdf(View view) {
+
+        switch (pdfAction) {
+
+            case PDF_ACTION_DOWNLOAD:
+                Uri pdfUri = Uri.parse(bookModel.getPdf());
+                pdfDownload = DownloadData(pdfUri);
+                break;
+
+            case PDF_ACTION_CANCEL:
+                break;
+
+            case PDF_ACTION_READ:
+                // invoke pdf reader
+                File file = ZHelper.getInstance().getPdf();
+                File pdf = new File(file.getAbsolutePath() + "/" + bookModel.getBookTitle() + ".pdf");
+                //Log.i("NFO", "PATH: " + file);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setDataAndType(Uri.fromFile(pdf), "application/pdf");
+                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(i);
+                break;
+
+        }
+    }
+
+    private boolean isPdfPresent() {
+        boolean isPresent  = false;
+        String pdf = bookModel.getBookTitle() + ".pdf";
+        File f = new File(ZHelper.getInstance().getPdf().getAbsolutePath());
+        File files[] = f.listFiles();
+        for (File file : files) {
+            Log.i("NFO", "FILES: " + file.getName());
+            if (pdf.equals(file.getName())) {
+                isPresent = true;
+                break;
+            }
+        }
+        return isPresent;
     }
 
     private void setFavoriteImage() {
@@ -136,6 +181,7 @@ public class BookInformationActivity extends AppCompatActivity {
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setTitle("PDF Download");
         request.setDescription("Downloading " + bookModel.getBookTitle());
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         request.setDestinationInExternalFilesDir(BookInformationActivity.this, Environment.DIRECTORY_DOWNLOADS, bookModel.getBookTitle() + ".pdf");
 
@@ -150,15 +196,9 @@ public class BookInformationActivity extends AppCompatActivity {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (referenceId == pdfDownload) {
                 Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
-
-                // invoke pdf reader
-                File file = ZHelper.getInstance().getPdf();
-                File pdf = new File(file.getAbsolutePath() + "/" + bookModel.getBookTitle() + ".pdf");
-                //Log.i("NFO", "PATH: " + file);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setDataAndType(Uri.fromFile(pdf), "application/pdf");
-                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(i);
+                pdfAction = PDF_ACTION_READ;
+                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
+                btnActionPdf.setText(R.string.read_pdf);
             }
         }
     };
@@ -284,7 +324,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvAvailable= (TextView) findViewById(R.id.tvAvailable);
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
-            Button btnDownload = (Button) findViewById(R.id.btnActionPdf);
+            Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
 
 
             tvBookTitle.setText(bookModel.getBookTitle());
@@ -323,11 +363,17 @@ public class BookInformationActivity extends AppCompatActivity {
                 tvAvailable.setText(available);
                 String total = "Total No. of Books: : " + bookModel.getAvailable();
                 tvTotal.setText(total);
-                btnDownload.setVisibility(View.GONE);
+                btnActionPdf.setVisibility(View.GONE);
             } else {
                 tvAvailable.setVisibility(View.GONE);
                 tvTotal.setVisibility(View.GONE);
-                btnDownload.setVisibility(View.VISIBLE);
+
+                if (isPdfPresent()) {
+                    pdfAction = PDF_ACTION_READ;
+                    btnActionPdf.setText(R.string.read_pdf);
+                }
+
+                btnActionPdf.setVisibility(View.VISIBLE);
             }
             tvDescription.setText(bookModel.getDescription());
 
@@ -405,12 +451,17 @@ public class BookInformationActivity extends AppCompatActivity {
             super.onPostExecute(result);
             mLoadingDialog.dismiss();
 
-            if (result.equals("success"))
-                isFavorite = true;
-            else if(result.equals("none"))
-                isFavorite = false;
-            else
-                Log.e("ERR", "Error in retrieving fav");
+            switch (result) {
+                case FAV_SUCCESS:
+                    isFavorite = true;
+                    break;
+                case FAV_NONE:
+                    isFavorite = false;
+                    break;
+                default:
+                    Log.e("ERR", "Error in retrieving fav");
+                    break;
+            }
 
             // update
             setFavoriteImage();

@@ -11,7 +11,7 @@ public class ZHelper {
     private String studentId;
     private File pdf;
 
-    static final String SERVER_IP = "10.0.0.3";
+    static final String SERVER_IP = "10.0.3.2";
     static final String DB_FAIL = "fail";
     static final String DB_ENCODE_TYPE="UTF-8";
 
