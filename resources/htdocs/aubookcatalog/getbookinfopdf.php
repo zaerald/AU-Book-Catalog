@@ -6,9 +6,9 @@
     mysqli_set_charset($conn, "utf8");
     $sql = "SELECT b.book_id, b.book_title, b.book_img,
 GROUP_CONCAT(a.author_name SEPARATOR ', ') AS 'author',
-s.subject, b.book_page, t.type, b.description
-FROM tblbook b, tblauthor a, tblbook_author ba, tblsubject s, tbltype t
-WHERE b.book_id = ba.book_id AND a.book_author_id = ba.book_author AND b.subject_id = s.subject_id AND b.type_id = t.tbltype_id
+s.subject, b.book_page, t.type, b.description, pdf.pdf
+FROM tblbook b, tblauthor a, tblbook_author ba, tblsubject s, tbltype t, tblpdf pdf
+WHERE b.book_id = ba.book_id AND a.book_author_id = ba.book_author AND b.subject_id = s.subject_id AND b.type_id = t.tbltype_id AND pdf.book_id = b.book_id
 AND b.book_id=$bookId
 GROUP BY b.book_id";
 

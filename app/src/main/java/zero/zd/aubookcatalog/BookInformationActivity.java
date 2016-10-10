@@ -36,8 +36,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 import zero.zd.aubookcatalog.model.BookModel;
 
@@ -50,6 +48,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
     private boolean isFavorite;
 
+    private BookModel bookModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,7 @@ public class BookInformationActivity extends AppCompatActivity {
     }
 
     public void onClickDownload(View view) {
-        Toast.makeText(this, "Tada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Tada + " + bookModel.getPdf(), Toast.LENGTH_SHORT).show();
     }
 
     private void setFavoriteImage() {
@@ -112,7 +111,7 @@ public class BookInformationActivity extends AppCompatActivity {
     }
 
 
-    class BookInformationTask extends AsyncTask<Long, String, List<BookModel>> {
+    class BookInformationTask extends AsyncTask<Long, String, BookModel> {
 
 //        Dialog mLoadingDialog;
         boolean isBook;
@@ -124,7 +123,7 @@ public class BookInformationActivity extends AppCompatActivity {
         }
 
         @Override
-        protected List<BookModel> doInBackground(Long... params) {
+        protected BookModel doInBackground(Long... params) {
             String getInfo = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
 
@@ -176,27 +175,24 @@ public class BookInformationActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(JsonResult);
                 JSONArray jsonArray = jsonObject.getJSONArray("result");
 
-                List<BookModel> bookList = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject finalObject = jsonArray.getJSONObject(i);
-                    BookModel bookModel = new BookModel();
-                    bookModel.setBookId(finalObject.getInt("book_id"));
-                    bookModel.setBookTitle(finalObject.getString("book_title"));
-                    bookModel.setBookImage(finalObject.getString("book_img"));
-                    bookModel.setAuthor(finalObject.getString("author"));
-                    bookModel.setSubject(finalObject.getString("subject"));
-                    bookModel.setPages(finalObject.getInt("book_page"));
-                    bookModel.setType(finalObject.getString("type"));
 
-                    if (isBook) {
-                        bookModel.setAvailable(finalObject.getInt("available"));
-                        bookModel.setTotal(finalObject.getInt("total"));
-                    } else {
-                        bookModel.setPdf(finalObject.getString("pdf"));
-                    }
-                    bookModel.setDescription(finalObject.getString("description"));
-                    bookList.add(bookModel);
+                JSONObject finalObject = jsonArray.getJSONObject(0);
+                bookModel = new BookModel();
+                bookModel.setBookId(finalObject.getInt("book_id"));
+                bookModel.setBookTitle(finalObject.getString("book_title"));
+                bookModel.setBookImage(finalObject.getString("book_img"));
+                bookModel.setAuthor(finalObject.getString("author"));
+                bookModel.setSubject(finalObject.getString("subject"));
+                bookModel.setPages(finalObject.getInt("book_page"));
+                bookModel.setType(finalObject.getString("type"));
+
+                if (isBook) {
+                    bookModel.setAvailable(finalObject.getInt("available"));
+                    bookModel.setTotal(finalObject.getInt("total"));
+                } else {
+                    bookModel.setPdf(finalObject.getString("pdf"));
                 }
+                bookModel.setDescription(finalObject.getString("description"));
 
                 bufferedReader.close();
                 inputStream.close();
@@ -204,7 +200,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 Log.i("NFO", "no err");
 
-                return bookList;
+                return bookModel;
 
             } catch(IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
@@ -215,7 +211,7 @@ public class BookInformationActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(List<BookModel> bookModel) {
+        protected void onPostExecute(BookModel bookModel) {
             super.onPostExecute(bookModel);
 
 //            mLoadingDialog.dismiss();
@@ -239,9 +235,9 @@ public class BookInformationActivity extends AppCompatActivity {
             Button btnDownload = (Button) findViewById(R.id.btnDownload);
 
 
-             tvBookTitle.setText(bookModel.get(0).getBookTitle());
-            String author = "Author: " + bookModel.get(0).getAuthor();
-            ImageLoader.getInstance().displayImage(bookModel.get(0).getBookImage(), imgBook, new ImageLoadingListener() {
+            tvBookTitle.setText(bookModel.getBookTitle());
+            String author = "Author: " + bookModel.getAuthor();
+            ImageLoader.getInstance().displayImage(bookModel.getBookImage(), imgBook, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
                     progressBar.setVisibility(View.VISIBLE);
@@ -263,17 +259,17 @@ public class BookInformationActivity extends AppCompatActivity {
                 }
             });
             tvAuthor.setText(author);
-            String subject = "Subject: " + bookModel.get(0).getSubject();
+            String subject = "Subject: " + bookModel.getSubject();
             tvSubject.setText(subject);
-            String pages = "Pages: " + bookModel.get(0).getPages();
+            String pages = "Pages: " + bookModel.getPages();
             tvPages.setText(pages);
-            String type = "Type: " + bookModel.get(0).getType();
+            String type = "Type: " + bookModel.getType();
             tvType.setText(type);
 
             if (isBook) {
-                String available = "No. of Books Available: " + bookModel.get(0).getAvailable();
+                String available = "No. of Books Available: " + bookModel.getAvailable();
                 tvAvailable.setText(available);
-                String total = "Total No. of Books: : " + bookModel.get(0).getAvailable();
+                String total = "Total No. of Books: : " + bookModel.getAvailable();
                 tvTotal.setText(total);
                 btnDownload.setVisibility(View.GONE);
             } else {
@@ -281,7 +277,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 tvTotal.setVisibility(View.GONE);
                 btnDownload.setVisibility(View.VISIBLE);
             }
-            tvDescription.setText(bookModel.get(0).getDescription());
+            tvDescription.setText(bookModel.getDescription());
 
             new CheckFavoriteTask().execute();
         }
