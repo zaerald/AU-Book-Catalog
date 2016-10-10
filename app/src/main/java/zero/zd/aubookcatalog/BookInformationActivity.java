@@ -230,7 +230,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvAvailable= (TextView) findViewById(R.id.tvAvailable);
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
-            Button btnDownload = (Button) findViewById(R.id.btnDownload);
+            Button btnDownload = (Button) findViewById(R.id.btnActionPdf);
 
 
              tvBookTitle.setText(bookModel.get(0).getBookTitle());
