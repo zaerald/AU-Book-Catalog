@@ -159,7 +159,8 @@
         android:layout_marginTop="5dp"
         android:background="@color/colorPrimary"
         android:textColor="@android:color/background_light"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:onClick="onClickDownload" />
 
 </RelativeLayout>
 

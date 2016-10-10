@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -96,6 +97,10 @@ public class BookInformationActivity extends AppCompatActivity {
         new FavoriteTask().execute();
     }
 
+    public void onClickDownload(View view) {
+        Toast.makeText(this, "Tada", Toast.LENGTH_SHORT).show();
+    }
+
     private void setFavoriteImage() {
         ImageView imgView = (ImageView) findViewById(R.id.imgStar);
 
@@ -131,7 +136,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 getInfo += "getbookinfopdf.php";
                 isBook = false;
             }
-
 
             try {
                 long bookId = params[0];
@@ -187,6 +191,8 @@ public class BookInformationActivity extends AppCompatActivity {
                     if (isBook) {
                         bookModel.setAvailable(finalObject.getInt("available"));
                         bookModel.setTotal(finalObject.getInt("total"));
+                    } else {
+                        bookModel.setPdf(finalObject.getString("pdf"));
                     }
                     bookModel.setDescription(finalObject.getString("description"));
                     bookList.add(bookModel);

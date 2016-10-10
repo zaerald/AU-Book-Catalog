@@ -14,6 +14,7 @@ public class BookModel {
     private int available;
     private int total;
     private String description;
+    private String pdf;
 
 
     public long getBookId() {
@@ -95,5 +96,14 @@ public class BookModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(String pdf) {
+        String pdfPath = "/pdf/";
+        this.pdf = ZHelper.getInstance().getServer() + pdfPath + pdf;
     }
 }
