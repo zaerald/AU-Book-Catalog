@@ -1,11 +1,17 @@
 package zero.zd.aubookcatalog;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,8 +53,11 @@ public class BookInformationActivity extends AppCompatActivity {
     private String studentId;
 
     private boolean isFavorite;
+    BookModel bookModel;
 
-    private BookModel bookModel;
+    DownloadManager downloadManager;
+    BroadcastReceiver receiver;
+    private long pdfDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +78,16 @@ public class BookInformationActivity extends AppCompatActivity {
 
         // load book info
         new BookInformationTask().execute(bookId);
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (referenceId == pdfDownload) {
+                    Toast.makeText(BookInformationActivity.this, "Downloaded", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
     }
 
     @Override
@@ -97,7 +116,9 @@ public class BookInformationActivity extends AppCompatActivity {
     }
 
     public void onClickDownload(View view) {
-        Toast.makeText(this, "Tada + " + bookModel.getPdf(), Toast.LENGTH_SHORT).show();
+        Log.i("NFO", "URI: " + bookModel.getPdf());
+        Uri pdfUri = Uri.parse(bookModel.getPdf());
+        pdfDownload = DownloadData(pdfUri);
     }
 
     private void setFavoriteImage() {
@@ -110,6 +131,20 @@ public class BookInformationActivity extends AppCompatActivity {
 
     }
 
+
+    private long DownloadData(Uri uri) {
+        long downloadReference;
+        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setTitle("PDF Download");
+        request.setDescription("Downloading " + bookModel.getBookTitle());
+
+        request.setDestinationInExternalFilesDir(BookInformationActivity.this, Environment.DIRECTORY_DOWNLOADS, bookModel.getBookTitle() + ".pdf");
+
+        downloadReference = downloadManager.enqueue(request);
+
+        return downloadReference;
+    }
 
     class BookInformationTask extends AsyncTask<Long, String, BookModel> {
 

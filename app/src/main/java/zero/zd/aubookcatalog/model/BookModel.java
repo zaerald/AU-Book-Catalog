@@ -38,7 +38,7 @@ public class BookModel {
     }
 
     public void setBookImage(String bookImage) {
-        String bookPath = "/book_img/";
+        String bookPath = "book_img/";
         this.bookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
     }
 
@@ -103,7 +103,7 @@ public class BookModel {
     }
 
     public void setPdf(String pdf) {
-        String pdfPath = "/pdf/";
+        String pdfPath = "pdf/";
         this.pdf = ZHelper.getInstance().getServer() + pdfPath + pdf;
     }
 }
