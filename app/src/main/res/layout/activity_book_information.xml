@@ -138,7 +138,7 @@
         android:layout_alignParentStart="false"
         android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp"
-        android:layout_above="@+id/btnDownload">
+        android:layout_above="@+id/btnActionPdf">
 
         <TextView
             android:layout_width="match_parent"
@@ -149,8 +149,8 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btnDownload"
-        android:text="Download PDf"
+        android:id="@+id/btnActionPdf"
+        android:text="Download PDF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -160,7 +160,7 @@
         android:background="@color/colorPrimary"
         android:textColor="@android:color/background_light"
         android:visibility="invisible"
-        android:onClick="onClickDownload" />
+        android:onClick="onClickBtnActionPdf" />
 
 </RelativeLayout>
 
