@@ -66,7 +66,7 @@ public class BookInformationActivity extends AppCompatActivity {
     BookModel bookModel;
 
     DownloadManager downloadManager;
-    private long pdfDownload;
+    private long pdfDownloadId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class BookInformationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (pdfAction != PDF_ACTION_READ)
+        if (pdfAction == PDF_ACTION_DOWNLOAD)
             unregisterReceiver(downloadReceiver);
     }
 
@@ -124,15 +124,21 @@ public class BookInformationActivity extends AppCompatActivity {
     }
 
     public void onClickBtnActionPdf(View view) {
+        Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
 
         switch (pdfAction) {
 
             case PDF_ACTION_DOWNLOAD:
+                pdfAction = PDF_ACTION_CANCEL;
+                btnActionPdf.setText(R.string.cancel_pdf);
+
                 Uri pdfUri = Uri.parse(bookModel.getPdf());
-                pdfDownload = DownloadData(pdfUri);
+                pdfDownloadId = DownloadData(pdfUri);
                 break;
 
             case PDF_ACTION_CANCEL:
+                downloadManager.remove(pdfDownloadId);
+                Toast.makeText(this, "PDF download cancelled.", Toast.LENGTH_SHORT).show();
                 break;
 
             case PDF_ACTION_READ:
@@ -194,7 +200,17 @@ public class BookInformationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (referenceId == pdfDownload) {
+
+            Log.i("NFO", "pdfAction: " + pdfAction);
+
+            if (pdfAction == PDF_ACTION_CANCEL) {
+                pdfAction = PDF_ACTION_DOWNLOAD;
+                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
+                btnActionPdf.setText(R.string.download_pdf);
+                return;
+            }
+
+            if (referenceId == pdfDownloadId) {
                 Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
                 pdfAction = PDF_ACTION_READ;
                 Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);

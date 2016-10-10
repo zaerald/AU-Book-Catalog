@@ -83,7 +83,9 @@
 
     <!-- BookInformation Activity -->
     <string name="title_activity_bookinfo">Book Information</string>
+    <string name="download_pdf">Download PDF</string>
     <string name="read_pdf">Read PDF</string>
+    <string name="cancel_pdf">Cancel PDF Download</string>
     <!-- END BookInformation Activity -->
 
     <!-- Settings Activity -->
