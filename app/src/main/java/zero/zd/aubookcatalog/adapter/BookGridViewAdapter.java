@@ -59,6 +59,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
             viewHolder.txtBookTitle = (TextView) convertView.findViewById(R.id.txtBookTitle);
+            viewHolder.txtAuthor = (TextView) convertView.findViewById(R.id.txtAuthor);
             viewHolder.txtBookType = (TextView) convertView.findViewById(R.id.txtBookType);
 
             convertView.setTag(viewHolder);
@@ -90,6 +91,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
             }
         });
         viewHolder.txtBookTitle.setText(bookList.get(position).getBookTitle());
+        viewHolder.txtAuthor.setText(bookList.get(position).getAuthor());
         viewHolder.txtBookType.setText(bookList.get(position).getBookType());
 
         return convertView;
@@ -99,6 +101,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
         private ImageView imageView;
         private ProgressBar progressBar;
         private TextView txtBookTitle;
+        private TextView txtAuthor;
         private TextView txtBookType;
 
     }

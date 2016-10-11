@@ -7,6 +7,7 @@ public class BookGridModel {
     private long bookId;
     private String bookImage;
     private String bookTitle;
+    private String author;
     private String bookType;
 
     public long getBookId() {
@@ -40,5 +41,13 @@ public class BookGridModel {
 
     public void setBookType(String bookType) {
         this.bookType = bookType;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
