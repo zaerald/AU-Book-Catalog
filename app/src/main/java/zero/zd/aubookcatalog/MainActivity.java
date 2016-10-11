@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -108,8 +107,10 @@ public class MainActivity extends AppCompatActivity
 //                execAllBooks();
 //                break;
             case ZHelper.NAV_DISCOVER_BOOK:
+                execDiscover();
                 break;
             case ZHelper.NAV_DOWNLOADED_PDF_BOOK:
+                execDownloadedPdf();
                 break;
             case ZHelper.NAV_FAVORITES:
                 execFavorite();
@@ -151,10 +152,24 @@ public class MainActivity extends AppCompatActivity
         new GetBookTask(view).execute();
     }
 
+    private void execDiscover() {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.rootView, new DiscoverFragment()).commit();
+    }
+
+    private void execDownloadedPdf() {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.rootView, new ReadBookFragment()).commit();
+    }
+
     private void execFavorite() {
         View view = getWindow().getDecorView().getRootView();
         new GetFavoritetask(view).execute();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -207,7 +222,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentManager fragmentManager = getFragmentManager();
 
         switch(id) {
 
@@ -223,14 +238,14 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_discover:
                 selectedNav = ZHelper.NAV_DISCOVER_BOOK;
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new DiscoverFragment()).commit();
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.rootView, new DiscoverFragment()).commit();
+                execDiscover();
                 break;
 
             case R.id.nav_downloaded_pdf:
                 selectedNav = ZHelper.NAV_DOWNLOADED_PDF_BOOK;
-                fragmentManager.beginTransaction()
-                        .replace(R.id.rootView, new ReadBookFragment()).commit();
+                execDownloadedPdf();
                 break;
 
             case R.id.nav_favorites:

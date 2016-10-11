@@ -3,27 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/discover_layout">
+    android:id="@+id/discover_layout"
+    android:background="@android:color/darker_gray">
 
-    <FrameLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/discover_tmp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnDiscover" />
+
+    <TextView
+        android:text="Discover a Book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/frameLayout"
-        android:layout_centerInParent="false"
-        android:layout_centerHorizontal="false">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/book_dummy"
-            android:id="@+id/imageView2" />
-
-    </FrameLayout>
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:id="@+id/txtView" />
 </RelativeLayout>
