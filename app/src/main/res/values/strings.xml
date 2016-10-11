@@ -88,6 +88,10 @@
     <string name="cancel_pdf">Cancel PDF Download</string>
     <!-- END BookInformation Activity -->
 
+    <!-- ReadBookFragment -->
+    <string name="read_list_of_downloaded_pdf">List of Downloaded PDF</string>
+    <!-- END ReadBookFragment -->
+
     <!-- Settings Activity -->
     <string name="title_activity_settings">Settings</string>
     <!-- END Settings Activity -->

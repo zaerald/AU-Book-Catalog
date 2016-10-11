@@ -88,8 +88,10 @@ public class BookInformationActivity extends AppCompatActivity {
         bookType = extras.getString("bookType");
 
         // load book info
+        pdfAction = PDF_ACTION_DOWNLOAD;
         new BookInformationTask().execute(bookId);
 
+        // add receiver
         registerReceiver(downloadReceiver,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
@@ -117,8 +119,8 @@ public class BookInformationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (pdfAction == PDF_ACTION_DOWNLOAD)
-            unregisterReceiver(downloadReceiver);
+        unregisterReceiver(downloadReceiver);
+        Log.i("NFO", "pdfAction: " + pdfAction);
     }
 
     public void onClickFavorite (View view) {
@@ -396,7 +398,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 if (isPdfPresent()) {
                     pdfAction = PDF_ACTION_READ;
                     btnActionPdf.setText(R.string.read_pdf);
-                    Log.i("NFO", "isPresent");
                 } else {
                     pdfAction = PDF_ACTION_DOWNLOAD;
                     btnActionPdf.setText(R.string.download_pdf);
