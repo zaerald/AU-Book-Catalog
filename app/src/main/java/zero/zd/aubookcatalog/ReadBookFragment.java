@@ -108,7 +108,6 @@ public class ReadBookFragment extends Fragment {
             listView.setVisibility(View.GONE);
             txtInfo.setVisibility(View.GONE);
         }
-        adapter.notifyDataSetChanged();
     }
 
 }
