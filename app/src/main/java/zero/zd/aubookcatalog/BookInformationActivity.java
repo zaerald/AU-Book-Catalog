@@ -68,6 +68,8 @@ public class BookInformationActivity extends AppCompatActivity {
     DownloadManager downloadManager;
     private long pdfDownloadId;
 
+    boolean isCancelInvoked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +128,7 @@ public class BookInformationActivity extends AppCompatActivity {
     public void onClickBtnActionPdf(View view) {
         Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
 
+        isCancelInvoked = false;
         switch (pdfAction) {
 
             case PDF_ACTION_DOWNLOAD:
@@ -137,6 +140,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 break;
 
             case PDF_ACTION_CANCEL:
+                isCancelInvoked = true;
                 downloadManager.remove(pdfDownloadId);
                 Toast.makeText(this, "PDF download cancelled.", Toast.LENGTH_SHORT).show();
                 break;
@@ -160,13 +164,15 @@ public class BookInformationActivity extends AppCompatActivity {
         String pdf = bookModel.getBookTitle() + ".pdf";
         File f = new File(ZHelper.getInstance().getPdf().getAbsolutePath());
         File files[] = f.listFiles();
+        Log.i("NFO", "Files size: " + files.length);
         for (File file : files) {
-            Log.i("NFO", "FILES: " + file.getName());
+            Log.i("NFO", "PDF FILES: " + file.getName());
             if (pdf.equals(file.getName())) {
                 isPresent = true;
                 break;
             }
         }
+        Log.i("NFO", "isPresent " + isPresent);
         return isPresent;
     }
 
@@ -203,7 +209,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
             Log.i("NFO", "pdfAction: " + pdfAction);
 
-            if (pdfAction == PDF_ACTION_CANCEL) {
+            if (isCancelInvoked) {
                 pdfAction = PDF_ACTION_DOWNLOAD;
                 Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
                 btnActionPdf.setText(R.string.download_pdf);
@@ -306,8 +312,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-                Log.i("NFO", "no err");
-
                 return bookModel;
 
             } catch(IOException | JSONException e) {
@@ -387,6 +391,10 @@ public class BookInformationActivity extends AppCompatActivity {
                 if (isPdfPresent()) {
                     pdfAction = PDF_ACTION_READ;
                     btnActionPdf.setText(R.string.read_pdf);
+                    Log.i("NFO", "isPresent");
+                } else {
+                    pdfAction = PDF_ACTION_DOWNLOAD;
+                    btnActionPdf.setText(R.string.download_pdf);
                 }
 
                 btnActionPdf.setVisibility(View.VISIBLE);
@@ -481,8 +489,6 @@ public class BookInformationActivity extends AppCompatActivity {
 
             // update
             setFavoriteImage();
-            Log.i("NFO", "Check result: " + result);
-            Log.i("NFO", "Check Fav: " + isFavorite);
         }
     }
 
@@ -545,8 +551,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-                Log.i("NFO", "no err");
-
                 return builder.toString();
 
             } catch(IOException  e) {
@@ -570,7 +574,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 isFavorite = !isFavorite;
 
 
-            Log.i("NFO", "CHECK RESULT: " + result + " : fav: " + isFavorite);
+            //Log.i("NFO", "CHECK RESULT: " + result + " : fav: " + isFavorite);
             setFavoriteImage();
 
             View view = findViewById(R.id.activity_book_information);
