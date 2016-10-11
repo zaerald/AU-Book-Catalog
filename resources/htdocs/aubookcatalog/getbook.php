@@ -2,7 +2,10 @@
 	require "conn.php";
 	mysqli_set_charset($conn, "utf8");
 
-	$sql = "SELECT b.book_id, b.book_img, b.book_title, t.type FROM tblbook b, tbltype t WHERE t.tbltype_id = b.type_id GROUP BY b.book_id";
+	$sql = "SELECT b.book_id, b.book_img, b.book_title, GROUP_CONCAT(a.author_name SEPARATOR ', ') AS 'author', t.type 
+			FROM tblbook b, tbltype t, tblauthor a, tblbook_author ba
+			WHERE t.tbltype_id = b.type_id  AND ba.book_id = b.book_id AND ba.book_author = a.book_author_id
+			GROUP BY b.book_id";
 
 	$res = mysqli_query($conn, $sql) or die("Error Selecting" . mysqli_error($conn));
 	$result = array();
