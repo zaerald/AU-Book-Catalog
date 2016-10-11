@@ -301,6 +301,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 bookModel.setType(finalObject.getString("type"));
 
                 if (isBook) {
+                    bookModel.setDivision(finalObject.getString("division"));
                     bookModel.setAvailable(finalObject.getInt("available"));
                     bookModel.setTotal(finalObject.getInt("total"));
                 } else {
@@ -340,6 +341,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvAuthor = (TextView) findViewById(R.id.tvAuthor);
             TextView tvSubject = (TextView) findViewById(R.id.tvSubject);
             TextView tvPages = (TextView) findViewById(R.id.tvPages);
+            TextView tvDivision = (TextView) findViewById(R.id.tvDivision);
             TextView tvType = (TextView) findViewById(R.id.tvType);
             TextView tvAvailable= (TextView) findViewById(R.id.tvAvailable);
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
@@ -379,12 +381,15 @@ public class BookInformationActivity extends AppCompatActivity {
             tvType.setText(type);
 
             if (isBook) {
+                String division = "Division: " + bookModel.getDivision();
+                tvDivision.setText(division);
                 String available = "No. of Books Available: " + bookModel.getAvailable();
                 tvAvailable.setText(available);
                 String total = "Total No. of Books: : " + bookModel.getAvailable();
                 tvTotal.setText(total);
                 btnActionPdf.setVisibility(View.GONE);
             } else {
+                tvDivision.setVisibility(View.GONE);
                 tvAvailable.setVisibility(View.GONE);
                 tvTotal.setVisibility(View.GONE);
 

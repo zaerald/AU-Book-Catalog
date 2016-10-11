@@ -92,9 +92,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvType"
-        android:layout_below="@+id/tvPages"
-        android:layout_alignLeft="@+id/tvPages"
-        android:layout_alignStart="@+id/tvPages"
+        android:layout_below="@+id/tvDivision"
+        android:layout_alignLeft="@+id/tvDivision"
+        android:layout_alignStart="@+id/tvDivision"
         android:textColor="@android:color/black"
         android:layout_marginBottom="5dp" />
 
@@ -161,6 +161,17 @@
         android:textColor="@android:color/background_light"
         android:visibility="invisible"
         android:onClick="onClickBtnActionPdf" />
+
+    <TextView
+        android:text="Division:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDivision"
+        android:layout_below="@+id/tvPages"
+        android:layout_alignLeft="@+id/tvPages"
+        android:layout_alignStart="@+id/tvPages"
+        android:layout_marginBottom="5dp"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>
 

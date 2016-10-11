@@ -10,6 +10,7 @@ public class BookModel {
     private String author;
     private String subject;
     private int pages;
+    private String division;
     private String type;
     private int available;
     private int total;
@@ -105,5 +106,13 @@ public class BookModel {
     public void setPdf(String pdf) {
         String pdfPath = "pdf/";
         this.pdf = ZHelper.getInstance().getServer() + pdfPath + pdf;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
     }
 }
