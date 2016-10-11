@@ -173,15 +173,13 @@ public class BookInformationActivity extends AppCompatActivity {
         String pdf = bookModel.getBookTitle() + ".pdf";
         File f = new File(ZHelper.getInstance().getPdf().getAbsolutePath());
         File files[] = f.listFiles();
-        Log.i("NFO", "Files size: " + files.length);
         for (File file : files) {
-            Log.i("NFO", "PDF FILES: " + file.getName());
+
             if (pdf.equals(file.getName())) {
                 isPresent = true;
                 break;
             }
         }
-        Log.i("NFO", "isPresent " + isPresent);
         return isPresent;
     }
 
@@ -217,8 +215,6 @@ public class BookInformationActivity extends AppCompatActivity {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             isRegistered = true;
 
-            Log.i("NFO", "pdfAction: " + pdfAction);
-
             if (isCancelInvoked) {
                 pdfAction = PDF_ACTION_DOWNLOAD;
                 Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
@@ -237,12 +233,10 @@ public class BookInformationActivity extends AppCompatActivity {
 
     class BookInformationTask extends AsyncTask<Long, String, BookModel> {
 
-//        Dialog mLoadingDialog;
         boolean isBook;
 
         @Override
         protected void onPreExecute() {
-//            mLoadingDialog = ProgressDialog.show(getApplicationContext(), "Please wait", "Loading...");
             super.onPreExecute();
         }
 
@@ -336,8 +330,6 @@ public class BookInformationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(BookModel bookModel) {
             super.onPostExecute(bookModel);
-
-//            mLoadingDialog.dismiss();
 
             if (bookModel == null) {
                 View view = findViewById(R.id.activity_book_information);
