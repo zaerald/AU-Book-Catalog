@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2016 at 12:40 AM
+-- Generation Time: Oct 11, 2016 at 02:06 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -56,7 +56,9 @@ INSERT INTO `tblauthor` (`book_author_id`, `author_name`) VALUES
 (19, 'Ulisses Costa'),
 (20, ' Tapas Saha'),
 (21, 'Raul F. Chong'),
-(22, 'Peter Kohlmann');
+(22, 'Peter Kohlmann'),
+(23, 'Dawn Griffiths'),
+(24, 'David Griffiths');
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,8 @@ INSERT INTO `tblbook` (`book_id`, `book_title`, `book_page`, `subject_id`, `type
 (10, 'Roots of Revolution', 269, 9, 1, 'roots_of_revolution.jpg', 'A history of Iran focuses on the Shah''s rise and fall and the causes of the Iranian revolution.\r\n\r\nIn this updated edition of Nikki Keddie’s Modern Iran—itself a substantially revised and expanded version of her classic work Roots of Revolution—the  author provides a new preface and a fully annotated and indexed epilogue, reviewing recent developments in Iran since 2003. Keddie provides insightful commentary on Iran’s nuclear and foreign policy, its relations with the United Nations and the United States, increasing conservative and hard-line tendencies in the government, and recent developments in the economy, cultural and intellectual life, and human rights.'),
 (11, '97 Things Every Programmer Should Know', 111, 10, 2, '97_things_every_programmer_should_know.jpg', 'The collection is intended simply to contain multiple and varied perspectives on what it is that contributors to the project feel programmers should know. This can be anything from code-focused advice to culture, from algorithm usage to agile thinking, from implementation know-how to professionalism, from style to substance, etc.'),
 (12, 'Android Development Patterns: Best Practices for Professional Developers', 316, 10, 2, 'Android_Development_Patterns_Best_Practices_for_Professional_Developers_Developer.jpg', 'A must read for all developers that want to begin serious Android development.”\r\n—Justin Anderson, Freelance Android Developer\r\n \r\n“From start to finish, this book contains a variety of great tips and insight into the most important attributes of Android design. This book will definitely be required reading for any of our future Android engineers.”\r\n—Cameron Banga, Cofounder, 9magnets, LLC\r\n \r\nThere’s a downside to Android’s amazing openness and versatility: it’s easy for developers to write code that’s inefficient, unreliable, insecure, or hard to maintain. In Android Development Patterns , enterprise Android developer Phil Dutson helps you leverage Android 5.0+’s amazing power without falling victim to those pitfalls. Dutson presents today’s most comprehensive set of patterns and procedures for building optimized, robust apps with Android 5.0+.\r\n \r\nFirst, Dutson guides you through establishing a highly efficient development environment and workflow, and testing your app to ensure that your code works just as you expect. Then, he walks through the modern best practices for structuring apps, using widgets and components, and working with views.\r\n \r\nYou learn how to build apps that are easy to manage and update, deliver accurate and up-to-date information without wasting precious battery power, and take advantage of new hardware, such as Android Wear and Android TV. Dutson concludes by presenting powerful strategies for optimizing your apps and packaging them for distribution.'),
-(13, 'Getting Started with Open Source Development', 136, 10, 2, 'Getting_started_with_open_source_development.jpg', 'Open source software development is a community-driven methodology to develop products, from the design and development stages to distribution. Developers across differents part of the world are passionate about their collaboration, and several successful projects including Firefox, Moodle, and Drupal are widely used today. Moreover, many companies are using open source software as the foundation to build their business models.\r\nThis book gets you started into the fascinating world of open source software development. Using the exercises and case studies provided, you will get good hands-on experience to contribute to and start open source projects.');
+(13, 'Getting Started with Open Source Development', 136, 10, 2, 'Getting_started_with_open_source_development.jpg', 'Open source software development is a community-driven methodology to develop products, from the design and development stages to distribution. Developers across differents part of the world are passionate about their collaboration, and several successful projects including Firefox, Moodle, and Drupal are widely used today. Moreover, many companies are using open source software as the foundation to build their business models.\r\nThis book gets you started into the fascinating world of open source software development. Using the exercises and case studies provided, you will get good hands-on experience to contribute to and start open source projects.'),
+(14, 'Head First Android Development', 734, 10, 2, 'head_first_android_development.jpg', 'If you have an idea for a killer Android app, this book will help you build your first working application in a jiffy. You’ll learn hands-on how to structure your app, design interfaces, create a database, make your app work on various smartphones and tablets, and much more. It’s like having an experienced Android developer sitting right next to you! All you need is some Java know-how to get started.\r\n\r\nWhy does this book look so different?\r\n\r\nBased on the latest research in cognitive science and learning theory, Head First Android Development uses a visually rich format to engage your mind, rather than a text-heavy approach that puts you to sleep. Why waste your time struggling with new concepts? This multi-sensory learning experience is designed for the way your brain really works.');
 
 -- --------------------------------------------------------
 
@@ -157,7 +160,9 @@ INSERT INTO `tblbook_author` (`book_id`, `book_author`) VALUES
 (13, 19),
 (13, 20),
 (13, 21),
-(13, 22);
+(13, 22),
+(14, 23),
+(14, 24);
 
 -- --------------------------------------------------------
 
@@ -175,9 +180,10 @@ CREATE TABLE `tblbook_favorites` (
 --
 
 INSERT INTO `tblbook_favorites` (`student_id`, `book_id`) VALUES
+('46-4664-64646', 2),
 ('00-0000-00000', 12),
-('00-0000-00000', 6),
-('46-4664-64646', 2);
+('00-0000-00000', 8),
+('00-0000-00000', 2);
 
 -- --------------------------------------------------------
 
@@ -237,7 +243,8 @@ CREATE TABLE `tblpdf` (
 INSERT INTO `tblpdf` (`pdf_id`, `pdf`, `book_id`) VALUES
 (2, '97-things-every-programmer-should-know.pdf', 11),
 (3, 'Android_Development_Patterns_Best_Practices_for_Professional_Developers_Developer.pdf', 12),
-(4, 'Getting_started_with_open_source_development.pdf', 13);
+(4, 'Getting_started_with_open_source_development.pdf', 13),
+(5, 'Head_First_Android_Development.pdf', 14);
 
 -- --------------------------------------------------------
 
@@ -372,12 +379,12 @@ ALTER TABLE `tbltype`
 -- AUTO_INCREMENT for table `tblauthor`
 --
 ALTER TABLE `tblauthor`
-  MODIFY `book_author_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `book_author_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `tblbook`
 --
 ALTER TABLE `tblbook`
-  MODIFY `book_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `book_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tbldashboard`
 --
@@ -387,7 +394,7 @@ ALTER TABLE `tbldashboard`
 -- AUTO_INCREMENT for table `tblpdf`
 --
 ALTER TABLE `tblpdf`
-  MODIFY `pdf_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pdf_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblsubject`
 --
