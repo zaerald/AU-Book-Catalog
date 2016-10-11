@@ -90,6 +90,7 @@
 
     <!-- ReadBookFragment -->
     <string name="read_list_of_downloaded_pdf">List of Downloaded PDF</string>
+    <string name="read_no_pdf">No Downloaded PDF</string>
     <!-- END ReadBookFragment -->
 
     <!-- Settings Activity -->
