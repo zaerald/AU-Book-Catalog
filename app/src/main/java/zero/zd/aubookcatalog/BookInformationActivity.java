@@ -69,6 +69,7 @@ public class BookInformationActivity extends AppCompatActivity {
     private long pdfDownloadId;
 
     boolean isCancelInvoked;
+    boolean isRegistered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class BookInformationActivity extends AppCompatActivity {
         pdfAction = PDF_ACTION_DOWNLOAD;
         new BookInformationTask().execute(bookId);
 
+        isRegistered = true;
         // add receiver
         registerReceiver(downloadReceiver,
                 new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -119,7 +121,12 @@ public class BookInformationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(downloadReceiver);
+
+        if(isRegistered) {
+            unregisterReceiver(downloadReceiver);
+            isRegistered = false;
+        }
+
         Log.i("NFO", "pdfAction: " + pdfAction);
     }
 
@@ -208,6 +215,7 @@ public class BookInformationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            isRegistered = true;
 
             Log.i("NFO", "pdfAction: " + pdfAction);
 
