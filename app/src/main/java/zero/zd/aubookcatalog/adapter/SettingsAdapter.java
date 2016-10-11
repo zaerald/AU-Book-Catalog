@@ -11,17 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import zero.zd.aubookcatalog.R;
 import zero.zd.aubookcatalog.model.SettingsModel;
 
 public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
 
     private Context context;
-    private List<SettingsModel> settingsModels;
+    private SettingsModel[] settingsModels;
 
-    public SettingsAdapter(Context context, int resource, List<SettingsModel> settingsModels) {
+    public SettingsAdapter(Context context, int resource, SettingsModel[] settingsModels) {
         super(context, resource, settingsModels);
         this.context = context;
         this.settingsModels = settingsModels;
@@ -50,7 +48,7 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        SettingsModel settingsModel = settingsModels.get(position);
+        SettingsModel settingsModel = settingsModels[position];
         switch (settingsModel.getId()) {
             case SettingsModel.HEADING:
                 viewHolder.headingLayout.setVisibility(View.VISIBLE);
