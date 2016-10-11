@@ -15,7 +15,7 @@
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_all_books">All Books</string>
     <string name="nav_discover_book">Discover a Book</string>
-    <string name="nav_downloaded_pdf_books">Browse PDF Books</string>
+    <string name="nav_downloaded_pdf_books">Browse Downloaded PDF</string>
     <string name="nav_favorites">Favorites</string>
     <string name="nav_title_options">Options</string>
     <string name="nav_settings">Settings</string>
