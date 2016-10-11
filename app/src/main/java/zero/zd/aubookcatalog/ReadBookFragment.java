@@ -25,25 +25,21 @@ public class ReadBookFragment extends Fragment {
 
     private List<String> pdfList;
     DownloadedPdfAdapter adapter;
+    private TextView txtInfo;
+    private TextView txtNone;
+    private ListView listView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_read_book, container, false);
-        ListView listView =  (ListView) view.findViewById(R.id.listView);
-        TextView txtView = (TextView) view.findViewById(R.id.txtInfo);
+        listView = (ListView) view.findViewById(R.id.listView);
+        txtInfo = (TextView) view.findViewById(R.id.txtInfo);
+        txtNone = (TextView) view.findViewById(R.id.txtNone);
         initDownloadedPdf();
 
-
-        if(!pdfList.isEmpty()) {
-            adapter = new DownloadedPdfAdapter(getActivity().getApplicationContext(),
-                    R.layout.downloaded_pdf_layout, pdfList);
-            listView.setAdapter(adapter);
-            txtView.setText(R.string.read_list_of_downloaded_pdf);
-        } else {
-            txtView.setText(R.string.read_no_pdf);
-        }
+        updateList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,8 +71,7 @@ public class ReadBookFragment extends Fragment {
                 }
                 Toast.makeText(getActivity().getApplicationContext(), "PDF Deleted", Toast.LENGTH_SHORT).show();
                 initDownloadedPdf();
-//                adapter = new DownloadedPdfAdapter(getActivity().getApplicationContext(),
-//                        R.layout.downloaded_pdf_layout, pdfList);
+                updateList();
                 adapter.notifyDataSetChanged();
                 return true;
             }
@@ -98,6 +93,22 @@ public class ReadBookFragment extends Fragment {
             }
         }
 
+    }
+
+    private void updateList() {
+        if(!pdfList.isEmpty()) {
+            adapter = new DownloadedPdfAdapter(getActivity().getApplicationContext(),
+                    R.layout.downloaded_pdf_layout, pdfList);
+            listView.setAdapter(adapter);
+            txtNone.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            txtInfo.setVisibility(View.VISIBLE);
+        } else {
+            txtNone.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+            txtInfo.setVisibility(View.GONE);
+        }
+        adapter.notifyDataSetChanged();
     }
 
 }
