@@ -5,7 +5,7 @@
 	$keyword = $_POST['keyword'];
 	//$keyword = 'rr';
 	
-	$sql = "SELECT b.book_id, b.book_img, b.book_title, t.type
+	$sql = "SELECT b.book_id, b.book_img, b.book_title, authorz.author, t.type
 
 FROM tblbook AS b
 

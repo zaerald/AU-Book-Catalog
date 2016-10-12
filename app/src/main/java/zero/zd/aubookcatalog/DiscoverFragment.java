@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -19,7 +19,7 @@ public class DiscoverFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
-        Button btnDiscover = (Button) view.findViewById(R.id.btnDiscover);
+        ImageView btnDiscover = (ImageView) view.findViewById(R.id.btnDiscover);
         TextView txtView = (TextView) view.findViewById(R.id.txtView);
         btnDiscover.setOnClickListener(new View.OnClickListener() {
             @Override

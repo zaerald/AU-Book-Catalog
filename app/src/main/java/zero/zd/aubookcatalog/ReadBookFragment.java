@@ -109,5 +109,4 @@ public class ReadBookFragment extends Fragment {
             txtInfo.setVisibility(View.GONE);
         }
     }
-
 }

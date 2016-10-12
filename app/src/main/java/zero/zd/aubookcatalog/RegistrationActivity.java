@@ -384,17 +384,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
+                View view = findViewById(R.id.activity_registration_layout);
+                new RegisterTask(view).execute();
             } else if (result.equals("duplicate")) {
                 txtError4.setVisibility(View.VISIBLE);
                 return;
             } else {
                 Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();
+                return;
             }
 
             Log.i("NFO", "user check NFO: " + result);
 
-            View view = findViewById(R.id.activity_registration_layout);
-            new RegisterTask(view).execute();
+
         }
     }
 
