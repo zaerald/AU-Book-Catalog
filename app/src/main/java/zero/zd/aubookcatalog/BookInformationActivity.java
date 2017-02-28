@@ -387,7 +387,7 @@ public class BookInformationActivity extends AppCompatActivity {
                 tvDivision.setText(division);
                 String available = "No. of Books Available: " + bookModel.getAvailable();
                 tvAvailable.setText(available);
-                String total = "Total No. of Books: : " + bookModel.getAvailable();
+                String total = "Total No. of Books: : " + bookModel.getTotal();
                 tvTotal.setText(total);
                 btnActionPdf.setVisibility(View.GONE);
             } else {

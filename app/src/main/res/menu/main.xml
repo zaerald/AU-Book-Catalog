@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
         android:id="@+id/action_overflow"
-        android:orderInCategory="1"
         android:icon="@drawable/ic_action_overflow"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_overflow">
+        android:orderInCategory="1"
+        android:title="@string/action_overflow"
+        app:showAsAction="ifRoom">
 
         <menu>
 
@@ -16,7 +16,7 @@
                 android:id="@+id/action_refresh"
                 android:icon="@drawable/ic_action_refresh"
                 android:title="@string/action_refresh"
-                app:showAsAction="ifRoom|withText" />
+                app:showAsAction="ifRoom|withText"/>
 
             <item
                 android:id="@+id/action_setup_ip"

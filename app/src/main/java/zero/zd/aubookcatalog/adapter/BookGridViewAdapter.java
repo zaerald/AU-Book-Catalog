@@ -2,6 +2,7 @@ package zero.zd.aubookcatalog.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,14 @@ public class BookGridViewAdapter extends ArrayAdapter {
         return bookList.get(position).getBookId();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater)
+                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resource, parent, false);
 
             viewHolder = new ViewHolder();
@@ -63,33 +66,32 @@ public class BookGridViewAdapter extends ArrayAdapter {
             viewHolder.txtBookType = (TextView) convertView.findViewById(R.id.txtBookType);
 
             convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        } else viewHolder = (ViewHolder) convertView.getTag();
+
 
         final ViewHolder holder = viewHolder;
         ImageLoader.getInstance().displayImage(bookList.get(position).getBookImage(),
                 viewHolder.imageView, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                holder.progressBar.setVisibility(View.VISIBLE);
-            }
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                        holder.progressBar.setVisibility(View.VISIBLE);
+                    }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                holder.progressBar.setVisibility(View.GONE);
-            }
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        holder.progressBar.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                holder.progressBar.setVisibility(View.GONE);
-            }
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        holder.progressBar.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                holder.progressBar.setVisibility(View.GONE);
-            }
-        });
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+                        holder.progressBar.setVisibility(View.GONE);
+                    }
+                });
         viewHolder.txtBookTitle.setText(bookList.get(position).getBookTitle());
         viewHolder.txtAuthor.setText(bookList.get(position).getAuthor());
         viewHolder.txtBookType.setText(bookList.get(position).getBookType());
@@ -97,7 +99,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private ImageView imageView;
         private ProgressBar progressBar;
         private TextView txtBookTitle;
