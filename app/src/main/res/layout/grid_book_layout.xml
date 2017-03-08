@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@android:color/darker_gray"
-    android:layout_width="100dp"
-    android:layout_height="217dp">
+              android:layout_width="100dp"
+              android:layout_height="217dp"
+              android:background="@android:color/darker_gray"
+              android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="98dp"
+        android:layout_height="215dp"
         android:background="@color/grid_book_container"
-        android:layout_height="215dp">
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -23,56 +21,56 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:adjustViewBounds="true"
                 android:layout_width="match_parent"
-                android:layout_height="140dp" />
+                android:layout_height="140dp"
+                android:adjustViewBounds="true"/>
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"/>
         </FrameLayout>
 
         <TextView
-            android:text="About Faces"
-            android:layout_height="wrap_content"
             android:id="@+id/txtBookTitle"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Caption"
-            android:lines="2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:ellipsize="end"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textStyle="normal|bold"
+            android:lines="2"
+            android:text="About Faces"
             android:textAllCaps="false"
-            android:textColor="@android:color/background_dark" />
-
-        <TextView
-            android:text="Author"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/txtAuthor"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:lines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="12sp"
-            android:textColor="@android:color/black"
-            android:maxLines="1"
-            android:ellipsize="end" />
-
-        <TextView
-            android:text="Book"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/txtBookType"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Caption"
             android:textColor="@android:color/background_dark"
-            android:textSize="12sp" />
+            android:textStyle="normal|bold"/>
+
+        <TextView
+            android:id="@+id/txtAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="Author"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/txtBookType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Book"
+            android:textColor="@android:color/background_dark"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 

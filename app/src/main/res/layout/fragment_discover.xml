@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/discover_layout"
-    android:background="@color/all_books">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/discover_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/all_books"
+                android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/btnDiscover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/discover_tmp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/btnDiscover" />
+        app:srcCompat="@drawable/discover_tmp"/>
 
     <TextView
-        android:text="Discover a Book"
+        android:id="@+id/txtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:id="@+id/txtView" />
+        android:layout_centerVertical="true"
+        tools:text="Discover a Book"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"/>
 </RelativeLayout>

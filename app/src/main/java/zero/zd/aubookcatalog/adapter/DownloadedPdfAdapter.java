@@ -14,15 +14,15 @@ import zero.zd.aubookcatalog.R;
 
 public class DownloadedPdfAdapter extends ArrayAdapter<String> {
 
-    private Context context;
-    private int resource;
-    private List<String> pdfList;
+    private Context mContext;
+    private int mResource;
+    private List<String> mPdfList;
 
     public DownloadedPdfAdapter(Context context, int resource, List<String> pdfList) {
         super(context, resource, pdfList);
-        this.context = context;
-        this.resource = resource;
-        this.pdfList = pdfList;
+        this.mContext = context;
+        this.mResource = resource;
+        this.mPdfList = pdfList;
     }
 
     @NonNull
@@ -33,8 +33,8 @@ public class DownloadedPdfAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resource, parent, false);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(mResource, parent, false);
 
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
 
@@ -43,7 +43,7 @@ public class DownloadedPdfAdapter extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtName.setText(pdfList.get(position));
+        viewHolder.txtName.setText(mPdfList.get(position));
         return convertView;
     }
 

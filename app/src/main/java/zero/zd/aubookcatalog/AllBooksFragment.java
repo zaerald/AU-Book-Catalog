@@ -49,10 +49,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AllBooksFragment extends Fragment{
 
-    private List<BookGridModel> bookGridList;
-    private GridView gridView;
+    private List<BookGridModel> mGridModelList;
+    private GridView mGridView;
 
-    private SharedPreferences preferences;
+    private SharedPreferences mPreferences;
 
     View view;
 
@@ -60,9 +60,9 @@ public class AllBooksFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_all_books, container, false);
-        gridView = (GridView) view.findViewById(R.id.gridView);
+        mGridView = (GridView) view.findViewById(R.id.gridView);
 
-        preferences = getActivity().getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
+        mPreferences = getActivity().getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // parse JSON result
         String JsonResult = getArguments().getString("result");
@@ -79,7 +79,7 @@ public class AllBooksFragment extends Fragment{
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    //Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  preferences.getString("serverIp", ZHelper.SERVER_IP), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity().getApplicationContext(), "IP used: " +  mPreferences.getString("serverIp", ZHelper.SERVER_IP), Toast.LENGTH_SHORT).show();
                     String keyword = textView.getText().toString();
                     View v = viewClone.findViewById(R.id.fragment_all_books_layout);
                     new GetBookTask(v).execute(keyword);
@@ -119,7 +119,7 @@ public class AllBooksFragment extends Fragment{
     }
 
     private void parseBookResult(String JsonResult)  {
-        bookGridList = new ArrayList<>();
+        mGridModelList = new ArrayList<>();
 
         if (JsonResult != null) {
             try {
@@ -134,27 +134,27 @@ public class AllBooksFragment extends Fragment{
                     bookGridModel.setBookTitle(finalObject.getString("book_title"));
                     bookGridModel.setAuthor(finalObject.getString("author"));
                     bookGridModel.setBookType(finalObject.getString("type"));
-                    bookGridList.add(bookGridModel);
+                    mGridModelList.add(bookGridModel);
                 }
 
                 BookGridViewAdapter adapter =
                         new BookGridViewAdapter(getActivity().getApplicationContext(),
-                                R.layout.grid_book_layout, bookGridList);
+                                R.layout.grid_book_layout, mGridModelList);
 
-                gridView.setAdapter(adapter);
+                mGridView.setAdapter(adapter);
             } catch (JSONException e) {
                 Log.e("JSON ERR", e.getMessage());
                 e.printStackTrace();
             }
         }
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!bookGridList.isEmpty()) {
+                if (!mGridModelList.isEmpty()) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), BookInformationActivity.class);
-                    intent.putExtra("bookId", bookGridList.get(position).getBookId());
-                    intent.putExtra("bookType", bookGridList.get(position).getBookType());
+                    intent.putExtra("bookId", mGridModelList.get(position).getBookId());
+                    intent.putExtra("bookType", mGridModelList.get(position).getBookType());
                     startActivity(intent);
                 }
             }
@@ -178,7 +178,7 @@ public class AllBooksFragment extends Fragment{
 
         @Override
         protected String doInBackground(String... strings) {
-            String server = "http://" +  preferences.getString("serverIp", ZHelper.SERVER_IP) +
+            String server = "http://" +  mPreferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/getbooksearch.php";
 
             String keyword = strings[0];

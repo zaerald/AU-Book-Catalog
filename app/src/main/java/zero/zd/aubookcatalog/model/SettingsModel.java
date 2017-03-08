@@ -5,64 +5,64 @@ public class SettingsModel {
     public static final int HEADING = 0;
     public static final int CONTENT = 1;
 
-    private int id;
+    private int mId;
 
-    private String heading;
+    private String mHeading;
 
-    private int imgResource;
-    private String title;
-    private String subtitle;
+    private int mImgResource;
+    private String mTitle;
+    private String mSubtitle;
 
     public SettingsModel(int id, String heading) {
-        this.id = id;
-        this.heading = heading;
+        this.mId = id;
+        this.mHeading = heading;
     }
 
     public SettingsModel(int id, int imgResource, String title, String subtitle) {
-        this.id = id;
-        this.imgResource = imgResource;
-        this.title = title;
-        this.subtitle = subtitle;
+        this.mId = id;
+        this.mImgResource = imgResource;
+        this.mTitle = title;
+        this.mSubtitle = subtitle;
     }
 
     public int getImgResource() {
-        return imgResource;
+        return mImgResource;
     }
 
     public void setImgResource(int imgResource) {
-        this.imgResource = imgResource;
+        this.mImgResource = imgResource;
     }
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mTitle = title;
     }
 
     public String getSubtitle() {
-        return subtitle;
+        return mSubtitle;
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+        this.mSubtitle = subtitle;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getHeading() {
-        return heading;
+        return mHeading;
     }
 
     public void setHeading(String heading) {
-        this.heading = heading;
+        this.mHeading = heading;
     }
 
 }

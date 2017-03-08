@@ -33,10 +33,10 @@ import java.net.URLEncoder;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private SharedPreferences preferences;
+    private SharedPreferences mPreferences;
 
-    private EditText txtUserName;
-    private EditText txtPass;
+    private EditText mUserNameEditText;
+    private EditText mPassEditText;
 
     private Dialog mLoadingDialog;
 
@@ -50,24 +50,22 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // check if user has already logged in
-        boolean isLogged = preferences.getBoolean(ZHelper.IS_LOGGED, false);
+        boolean isLogged = mPreferences.getBoolean(ZHelper.IS_LOGGED, false);
         if (isLogged) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
 
-        txtUserName = (EditText) findViewById(R.id.txtUserName);
-        txtPass = (EditText) findViewById(R.id.txtPass);
-
-
+        mUserNameEditText = (EditText) findViewById(R.id.txtUserName);
+        mPassEditText = (EditText) findViewById(R.id.txtPass);
     }
 
     public void onClickLogin(View v) {
-        String userName = txtUserName.getText().toString();
-        String password = txtPass.getText().toString();
+        String userName = mUserNameEditText.getText().toString();
+        String password = mPassEditText.getText().toString();
 
         // validate input
         userName = userName.trim();
@@ -144,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String loginUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
+            String loginUrl = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/login.php";
 
                 try {

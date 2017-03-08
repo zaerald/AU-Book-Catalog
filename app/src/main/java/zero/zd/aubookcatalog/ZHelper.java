@@ -5,17 +5,17 @@ import java.io.File;
 
 public class ZHelper {
 
-    private static ZHelper instance = new ZHelper();
+    private static ZHelper sInstance = new ZHelper();
 
-    private String server;
-    private String studentId;
-    private File pdf;
+    private String mServer;
+    private String mStudentId;
+    private File mPdf;
 
     static final String SERVER_IP = "10.0.3.2";
     static final String DB_FAIL = "fail";
     static final String DB_ENCODE_TYPE="UTF-8";
 
-    // preferences
+    // mPreferences
     static final String PREFS = "settings";
     static final String IS_LOGGED = "isLogged";
     static final String ALL_BOOKS_RESULT = "all_books_result";
@@ -34,30 +34,30 @@ public class ZHelper {
     private ZHelper() {}
 
     public static ZHelper getInstance() {
-        return instance;
+        return sInstance;
     }
 
     public String getServer() {
-        return server;
+        return mServer;
     }
 
     public void setServer(String server) {
-        this.server = server;
+        this.mServer = server;
     }
 
     public String getStudentId() {
-        return studentId;
+        return mStudentId;
     }
 
     public void setStudentId(String studentId) {
-        this.studentId = studentId;
+        this.mStudentId = studentId;
     }
 
     public File getPdf() {
-        return pdf;
+        return mPdf;
     }
 
     public void setPdf(File pdf) {
-        this.pdf = pdf;
+        this.mPdf = pdf;
     }
 }

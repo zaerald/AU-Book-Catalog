@@ -12,8 +12,8 @@ import android.widget.Toast;
 public class SetupIPActivity extends AppCompatActivity {
 
     // save states
-    SharedPreferences preferences;
-    SharedPreferences.Editor prefsEditor;
+    SharedPreferences mPreferences;
+    SharedPreferences.Editor mPrefsEditor;
 
     EditText txtServerIp;
 
@@ -27,7 +27,7 @@ public class SetupIPActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         updateText();
     }
@@ -48,10 +48,10 @@ public class SetupIPActivity extends AppCompatActivity {
         String serverIp = txtServerIp.getText().toString();
 
         // save prefs
-        preferences = getSharedPreferences("settings", MODE_PRIVATE);
-        prefsEditor = preferences.edit();
-        prefsEditor.putString("serverIp", serverIp);
-        prefsEditor.apply();
+        mPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+        mPrefsEditor = mPreferences.edit();
+        mPrefsEditor.putString("serverIp", serverIp);
+        mPrefsEditor.apply();
 
         updateText();
         Toast.makeText(this, "Server IP Updated!", Toast.LENGTH_SHORT).show();
@@ -61,7 +61,7 @@ public class SetupIPActivity extends AppCompatActivity {
 
     private void updateText() {
         TextView textViewCurIp = (TextView) findViewById(R.id.textViewCurIP);
-        String serverIp = preferences.getString("serverIp", ZHelper.SERVER_IP);
+        String serverIp = mPreferences.getString("serverIp", ZHelper.SERVER_IP);
         String out = "Current IP: " + serverIp;
         textViewCurIp.setText(out);
     }

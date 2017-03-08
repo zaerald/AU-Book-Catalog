@@ -1,222 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="zero.zd.aubookcatalog.RegistrationActivity"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:id="@+id/activity_registration_layout">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_registration_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:weightSum="1"
+                tools:context="zero.zd.aubookcatalog.RegistrationActivity">
 
     <TextView
+        android:id="@+id/txtInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/txtInfo"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="@string/reg_info" />
+        android:layout_alignParentTop="true"
+        android:text="@string/reg_info"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/reg_err"
         android:id="@+id/txtError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/txtInfo"
-        android:textColor="#ec1b1b"
         android:layout_marginTop="10dp"
-        android:visibility="gone" />
+        android:text="@string/reg_err"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ec1b1b"
+        android:visibility="gone"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/reg_err2"
         android:id="@+id/txtError2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/txtError"
-        android:textColor="#ec1b1b"
         android:layout_marginTop="10dp"
-        android:visibility="gone" />
+        android:text="@string/reg_err2"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ec1b1b"
+        android:visibility="gone"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/reg_err3"
         android:id="@+id/txtError3"
-        android:layout_below="@+id/txtError2"
-        android:textColor="#ec1b1b"
-        android:layout_marginTop="10dp"
-        android:visibility="gone" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/reg_err4"
-        android:layout_below="@+id/txtError3"
-        android:textColor="#ec1b1b"
+        android:layout_below="@+id/txtError2"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
-        android:id="@+id/txtError4" />
+        android:text="@string/reg_err3"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ec1b1b"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txtError4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtError3"
+        android:layout_marginTop="10dp"
+        android:text="@string/reg_err4"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ec1b1b"
+        android:visibility="gone"/>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_below="@+id/txtError4"
+        android:layout_above="@+id/btnRegister"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_above="@+id/btnRegister"
+        android:layout_below="@+id/txtError4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp">
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/reg_basic_info"
                 android:id="@+id/txtBasicInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textColor="#000000" />
+                android:text="@string/reg_basic_info"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"/>
 
             <TextView
+                android:id="@+id/textViewFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/reg_first_name"
-                android:id="@+id/textViewFirstName" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName|text"
-                android:ems="10"
                 android:id="@+id/txtFirstName"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/reg_last_name"
-                android:id="@+id/textViewLastName" />
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/txtLastName"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp" />
+                android:ems="10"
+                android:inputType="textPersonName|text"/>
 
             <TextView
+                android:id="@+id/textViewLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/reg_last_name"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <EditText
+                android:id="@+id/txtLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                android:id="@+id/textViewStudID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/reg_stud_id"
-                android:id="@+id/textViewStudID" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <com.github.pinball83.maskededittext.MaskedEditText
+                android:id="@+id/txtViewStudentId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:id="@+id/txtViewStudentId"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
+                android:ems="10"
                 android:inputType="number"
                 app:mask="**-****-*****"
                 app:notMaskedSymbol="*"
                 />
 
             <TextView
+                android:id="@+id/textViewUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/reg_username"
-                android:id="@+id/textViewUsername" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
                 android:id="@+id/txtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:maxLength="20" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:maxLength="20"/>
 
             <TextView
+                android:id="@+id/textViewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/reg_password"
-                android:id="@+id/textViewPassword" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <EditText
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/txtPassword"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:maxLength="20" />
+                android:ems="10"
+                android:inputType="textPassword"
+                android:maxLength="20"/>
 
             <TextView
+                android:id="@+id/textViewConfirmPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/reg_confirm_password"
-                android:id="@+id/textViewConfirmPassword" />
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <EditText
+                android:id="@+id/txtConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword|textPersonName"
-                android:ems="10"
-                android:id="@+id/txtConfirmPassword"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:maxLength="20" />
+                android:ems="10"
+                android:inputType="textPassword|textPersonName"
+                android:maxLength="20"/>
 
         </LinearLayout>
     </ScrollView>
 
     <Button
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reg_register"
-        android:id="@+id/btnRegister"
-        android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:onClick="onClickSignUp"
         android:background="#2e3b9a"
-        android:textColor="#FFFFFF" />
+        android:onClick="onClickSignUp"
+        android:text="@string/reg_register"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

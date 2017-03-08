@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:id="@+id/settings_layout"
-    android:layout_height="wrap_content">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/settings_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/heading_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDarker"
-        android:id="@+id/heading_layout"
-        android:elevation="5dp">
+        android:elevation="5dp"
+        android:orientation="vertical">
 
         <TextView
-            android:text="TextView"
+            android:id="@+id/txtHeading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-            android:id="@+id/txtHeading" />
+            android:gravity="center_vertical"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"/>
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:id="@+id/content_layout"
         android:layout_below="@+id/heading_layout">
 
         <ImageView
-            app:srcCompat="@drawable/au_logo"
             android:id="@+id/imgView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            app:srcCompat="@drawable/au_logo"/>
 
         <TextView
-            android:text="Subtitle"
+            android:id="@+id/txtSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtSubTitle"
-            android:layout_below="@+id/txtTitle"
             android:layout_alignLeft="@+id/txtTitle"
             android:layout_alignParentBottom="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:layout_below="@+id/txtTitle"
+            android:text="Subtitle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
         <TextView
-            android:text="Title"
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtTitle"
+            android:layout_alignTop="@+id/imgView"
             android:layout_marginLeft="11dp"
             android:layout_marginStart="11dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/black"
-            android:layout_alignTop="@+id/imgView"
+            android:layout_toEndOf="@+id/imgView"
             android:layout_toRightOf="@+id/imgView"
-            android:layout_toEndOf="@+id/imgView" />
+            android:text="Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"/>
     </RelativeLayout>
 </RelativeLayout>

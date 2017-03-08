@@ -4,115 +4,115 @@ import zero.zd.aubookcatalog.ZHelper;
 
 public class BookModel {
 
-    private long bookId;
-    private String bookTitle;
-    private String bookImage;
-    private String author;
-    private String subject;
-    private int pages;
-    private String division;
-    private String type;
-    private int available;
-    private int total;
-    private String description;
-    private String pdf;
+    private long mBookId;
+    private String mBookTitle;
+    private String mBookImage;
+    private String mAuthor;
+    private String mSubject;
+    private int mPages;
+    private String mDivision;
+    private String mType;
+    private int mAvailable;
+    private int mTotal;
+    private String mDescription;
+    private String mPdf;
 
 
     public long getBookId() {
-        return bookId;
+        return mBookId;
     }
 
     public void setBookId(long bookId) {
-        this.bookId = bookId;
+        this.mBookId = bookId;
     }
 
     public String getBookTitle() {
-        return bookTitle;
+        return mBookTitle;
     }
 
     public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+        this.mBookTitle = bookTitle;
     }
 
     public String getBookImage() {
-        return bookImage;
+        return mBookImage;
     }
 
     public void setBookImage(String bookImage) {
         String bookPath = "book_img/";
-        this.bookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
+        this.mBookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
     }
 
     public String getAuthor() {
-        return author;
+        return mAuthor;
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.mAuthor = author;
     }
 
     public String getSubject() {
-        return subject;
+        return mSubject;
     }
 
     public void setSubject(String subject) {
-        this.subject = subject;
+        this.mSubject = subject;
     }
 
     public int getPages() {
-        return pages;
+        return mPages;
     }
 
     public void setPages(int pages) {
-        this.pages = pages;
+        this.mPages = pages;
     }
 
     public String getType() {
-        return type;
+        return mType;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.mType = type;
     }
 
     public int getAvailable() {
-        return available;
+        return mAvailable;
     }
 
     public void setAvailable(int available) {
-        this.available = available;
+        this.mAvailable = available;
     }
 
     public int getTotal() {
-        return total;
+        return mTotal;
     }
 
     public void setTotal(int total) {
-        this.total = total;
+        this.mTotal = total;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mDescription = description;
     }
 
     public String getPdf() {
-        return pdf;
+        return mPdf;
     }
 
     public void setPdf(String pdf) {
-        String pdfPath = "pdf/";
-        this.pdf = ZHelper.getInstance().getServer() + pdfPath + pdf;
+        String pdfPath = "mPdf/";
+        this.mPdf = ZHelper.getInstance().getServer() + pdfPath + pdf;
     }
 
     public String getDivision() {
-        return division;
+        return mDivision;
     }
 
     public void setDivision(String division) {
-        this.division = division;
+        this.mDivision = division;
     }
 }

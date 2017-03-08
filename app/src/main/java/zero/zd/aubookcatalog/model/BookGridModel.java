@@ -4,50 +4,50 @@ import zero.zd.aubookcatalog.ZHelper;
 
 public class BookGridModel {
 
-    private long bookId;
-    private String bookImage;
-    private String bookTitle;
-    private String author;
-    private String bookType;
+    private long mBookId;
+    private String mBookImage;
+    private String mBookTitle;
+    private String mAuthor;
+    private String mBookType;
 
     public long getBookId() {
-        return bookId;
+        return mBookId;
     }
 
     public void setBookId(long bookId) {
-        this.bookId = bookId;
+        this.mBookId = bookId;
     }
 
     public String getBookImage() {
-        return bookImage;
+        return mBookImage;
     }
 
     public void setBookImage(String bookImage) {
         String bookPath = "/book_img/";
-        this.bookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
+        this.mBookImage = ZHelper.getInstance().getServer() + bookPath + bookImage;
     }
 
     public String getBookTitle() {
-        return bookTitle;
+        return mBookTitle;
     }
 
     public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+        this.mBookTitle = bookTitle;
     }
 
     public String getBookType() {
-        return bookType;
+        return mBookType;
     }
 
     public void setBookType(String bookType) {
-        this.bookType = bookType;
+        this.mBookType = bookType;
     }
 
     public String getAuthor() {
-        return author;
+        return mAuthor;
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.mAuthor = author;
     }
 }

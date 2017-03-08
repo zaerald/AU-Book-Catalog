@@ -22,30 +22,30 @@ import zero.zd.aubookcatalog.model.BookGridModel;
 
 public class BookGridViewAdapter extends ArrayAdapter {
 
-    Context context;
-    private int resource;
-    private List<BookGridModel> bookList;
+    private Context mContext;
+    private int mResource;
+    private List<BookGridModel> mBookList;
 
     public BookGridViewAdapter(Context context, int resource, List<BookGridModel> bookList) {
         super(context, resource, bookList);
-        this.context = context;
-        this.bookList = bookList;
-        this.resource = resource;
+        this.mContext = context;
+        this.mBookList = bookList;
+        this.mResource = resource;
     }
 
     @Override
     public int getCount() {
-        return bookList.size();
+        return mBookList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return bookList.get(position);
+        return mBookList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return bookList.get(position).getBookId();
+        return mBookList.get(position).getBookId();
     }
 
     @NonNull
@@ -55,8 +55,8 @@ public class BookGridViewAdapter extends ArrayAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resource, parent, false);
+                    mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(mResource, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
@@ -70,7 +70,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
 
 
         final ViewHolder holder = viewHolder;
-        ImageLoader.getInstance().displayImage(bookList.get(position).getBookImage(),
+        ImageLoader.getInstance().displayImage(mBookList.get(position).getBookImage(),
                 viewHolder.imageView, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
@@ -92,9 +92,9 @@ public class BookGridViewAdapter extends ArrayAdapter {
                         holder.progressBar.setVisibility(View.GONE);
                     }
                 });
-        viewHolder.txtBookTitle.setText(bookList.get(position).getBookTitle());
-        viewHolder.txtAuthor.setText(bookList.get(position).getAuthor());
-        viewHolder.txtBookType.setText(bookList.get(position).getBookType());
+        viewHolder.txtBookTitle.setText(mBookList.get(position).getBookTitle());
+        viewHolder.txtAuthor.setText(mBookList.get(position).getAuthor());
+        viewHolder.txtBookType.setText(mBookList.get(position).getBookType());
 
         return convertView;
     }

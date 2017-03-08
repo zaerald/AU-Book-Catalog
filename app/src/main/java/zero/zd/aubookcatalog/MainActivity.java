@@ -49,10 +49,10 @@ import zero.zd.aubookcatalog.model.UserModel;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SharedPreferences preferences;
-    private int selectedNav;
+    private SharedPreferences mPreferences;
+    private int mSelectedNav;
 
-    private boolean isStarted;
+    private boolean mIsStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
         // for loading images
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         ZHelper.getInstance().setPdf(file);
 
 
-        isStarted = true;
+        mIsStarted = true;
         loadStudent();
         navigationView.setCheckedItem(R.id.nav_dashboard);
         new GetDashboardTask().execute();
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     private void reloadAll() {
         loadStudent();
 
-        switch (selectedNav) {
+        switch (mSelectedNav) {
             case ZHelper.NAV_DASHBOARD:
                 execDashboard();
                 break;
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadStudent() {
         // check if isLogged
-        boolean isLogged = preferences.getBoolean(ZHelper.IS_LOGGED, false);
+        boolean isLogged = mPreferences.getBoolean(ZHelper.IS_LOGGED, false);
 
         String studId;
         if (!isLogged) {
@@ -129,13 +129,13 @@ public class MainActivity extends AppCompatActivity
 
             // set login to true
             SharedPreferences.Editor prefsEditor;
-            prefsEditor = preferences.edit();
+            prefsEditor = mPreferences.edit();
             prefsEditor.putBoolean(ZHelper.IS_LOGGED, true);
             prefsEditor.putString("student_id", studId);
             prefsEditor.apply();
         }
 
-        studId = preferences.getString("student_id", "");
+        studId = mPreferences.getString("student_id", "");
         View view = getWindow().getDecorView().getRootView();
         ZHelper.getInstance().setStudentId(studId);
         new GetNameTask(view).execute(studId);
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.action_refresh:
                 reloadAll();
-                if (selectedNav == ZHelper.NAV_ALL_BOOKS)
+                if (mSelectedNav == ZHelper.NAV_ALL_BOOKS)
                     execAllBooks();
                 break;
 
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.action_logout:
                 SharedPreferences.Editor prefsEditor;
-                prefsEditor = preferences.edit();
+                prefsEditor = mPreferences.edit();
                 prefsEditor.putBoolean(ZHelper.IS_LOGGED, false);
                 prefsEditor.apply();
 
@@ -227,29 +227,29 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
 
             case R.id.nav_dashboard:
-                selectedNav = ZHelper.NAV_DASHBOARD;
+                mSelectedNav = ZHelper.NAV_DASHBOARD;
                 execDashboard();
                 break;
 
             case R.id.nav_all_books:
-                selectedNav = ZHelper.NAV_ALL_BOOKS;
+                mSelectedNav = ZHelper.NAV_ALL_BOOKS;
                 execAllBooks();
                 break;
 
             case R.id.nav_discover:
-                selectedNav = ZHelper.NAV_DISCOVER_BOOK;
+                mSelectedNav = ZHelper.NAV_DISCOVER_BOOK;
 //                fragmentManager.beginTransaction()
 //                        .replace(R.id.rootView, new DiscoverFragment()).commit();
                 execDiscover();
                 break;
 
             case R.id.nav_downloaded_pdf:
-                selectedNav = ZHelper.NAV_DOWNLOADED_PDF_BOOK;
+                mSelectedNav = ZHelper.NAV_DOWNLOADED_PDF_BOOK;
                 execDownloadedPdf();
                 break;
 
             case R.id.nav_favorites:
-                selectedNav = ZHelper.NAV_FAVORITES;
+                mSelectedNav = ZHelper.NAV_FAVORITES;
                 execFavorite();
                 break;
 
@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (isStarted)
+        if (mIsStarted)
             return;
 
         reloadAll();
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected List<UserModel> doInBackground(String... strings) {
 
-            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
+            String server = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getName = server + "getname.php";
             ZHelper.getInstance().setServer(server);
@@ -379,9 +379,9 @@ public class MainActivity extends AppCompatActivity
                         Snackbar.LENGTH_LONG).show();
 
                 // set user data from prefs
-                txtViewName.setText(preferences.getString("stud_fullname", ""));
-                txtViewStudentid.setText(preferences.getString("student_id", ""));
-                String usrOut = "@" + preferences.getString("stud_username", "");
+                txtViewName.setText(mPreferences.getString("stud_fullname", ""));
+                txtViewStudentid.setText(mPreferences.getString("student_id", ""));
+                String usrOut = "@" + mPreferences.getString("stud_username", "");
                 txtViewUsername.setText(usrOut);
                 return;
             }
@@ -394,7 +394,7 @@ public class MainActivity extends AppCompatActivity
 
             // write to prefs
             SharedPreferences.Editor prefsEditor;
-            prefsEditor = preferences.edit();
+            prefsEditor = mPreferences.edit();
             prefsEditor.putString("stud_fullname", user.getFullname());
             prefsEditor.putString("stud_username", user.getUsername());
             prefsEditor.apply();
@@ -416,8 +416,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             //super.onPreExecute();
-            if (isStarted)
-                isStarted =  false;
+            if (mIsStarted)
+                mIsStarted =  false;
 
             if (view != null)
                 mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
@@ -425,7 +425,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Void... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
+            String server = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getDash = server + "getdash.php";
             ZHelper.getInstance().setServer(server);
@@ -506,7 +506,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Object... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
+            String server = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getbook.php";
 
@@ -558,11 +558,11 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
                 // load old result
-                result = preferences.getString(ZHelper.ALL_BOOKS_RESULT, null);
+                result = mPreferences.getString(ZHelper.ALL_BOOKS_RESULT, null);
             } else {
                 // refresh prefs
                 SharedPreferences.Editor prefsEditor;
-                prefsEditor = preferences.edit();
+                prefsEditor = mPreferences.edit();
                 prefsEditor.putString(ZHelper.ALL_BOOKS_RESULT, result);
                 prefsEditor.apply();
             }
@@ -596,12 +596,12 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(Object... strings) {
-            String server = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP)
+            String server = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
             String getBook = server + "getfav.php";
 
             try {
-                String studentId = preferences.getString("student_id", null);
+                String studentId = mPreferences.getString("student_id", null);
 
                 URL url = new URL(getBook);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -661,11 +661,11 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Please make sure that you are connected to the Internet.",
                         Snackbar.LENGTH_LONG).show();
                 // load old result
-                result = preferences.getString(ZHelper.FAV_BOOKS_RESULT, null);
+                result = mPreferences.getString(ZHelper.FAV_BOOKS_RESULT, null);
             } else {
                 // refresh prefs
                 SharedPreferences.Editor prefsEditor;
-                prefsEditor = preferences.edit();
+                prefsEditor = mPreferences.edit();
                 prefsEditor.putString(ZHelper.FAV_BOOKS_RESULT, result);
                 prefsEditor.apply();
             }

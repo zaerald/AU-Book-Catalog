@@ -23,14 +23,14 @@ import zero.zd.aubookcatalog.model.BookGridModel;
 
 public class FavoritesFragment extends Fragment {
 
-    private List<BookGridModel> bookGridList;
+    private List<BookGridModel> mBookGridModels;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         final GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        bookGridList = new ArrayList<>();
+        mBookGridModels = new ArrayList<>();
 
         // parse JSON result
         String JsonResult = getArguments().getString("result");
@@ -52,12 +52,12 @@ public class FavoritesFragment extends Fragment {
                 bookGridModel.setBookTitle(finalObject.getString("book_title"));
                 bookGridModel.setAuthor(finalObject.getString("author"));
                 bookGridModel.setBookType(finalObject.getString("type"));
-                bookGridList.add(bookGridModel);
+                mBookGridModels.add(bookGridModel);
             }
 
             BookGridViewAdapter adapter =
                     new BookGridViewAdapter(getActivity().getApplicationContext(),
-                            R.layout.grid_book_layout, bookGridList);
+                            R.layout.grid_book_layout, mBookGridModels);
 
             gridView.setAdapter(adapter);
         } catch (JSONException e) {
@@ -69,15 +69,15 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), BookInformationActivity.class);
-                intent.putExtra("bookId", bookGridList.get(position).getBookId());
-                intent.putExtra("bookType", bookGridList.get(position).getBookType());
+                intent.putExtra("bookId", mBookGridModels.get(position).getBookId());
+                intent.putExtra("bookType", mBookGridModels.get(position).getBookType());
                 startActivity(intent);
             }
         });
 
-        Log.i("NFO", "isEmpty: " + bookGridList.isEmpty());
+        Log.i("NFO", "isEmpty: " + mBookGridModels.isEmpty());
 
-        if (bookGridList.isEmpty())
+        if (mBookGridModels.isEmpty())
             view = inflater.inflate(R.layout.fragment_favorites_no_data, container, false);
 
         return view;

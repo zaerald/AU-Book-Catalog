@@ -29,24 +29,24 @@ import java.net.URLEncoder;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private SharedPreferences preferences;
+    private SharedPreferences mPreferences;
 
-    private EditText txtFirstName;
-    private EditText txtLastName;
-    private com.github.pinball83.maskededittext.MaskedEditText txtStudentId;
-    private EditText txtUsername;
-    private EditText txtPassword;
-    private EditText txtConfirmPassword;
-    private TextView txtError;
-    private TextView txtError2;
-    private TextView txtError3;
-    private TextView txtError4;
+    private EditText mFirstNameEditText;
+    private EditText mLastNameEditText;
+    private com.github.pinball83.maskededittext.MaskedEditText mStudentIdMaskedEditText;
+    private EditText mUsernameEditText;
+    private EditText mPasswordEditText;
+    private EditText mConfirmPasswordEditText;
+    private TextView mErrorTextView;
+    private TextView mError2TextView;
+    private TextView mError3TextView;
+    private TextView mError4TextView;
 
-    private String firstName;
-    private String lastName;
-    private String studentId;
-    private String username;
-    private String password;
+    private String mFirstName;
+    private String mLastName;
+    private String mStudentId;
+    private String mUsername;
+    private String mPassword;
 
 
     @Override
@@ -57,20 +57,20 @@ public class RegistrationActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
 
-        preferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
+        mPreferences = getSharedPreferences(ZHelper.PREFS, MODE_PRIVATE);
 
-        txtFirstName = (EditText) findViewById(R.id.txtFirstName);
-        txtLastName = (EditText) findViewById(R.id.txtLastName);
-        txtStudentId = (com.github.pinball83.maskededittext.MaskedEditText) findViewById(R.id.txtViewStudentId);
-        txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-        txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
-        txtError = (TextView) findViewById(R.id.txtError);
-        txtError2 = (TextView) findViewById(R.id.txtError2);
-        txtError3 = (TextView) findViewById(R.id.txtError3);
-        txtError4 = (TextView) findViewById(R.id.txtError4);
+        mFirstNameEditText = (EditText) findViewById(R.id.txtFirstName);
+        mLastNameEditText = (EditText) findViewById(R.id.txtLastName);
+        mStudentIdMaskedEditText = (com.github.pinball83.maskededittext.MaskedEditText) findViewById(R.id.txtViewStudentId);
+        mUsernameEditText = (EditText) findViewById(R.id.txtUsername);
+        mPasswordEditText = (EditText) findViewById(R.id.txtPassword);
+        mConfirmPasswordEditText = (EditText) findViewById(R.id.txtConfirmPassword);
+        mErrorTextView = (TextView) findViewById(R.id.txtError);
+        mError2TextView = (TextView) findViewById(R.id.txtError2);
+        mError3TextView = (TextView) findViewById(R.id.txtError3);
+        mError4TextView = (TextView) findViewById(R.id.txtError4);
 
-        txtPassword.addTextChangedListener(new TextWatcher() {
+        mPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -83,19 +83,19 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = txtPassword.getText().toString();
-                String confirmPass = txtConfirmPassword.getText().toString();
+                String pass = mPasswordEditText.getText().toString();
+                String confirmPass = mConfirmPasswordEditText.getText().toString();
 
                 if (confirmPass.equals(""))
                     return;
                 if (!confirmPass.equalsIgnoreCase(pass))
-                    txtError2.setVisibility(View.VISIBLE);
+                    mError2TextView.setVisibility(View.VISIBLE);
                 else
-                    txtError2.setVisibility(View.GONE);
+                    mError2TextView.setVisibility(View.GONE);
             }
         });
 
-        txtConfirmPassword.addTextChangedListener(new TextWatcher() {
+        mConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -108,55 +108,55 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = txtPassword.getText().toString();
-                String confirmPass = txtConfirmPassword.getText().toString();
+                String pass = mPasswordEditText.getText().toString();
+                String confirmPass = mConfirmPasswordEditText.getText().toString();
 
                 if (pass.equals(""))
                     return;
                 if (!pass.equalsIgnoreCase(confirmPass))
-                    txtError2.setVisibility(View.VISIBLE);
+                    mError2TextView.setVisibility(View.VISIBLE);
                 else
-                    txtError2.setVisibility(View.GONE);
+                    mError2TextView.setVisibility(View.GONE);
             }
         });
     }
 
     public void onClickSignUp(View v) {
 
-        firstName = txtFirstName.getText().toString();
-        lastName = txtLastName.getText().toString();
-        studentId = txtStudentId.getText().toString();
-        username = txtUsername.getText().toString();
-        password = txtPassword.getText().toString();
-        String confirmPassword = txtConfirmPassword.getText().toString();
+        mFirstName = mFirstNameEditText.getText().toString();
+        mLastName = mLastNameEditText.getText().toString();
+        mStudentId = mStudentIdMaskedEditText.getText().toString();
+        mUsername = mUsernameEditText.getText().toString();
+        mPassword = mPasswordEditText.getText().toString();
+        String confirmPassword = mConfirmPasswordEditText.getText().toString();
 
-        //Log.i("NFO", "Unmasked Length: " + txtStudentId.getUnmaskedText().length());
+        //Log.i("NFO", "Unmasked Length: " + mStudentIdMaskedEditText.getUnmaskedText().length());
 
         // validate all inputs
-        if (firstName.equals("") || lastName.equals("") || studentId.equals("") ||
-                username.equals("") || password.equals("") || confirmPassword.equals("")) {
-            txtError.setVisibility(View.VISIBLE);
+        if (mFirstName.equals("") || mLastName.equals("") || mStudentId.equals("") ||
+                mUsername.equals("") || mPassword.equals("") || confirmPassword.equals("")) {
+            mErrorTextView.setVisibility(View.VISIBLE);
             return;
         } else
-            txtError.setVisibility(View.GONE);
+            mErrorTextView.setVisibility(View.GONE);
 
         // pass not equal
-        if (!(password.equalsIgnoreCase(confirmPassword)))
+        if (!(mPassword.equalsIgnoreCase(confirmPassword)))
             return;
 
-        if (txtStudentId.getUnmaskedText().length() != 11) {
-            txtError3.setVisibility(View.VISIBLE);
+        if (mStudentIdMaskedEditText.getUnmaskedText().length() != 11) {
+            mError3TextView.setVisibility(View.VISIBLE);
             return;
         } else
-            txtError3.setVisibility(View.GONE);
+            mError3TextView.setVisibility(View.GONE);
 
         // manipulate strings
-        firstName = nameFix(firstName);
-        lastName = nameFix(firstName);;
-        username = username.toLowerCase();
+        mFirstName = nameFix(mFirstName);
+        mLastName = nameFix(mFirstName);;
+        mUsername = mUsername.toLowerCase();
 
-        // check if username does exist
-        txtError4.setVisibility(View.GONE);
+        // check if mUsername does exist
+        mError4TextView.setVisibility(View.GONE);
         new CheckUserTask(v).execute();
 
     }
@@ -200,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... strings) {
 
-            String registerUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP) +
+            String registerUrl = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/register.php";
 
             try {
@@ -218,20 +218,20 @@ public class RegistrationActivity extends AppCompatActivity {
                         new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
                 String postData =
-                        URLEncoder.encode("firstName", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(firstName, ZHelper.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("mFirstName", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mFirstName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("lastName", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(lastName, ZHelper.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("mLastName", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mLastName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("studentId", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(studentId, ZHelper.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("mStudentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mStudentId, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("username", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(username, ZHelper.DB_ENCODE_TYPE) + "&" +
+                        URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mUsername, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("password", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(password, ZHelper.DB_ENCODE_TYPE);
+                        URLEncoder.encode("mPassword", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mPassword, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -310,7 +310,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... strings) {
 
-            String registerUrl = "http://" + preferences.getString("serverIp", ZHelper.SERVER_IP) +
+            String registerUrl = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/registerusernamecheck.php";
 
             try {
@@ -327,8 +327,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 BufferedWriter bufferedWriter = new BufferedWriter(
                         new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
-                String postData =URLEncoder.encode("username", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(username, ZHelper.DB_ENCODE_TYPE);
+                String postData =URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
+                        URLEncoder.encode(mUsername, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -387,7 +387,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 View view = findViewById(R.id.activity_registration_layout);
                 new RegisterTask(view).execute();
             } else if (result.equals("duplicate")) {
-                txtError4.setVisibility(View.VISIBLE);
+                mError4TextView.setVisibility(View.VISIBLE);
                 return;
             } else {
                 Snackbar.make(mView, "Something went wrong.", Snackbar.LENGTH_LONG).show();

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,141 +15,142 @@
     tools:context="zero.zd.aubookcatalog.BookInformationActivity">
 
     <TextView
-        android:text="Book Title"
+        android:id="@+id/tvBookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:id="@+id/tvBookTitle"
-        android:textColor="@android:color/black"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
         android:layout_toLeftOf="@+id/imgStar"
-        android:layout_toStartOf="@+id/imgStar" />
+        android:layout_toStartOf="@+id/imgStar"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        tools:text="Book Title"/>
 
     <FrameLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBookTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout">
+        android:layout_below="@+id/tvBookTitle">
 
         <ImageView
             android:id="@+id/imgBook"
             android:layout_width="170dp"
-            android:layout_height="250dp" />
+            android:layout_height="250dp"
+            android:contentDescription="@string/msg_book_image"/>
 
         <ProgressBar
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/progressBar" />
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
     <TextView
-        android:text="Authors:"
+        android:id="@+id/tvAuthor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvAuthor"
-        android:layout_marginTop="5dp"
         android:layout_below="@+id/tvBookTitle"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="13dp"
         android:layout_marginStart="13dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_toRightOf="@+id/linearLayout"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="5dp" />
+        tools:text="Authors:"/>
 
     <TextView
-        android:text="Subject: "
+        android:id="@+id/tvSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAuthor"
         android:layout_alignLeft="@+id/tvAuthor"
         android:layout_alignStart="@+id/tvAuthor"
-        android:id="@+id/tvSubject"
+        android:layout_below="@+id/tvAuthor"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="5dp" />
+        tools:text="Subject: "/>
 
     <TextView
-        android:text="Pages:"
+        android:id="@+id/tvPages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPages"
-        android:layout_below="@+id/tvSubject"
         android:layout_alignLeft="@+id/tvSubject"
         android:layout_alignStart="@+id/tvSubject"
+        android:layout_below="@+id/tvSubject"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="5dp" />
+        tools:text="Pages:"/>
 
     <TextView
-        android:text="Type: "
+        android:id="@+id/tvType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvType"
-        android:layout_below="@+id/tvDivision"
         android:layout_alignLeft="@+id/tvDivision"
         android:layout_alignStart="@+id/tvDivision"
+        android:layout_below="@+id/tvDivision"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="5dp" />
+        tools:text="Type: "/>
 
     <TextView
-        android:text="No. of Books Available: 0"
+        android:id="@+id/tvAvailable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvType"
         android:layout_alignLeft="@+id/tvType"
         android:layout_alignStart="@+id/tvType"
+        android:layout_below="@+id/tvType"
+        android:layout_marginBottom="10dp"
         android:textColor="@android:color/black"
-        android:id="@+id/tvAvailable"
-        android:layout_marginBottom="10dp" />
+        tools:text="No. of Books Available: 0"/>
 
     <TextView
-        android:text="Total No. of Books: 0"
+        android:id="@+id/tvTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAvailable"
         android:layout_alignLeft="@+id/tvAvailable"
         android:layout_alignStart="@+id/tvAvailable"
+        android:layout_below="@+id/tvAvailable"
         android:textColor="@android:color/black"
-        android:id="@+id/tvTotal" />
+        tools:text="Total No. of Books: 0"/>
 
     <ImageView
-        app:srcCompat="@drawable/ic_star_0"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:id="@+id/imgStar"
-        android:layout_height="30dp"
         android:layout_width="30dp"
-        android:onClick="onClickFavorite" />
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/msg_bookmark_image"
+        android:onClick="onClickFavorite"
+        app:srcCompat="@drawable/ic_star_0"/>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
+        android:layout_above="@+id/btnActionPdf"
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="10dp"
-        android:layout_above="@+id/btnActionPdf">
+        android:layout_marginTop="10dp">
 
         <TextView
+            android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvDescription"
             android:textColor="@android:color/black"
-            android:text="Description" />
+            tools:text="Description"/>
     </ScrollView>
 
     <Button
         android:id="@+id/btnActionPdf"
-        android:text="@string/download_pdf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -158,20 +158,21 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         android:background="@color/colorPrimary"
+        android:onClick="onClickBtnActionPdf"
+        android:text="@string/download_pdf"
         android:textColor="@android:color/background_light"
-        android:visibility="invisible"
-        android:onClick="onClickBtnActionPdf" />
+        android:visibility="invisible"/>
 
     <TextView
-        android:text="Division:"
+        android:id="@+id/tvDivision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvDivision"
-        android:layout_below="@+id/tvPages"
         android:layout_alignLeft="@+id/tvPages"
         android:layout_alignStart="@+id/tvPages"
+        android:layout_below="@+id/tvPages"
         android:layout_marginBottom="5dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        tools:text="Division:"/>
 
 </RelativeLayout>
 

@@ -2,31 +2,31 @@ package zero.zd.aubookcatalog.model;
 
 public class UserModel {
 
-    private String studentId;
-    private String username;
-    private String fullname;
+    private String mStudentId;
+    private String mUsername;
+    private String mFullname;
 
     public String getStudentId() {
-        return studentId;
+        return mStudentId;
     }
 
     public void setStudentId(String studentId) {
-        this.studentId = studentId;
+        this.mStudentId = studentId;
     }
 
     public String getUsername() {
-        return username;
+        return mUsername;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.mUsername = username;
     }
 
     public String getFullname() {
-        return fullname;
+        return mFullname;
     }
 
     public void setFullname(String fullname) {
-        this.fullname = fullname;
+        this.mFullname = fullname;
     }
 }

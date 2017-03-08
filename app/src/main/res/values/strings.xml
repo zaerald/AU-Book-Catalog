@@ -86,6 +86,9 @@
     <string name="download_pdf">Download PDF</string>
     <string name="read_pdf">Read PDF</string>
     <string name="cancel_pdf">Cancel PDF Download</string>
+
+    <string name="msg_book_image">Book Cover</string>
+    <string name="msg_bookmark_image">Bookmark</string>
     <!-- END BookInformation Activity -->
 
     <!-- ReadBookFragment -->

@@ -13,39 +13,39 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/au_logo_white_bg"
-        android:layout_centerInParent="false"
-        android:id="@+id/img"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false"
+        android:layout_above="@+id/txtViewName"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/txtViewName" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:adjustViewBounds="false"
+        app:srcCompat="@drawable/au_logo_white_bg"/>
 
     <TextView
+        android:id="@+id/txtViewName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name here"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/txtViewName"
         android:layout_above="@+id/txtViewStudentId"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="Name here"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
+        android:id="@+id/txtViewStudentId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="00-00-00000"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:layout_above="@+id/txtViewUsername"
-        android:id="@+id/txtViewStudentId" />
+        android:text="00-00-00000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
         android:id="@+id/txtViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="username here"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:text="username here"/>
 
 </RelativeLayout>

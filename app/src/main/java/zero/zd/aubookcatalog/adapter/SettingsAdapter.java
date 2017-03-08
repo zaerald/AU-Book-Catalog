@@ -16,13 +16,13 @@ import zero.zd.aubookcatalog.model.SettingsModel;
 
 public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
 
-    private Context context;
-    private SettingsModel[] settingsModels;
+    private Context mContext;
+    private SettingsModel[] mSettingsModels;
 
     public SettingsAdapter(Context context, int resource, SettingsModel[] settingsModels) {
         super(context, resource, settingsModels);
-        this.context = context;
-        this.settingsModels = settingsModels;
+        this.mContext = context;
+        this.mSettingsModels = settingsModels;
     }
 
     @NonNull
@@ -31,7 +31,7 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.settings_layout, parent, false);
 
             viewHolder = new ViewHolder();
@@ -48,7 +48,7 @@ public class SettingsAdapter extends ArrayAdapter<SettingsModel> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        SettingsModel settingsModel = settingsModels[position];
+        SettingsModel settingsModel = mSettingsModels[position];
         switch (settingsModel.getId()) {
             case SettingsModel.HEADING:
                 viewHolder.headingLayout.setVisibility(View.VISIBLE);

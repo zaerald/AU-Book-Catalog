@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SetupIPActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context=".SetupIPActivity">
 
     <TextView
+        android:id="@+id/textViewCurIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Current IP: 0.0.0.0"
-        android:id="@+id/textViewCurIP"
+        android:layout_above="@+id/txtServerIp"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/txtServerIp" />
+        android:text="Current IP: 0.0.0.0"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <EditText
+        android:id="@+id/txtServerIp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/txtServerIp"
         android:layout_centerInParent="true"
+        android:ems="10"
+        android:gravity="center"
         android:hint="Enter Server IP"
-        android:gravity="center" />
+        android:inputType="textPersonName"/>
 
     <Button
+        android:id="@+id/btnUpdateIp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/setup_update_ip"
-        android:id="@+id/btnUpdateIp"
         android:layout_below="@+id/txtServerIp"
         android:layout_centerHorizontal="true"
-        android:onClick="onClickBtnUpdateIp" />
+        android:onClick="onClickBtnUpdateIp"
+        android:text="@string/setup_update_ip"/>
 </RelativeLayout>
