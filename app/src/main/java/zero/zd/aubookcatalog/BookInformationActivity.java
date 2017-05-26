@@ -85,8 +85,8 @@ public class BookInformationActivity extends AppCompatActivity {
         // load studId
         mStudentId = mPreferences.getString("student_id", null);
         Bundle extras = getIntent().getExtras();
-        mBookId = extras.getLong("mBookId");
-        mBookType = extras.getString("mBookType");
+        mBookId = extras.getLong("bookId");
+        mBookType = extras.getString("bookType");
 
         // load book info
         pdfAction = PDF_ACTION_DOWNLOAD;

@@ -51,7 +51,7 @@ public class BookGridViewAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)
@@ -68,28 +68,26 @@ public class BookGridViewAdapter extends ArrayAdapter {
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
 
-
-        final ViewHolder holder = viewHolder;
         ImageLoader.getInstance().displayImage(mBookList.get(position).getBookImage(),
                 viewHolder.imageView, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
-                        holder.progressBar.setVisibility(View.VISIBLE);
+                        viewHolder.progressBar.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        holder.progressBar.setVisibility(View.GONE);
+                        viewHolder.progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        holder.progressBar.setVisibility(View.GONE);
+                        viewHolder.progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onLoadingCancelled(String imageUri, View view) {
-                        holder.progressBar.setVisibility(View.GONE);
+                        viewHolder.progressBar.setVisibility(View.GONE);
                     }
                 });
         viewHolder.txtBookTitle.setText(mBookList.get(position).getBookTitle());
