@@ -1,5 +1,7 @@
 package zero.zd.aubookcatalog;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +11,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SetupIPActivity extends AppCompatActivity {
+public class SetupIpActivity extends AppCompatActivity {
 
     // save states
     SharedPreferences mPreferences;
     SharedPreferences.Editor mPrefsEditor;
 
     EditText txtServerIp;
+
+    public static Intent getStartIntent(Context context) {
+        return new Intent(context, SetupIpActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

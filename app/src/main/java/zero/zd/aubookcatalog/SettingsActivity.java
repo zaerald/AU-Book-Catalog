@@ -9,9 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import zero.zd.aubookcatalog.adapter.SettingsAdapter;
 import zero.zd.aubookcatalog.model.SettingsModel;
 

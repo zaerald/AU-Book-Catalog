@@ -16,22 +16,22 @@
                     <item
                         android:id="@+id/nav_all_books"
                         android:icon="@drawable/ic_dashboard_black_24dp"
-                        android:title="@string/nav_all_books" />
+                        android:title="@string/nav_all_books"/>
 
                     <item
                         android:id="@+id/nav_discover"
                         android:icon="@drawable/ic_explore_black_24dp"
-                        android:title="@string/nav_discover_book" />
+                        android:title="@string/nav_discover_book"/>
 
                     <item
                         android:id="@+id/nav_downloaded_pdf"
                         android:icon="@drawable/ic_downloaded_pdf_books"
-                        android:title="@string/nav_downloaded_pdf_books" />
+                        android:title="@string/nav_downloaded_pdf_books"/>
 
                     <item
                         android:id="@+id/nav_favorites"
                         android:icon="@drawable/ic_star_1"
-                        android:title="@string/nav_favorites" />
+                        android:title="@string/nav_favorites"/>
                 </group>
             </menu>
         </item>

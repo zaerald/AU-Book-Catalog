@@ -40,11 +40,11 @@ public class DiscoverFragment extends Fragment {
     private void loadDiscover() {
         Intent intent = new Intent(getActivity().getApplicationContext(), BookInformationActivity.class);
         long[] bookId = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-        String[] bookType = {"Book", "Book", "Book", "Book", "Book", "Book" ,"Book" ,"Book" ,"Book" ,"Book",
+        String[] bookType = {"Book", "Book", "Book", "Book", "Book", "Book", "Book", "Book", "Book", "Book",
                 "PDF", "PDF", "PDF", "PDF", "PDF"};
 
         Random rand = new Random();
-        int r  = rand.nextInt(14) + 1;
+        int r = rand.nextInt(14) + 1;
 
         // id
         intent.putExtra("bookId", bookId[r]);

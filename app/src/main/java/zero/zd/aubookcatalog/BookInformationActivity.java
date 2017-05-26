@@ -49,27 +49,44 @@ import zero.zd.aubookcatalog.model.BookModel;
 
 public class BookInformationActivity extends AppCompatActivity {
 
-    private int pdfAction;
     private final int PDF_ACTION_DOWNLOAD = 0;
     private final int PDF_ACTION_CANCEL = 1;
     private final int PDF_ACTION_READ = 2;
-
     private final String FAV_SUCCESS = "success";
     private final String FAV_NONE = "none";
-
+    BookModel bookModel;
+    DownloadManager mDownloadManager;
+    private int pdfAction;
     private SharedPreferences mPreferences;
     private long mBookId;
     private String mBookType;
     private String mStudentId;
-
     private boolean mIsFavorite;
-    BookModel bookModel;
-
-    DownloadManager mDownloadManager;
     private long mPdfDownloadId;
 
     private boolean mIsCancelInvoked;
     private boolean mIsRegistered;
+    private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            mIsRegistered = true;
+
+            if (mIsCancelInvoked) {
+                pdfAction = PDF_ACTION_DOWNLOAD;
+                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
+                btnActionPdf.setText(R.string.download_pdf);
+                return;
+            }
+
+            if (referenceId == mPdfDownloadId) {
+                Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
+                pdfAction = PDF_ACTION_READ;
+                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
+                btnActionPdf.setText(R.string.read_pdf);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +139,7 @@ public class BookInformationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if(mIsRegistered) {
+        if (mIsRegistered) {
             unregisterReceiver(downloadReceiver);
             mIsRegistered = false;
         }
@@ -130,7 +147,7 @@ public class BookInformationActivity extends AppCompatActivity {
         Log.i("NFO", "pdfAction: " + pdfAction);
     }
 
-    public void onClickFavorite (View view) {
+    public void onClickFavorite(View view) {
         new FavoriteTask().execute();
     }
 
@@ -169,7 +186,7 @@ public class BookInformationActivity extends AppCompatActivity {
     }
 
     private boolean isPdfPresent() {
-        boolean isPresent  = false;
+        boolean isPresent = false;
         String pdf = bookModel.getBookTitle() + ".pdf";
         File f = new File(ZHelper.getInstance().getPdf().getAbsolutePath());
         File files[] = f.listFiles();
@@ -193,7 +210,6 @@ public class BookInformationActivity extends AppCompatActivity {
 
     }
 
-
     private long DownloadData(Uri uri) {
         long downloadReference;
         mDownloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -209,28 +225,6 @@ public class BookInformationActivity extends AppCompatActivity {
         return downloadReference;
     }
 
-    private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            mIsRegistered = true;
-
-            if (mIsCancelInvoked) {
-                pdfAction = PDF_ACTION_DOWNLOAD;
-                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
-                btnActionPdf.setText(R.string.download_pdf);
-                return;
-            }
-
-            if (referenceId == mPdfDownloadId) {
-                Toast.makeText(BookInformationActivity.this, "PDF Downloaded", Toast.LENGTH_SHORT).show();
-                pdfAction = PDF_ACTION_READ;
-                Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
-                btnActionPdf.setText(R.string.read_pdf);
-            }
-        }
-    };
-
     class BookInformationTask extends AsyncTask<Long, String, BookModel> {
 
         boolean isBook;
@@ -245,11 +239,10 @@ public class BookInformationActivity extends AppCompatActivity {
             String getInfo = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP)
                     + "/aubookcatalog/";
 
-            if(mBookType.equals("Book")) {
+            if (mBookType.equals("Book")) {
                 getInfo += "getbookinfo.php";
                 isBook = true;
-            }
-            else {
+            } else {
                 getInfo += "getbookinfopdf.php";
                 isBook = false;
             }
@@ -319,7 +312,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 return bookModel;
 
-            } catch(IOException | JSONException e) {
+            } catch (IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -345,7 +338,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView tvPages = (TextView) findViewById(R.id.tvPages);
             TextView tvDivision = (TextView) findViewById(R.id.tvDivision);
             TextView tvType = (TextView) findViewById(R.id.tvType);
-            TextView tvAvailable= (TextView) findViewById(R.id.tvAvailable);
+            TextView tvAvailable = (TextView) findViewById(R.id.tvAvailable);
             TextView tvTotal = (TextView) findViewById(R.id.tvTotal);
             TextView tvDescription = (TextView) findViewById(R.id.tvDescription);
             Button btnActionPdf = (Button) findViewById(R.id.btnActionPdf);
@@ -444,8 +437,8 @@ public class BookInformationActivity extends AppCompatActivity {
                         URLEncoder.encode("mStudentId", ZHelper.DB_ENCODE_TYPE) + "=" +
                                 URLEncoder.encode(mStudentId, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("mBookId", ZHelper.DB_ENCODE_TYPE) + "=" +
-                            URLEncoder.encode(mBookId + "", ZHelper.DB_ENCODE_TYPE);
+                                URLEncoder.encode("mBookId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(mBookId + "", ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -468,7 +461,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 return builder.toString();
 
-            }catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting updatefav: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -559,7 +552,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
                 return builder.toString();
 
-            } catch(IOException  e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -576,7 +569,7 @@ public class BookInformationActivity extends AppCompatActivity {
             if (result == null)
                 return;
 
-            if(result.equals("success"))
+            if (result.equals("success"))
                 mIsFavorite = !mIsFavorite;
 
 
@@ -584,7 +577,7 @@ public class BookInformationActivity extends AppCompatActivity {
             setFavoriteImage();
 
             View view = findViewById(R.id.activity_book_information);
-            if(mIsFavorite)
+            if (mIsFavorite)
                 Snackbar.make(view, "Book is added to favorites.", Snackbar.LENGTH_SHORT).show();
             else
                 Snackbar.make(view, "Book is removed from favorites.", Snackbar.LENGTH_SHORT).show();

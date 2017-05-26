@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -200,7 +199,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_setup_ip:
-                startActivity(new Intent(this, SetupIPActivity.class));
+                startActivity(new Intent(this, SetupIpActivity.class));
                 break;
 
             case R.id.action_logout:
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity
 
 //        FragmentManager fragmentManager = getFragmentManager();
 
-        switch(id) {
+        switch (id) {
 
             case R.id.nav_dashboard:
                 mSelectedNav = ZHelper.NAV_DASHBOARD;
@@ -356,7 +355,7 @@ public class MainActivity extends AppCompatActivity
 
                 return userList;
 
-            } catch(IOException | JSONException e) {
+            } catch (IOException | JSONException e) {
                 Log.e("ERR", "Error in getting name: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -406,7 +405,8 @@ public class MainActivity extends AppCompatActivity
         Dialog mLoadingDialog;
         View view;
 
-        GetDashboardTask() {}
+        GetDashboardTask() {
+        }
 
         GetDashboardTask(View view) {
             this.view = view;
@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity
         protected void onPreExecute() {
             //super.onPreExecute();
             if (mIsStarted)
-                mIsStarted =  false;
+                mIsStarted = false;
 
             if (view != null)
                 mLoadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity
 
                 return builder.toString();
 
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting dash: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -522,7 +522,6 @@ public class MainActivity extends AppCompatActivity
                 httpURLConnection.setDoOutput(true);
 
 
-
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(inputStream, ZHelper.DB_ENCODE_TYPE));
@@ -539,7 +538,7 @@ public class MainActivity extends AppCompatActivity
 
                 return builder.toString();
 
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting book: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -642,7 +641,7 @@ public class MainActivity extends AppCompatActivity
 
                 return builder.toString();
 
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting fav: " + e.getMessage());
                 e.printStackTrace();
             }

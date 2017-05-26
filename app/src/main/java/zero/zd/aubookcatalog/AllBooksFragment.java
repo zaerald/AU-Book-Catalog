@@ -47,14 +47,12 @@ import zero.zd.aubookcatalog.model.BookGridModel;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AllBooksFragment extends Fragment{
-
-    private List<BookGridModel> mGridModelList;
-    private GridView mGridView;
-
-    private SharedPreferences mPreferences;
+public class AllBooksFragment extends Fragment {
 
     View view;
+    private List<BookGridModel> mGridModelList;
+    private GridView mGridView;
+    private SharedPreferences mPreferences;
 
     @Nullable
     @Override
@@ -118,7 +116,7 @@ public class AllBooksFragment extends Fragment{
         return view;
     }
 
-    private void parseBookResult(String JsonResult)  {
+    private void parseBookResult(String JsonResult) {
         mGridModelList = new ArrayList<>();
 
         if (JsonResult != null) {
@@ -178,7 +176,7 @@ public class AllBooksFragment extends Fragment{
 
         @Override
         protected String doInBackground(String... strings) {
-            String server = "http://" +  mPreferences.getString("serverIp", ZHelper.SERVER_IP) +
+            String server = "http://" + mPreferences.getString("serverIp", ZHelper.SERVER_IP) +
                     "/aubookcatalog/getbooksearch.php";
 
             String keyword = strings[0];
@@ -225,7 +223,7 @@ public class AllBooksFragment extends Fragment{
 
                 return builder.toString();
 
-            } catch(IOException e) {
+            } catch (IOException e) {
                 Log.e("ERR", "Error in getting book search: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -251,7 +249,8 @@ public class AllBooksFragment extends Fragment{
                         .setMessage("No Results Found.")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {}
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
                         });
                 AlertDialog alertDialog = alertBuilder.create();
                 alertDialog.show();

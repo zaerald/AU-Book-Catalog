@@ -79,6 +79,7 @@ public class ReadBookFragment extends Fragment {
 
         return view;
     }
+
     private void initDownloadedPdf() {
         mPdfList = new ArrayList<>();
 
@@ -96,7 +97,7 @@ public class ReadBookFragment extends Fragment {
     }
 
     private void updateList() {
-        if(!mPdfList.isEmpty()) {
+        if (!mPdfList.isEmpty()) {
             mDownloadedPdfAdapter = new DownloadedPdfAdapter(getActivity().getApplicationContext(),
                     R.layout.downloaded_pdf_layout, mPdfList);
             mListView.setAdapter(mDownloadedPdfAdapter);

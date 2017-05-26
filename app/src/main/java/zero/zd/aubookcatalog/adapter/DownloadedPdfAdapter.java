@@ -39,7 +39,7 @@ public class DownloadedPdfAdapter extends ArrayAdapter<String> {
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
 
             convertView.setTag(viewHolder);
-        } else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 

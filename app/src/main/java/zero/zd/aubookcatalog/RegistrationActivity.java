@@ -2,6 +2,7 @@ package zero.zd.aubookcatalog;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -48,6 +49,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private String mUsername;
     private String mPassword;
 
+
+    public static Intent getStartIntent(Context context) {
+        return new Intent(context, RegistrationActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +157,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // manipulate strings
         mFirstName = nameFix(mFirstName);
-        mLastName = nameFix(mFirstName);;
+        mLastName = nameFix(mFirstName);
+        ;
         mUsername = mUsername.toLowerCase();
 
         // check if mUsername does exist
@@ -173,7 +179,8 @@ public class RegistrationActivity extends AppCompatActivity {
             out += Character.toUpperCase(name.charAt(0));
             for (int i = 1; i < name.length(); i++) {
                 if (name.charAt(i) == ' ') {
-                    out += " "; i++;
+                    out += " ";
+                    i++;
                     out += Character.toUpperCase(name.charAt(i));
                 } else {
                     out += Character.toLowerCase(name.charAt(i));
@@ -219,19 +226,19 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 String postData =
                         URLEncoder.encode("mFirstName", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(mFirstName, ZHelper.DB_ENCODE_TYPE) + "&" +
+                                URLEncoder.encode(mFirstName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("mLastName", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(mLastName, ZHelper.DB_ENCODE_TYPE) + "&" +
+                                URLEncoder.encode("mLastName", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(mLastName, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("mStudentId", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(mStudentId, ZHelper.DB_ENCODE_TYPE) + "&" +
+                                URLEncoder.encode("mStudentId", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(mStudentId, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(mUsername, ZHelper.DB_ENCODE_TYPE) + "&" +
+                                URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(mUsername, ZHelper.DB_ENCODE_TYPE) + "&" +
 
-                        URLEncoder.encode("mPassword", ZHelper.DB_ENCODE_TYPE) + "=" +
-                        URLEncoder.encode(mPassword, ZHelper.DB_ENCODE_TYPE);
+                                URLEncoder.encode("mPassword", ZHelper.DB_ENCODE_TYPE) + "=" +
+                                URLEncoder.encode(mPassword, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -327,7 +334,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 BufferedWriter bufferedWriter = new BufferedWriter(
                         new OutputStreamWriter(outputStream, ZHelper.DB_ENCODE_TYPE));
 
-                String postData =URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
+                String postData = URLEncoder.encode("mUsername", ZHelper.DB_ENCODE_TYPE) + "=" +
                         URLEncoder.encode(mUsername, ZHelper.DB_ENCODE_TYPE);
 
                 bufferedWriter.write(postData);
